@@ -11,19 +11,19 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --white:   #ffffff;
-      --warm:    #f5f3ee;
-      --border:  rgba(0,0,0,0.07);
-      --shadow:  0 2px 14px rgba(0,0,0,0.06);
-      --accent:  #6c2bd9;
-      --text:    #111111;
-      --muted:   #666666;
-      --dim:     #aaaaaa;
-      --green:   #22c55e;
-      --radius:  24px;
-      --gap:     14px;
-      --pad:     40px;
-      --margin:  20px;
+      --white:  #ffffff;
+      --dark:   #0e0e0e;
+      --border: rgba(0,0,0,0.07);
+      --shadow: 0 2px 14px rgba(0,0,0,0.06);
+      --accent: #6c2bd9;
+      --text:   #111111;
+      --muted:  #666666;
+      --dim:    #aaaaaa;
+      --green:  #22c55e;
+      --radius: 24px;
+      --gap:    14px;
+      --pad:    40px;
+      --margin: 20px;
     }
 
     html { scroll-behavior: smooth; }
@@ -36,99 +36,123 @@
       transition: opacity 500ms ease;
     }
 
-    /* ---- NAV — liquid glass ---- */
+    /* ====================================================
+       NAV — starts as full-width bar, morphs to pill
+    ==================================================== */
     nav {
       position: fixed;
-      top: 14px;
+      top: 0;
       left: 50%;
       transform: translateX(-50%);
+      width: 100%;
+      max-width: none;
+      height: 60px;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      padding: 0 var(--pad);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition:
+        top            400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        width          400ms cubic-bezier(0.34, 1.56, 0.64, 1),
+        height         300ms ease,
+        border-radius  400ms ease,
+        background     350ms ease,
+        box-shadow     350ms ease,
+        padding        400ms ease,
+        border         350ms ease;
+    }
+
+    nav.scrolled {
+      top: 14px;
       width: calc(100% - var(--margin) * 2);
       max-width: 1260px;
       height: 50px;
-      /* liquid glass base */
-      background: rgba(250, 248, 245, 0.58);
+      background: rgba(250, 248, 245, 0.60);
       backdrop-filter: blur(36px) saturate(1.8) brightness(1.06);
       -webkit-backdrop-filter: blur(36px) saturate(1.8) brightness(1.06);
-      /* iridescent inner highlight */
+      border-radius: 999px;
       border: 1px solid rgba(255,255,255,0.55);
       box-shadow:
         0 2px 24px rgba(0,0,0,0.10),
         inset 0 1.5px 0 rgba(255,255,255,0.85),
         inset 0 -0.5px 0 rgba(200,180,255,0.18),
         inset 0 0 0 0.5px rgba(255,255,255,0.22);
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
       padding: 0 22px;
-      z-index: 100;
     }
 
     .nav-monogram {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-size: 19px;
-      color: var(--text);
+      color: rgba(255,255,255,0.92);
       text-decoration: none;
+      transition: color 350ms ease;
     }
+
+    nav.scrolled .nav-monogram { color: var(--text); }
 
     .nav-links { display: flex; align-items: center; gap: 28px; }
 
     nav a {
       text-decoration: none;
-      color: var(--muted);
+      color: rgba(255,255,255,0.65);
       font-size: 13px;
-      transition: color 200ms;
+      transition: color 350ms ease;
     }
 
-    nav a:hover { color: var(--text); }
+    nav a:hover { color: rgba(255,255,255,1); }
+    nav.scrolled a { color: var(--muted); }
+    nav.scrolled a:hover { color: var(--text); }
 
     .nav-pill {
-      border: 1.5px solid var(--text) !important;
-      color: var(--text) !important;
+      border: 1.5px solid rgba(255,255,255,0.45) !important;
+      color: rgba(255,255,255,0.92) !important;
       padding: 5px 16px;
       border-radius: 999px;
       font-size: 13px;
       font-weight: 500;
+    }
+
+    nav.scrolled .nav-pill {
+      border-color: var(--text) !important;
+      color: var(--text) !important;
       transition: background 200ms, color 200ms !important;
     }
 
-    .nav-pill:hover { background: var(--text) !important; color: #fff !important; }
+    nav.scrolled .nav-pill:hover {
+      background: var(--text) !important;
+      color: #fff !important;
+    }
 
-    /* ---- PAGE SECTIONS WRAPPER ---- */
+    /* ====================================================
+       PAGE SECTIONS
+    ==================================================== */
     .page-sections {
-      padding: 78px var(--margin) 40px;
+      padding: 74px var(--margin) 40px;
       display: flex;
       flex-direction: column;
       gap: var(--gap);
     }
 
-    /* ---- SECTION BASE STYLES ---- */
-    .s-card {
-      background: var(--warm);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
-
-    /* Liquid glass card variant */
-    .s-glass {
-      background: linear-gradient(135deg, rgba(255,255,255,0.75) 0%, rgba(245,240,255,0.62) 100%);
-      backdrop-filter: blur(32px) saturate(1.5) brightness(1.04);
-      -webkit-backdrop-filter: blur(32px) saturate(1.5) brightness(1.04);
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.70);
-      box-shadow:
-        0 2px 20px rgba(0,0,0,0.07),
-        inset 0 1.5px 0 rgba(255,255,255,0.90),
-        inset 0 -0.5px 0 rgba(180,140,255,0.15),
-        inset 0 0 0 0.5px rgba(255,255,255,0.25);
-      overflow: hidden;
-    }
-
+    /* White plain sections */
     .s-plain {
       padding: var(--pad) 0;
+    }
+
+    /* Black bento sections */
+    .s-dark {
+      background: var(--dark);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.07);
+      box-shadow: 0 2px 14px rgba(0,0,0,0.25);
+      overflow: hidden;
     }
 
     .inner {
@@ -137,7 +161,9 @@
       padding: 0 var(--pad);
     }
 
-    /* ---- HERO ---- */
+    /* ====================================================
+       HERO
+    ==================================================== */
     .s-hero {
       background: radial-gradient(ellipse at 50% 0%, #3d1575 0%, #1a0545 45%, #090118 100%);
       border-radius: var(--radius);
@@ -146,9 +172,9 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: calc(100svh - 78px - var(--gap));
+      height: calc(100svh - 74px - var(--gap));
       min-height: 580px;
-      padding-top: 48px;
+      padding-top: 40px;
     }
 
     .hero-text {
@@ -158,7 +184,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 0 var(--pad) 32px;
+      padding: 0 var(--pad) 24px;
       max-width: 860px;
       width: 100%;
     }
@@ -207,7 +233,7 @@
 
     .hero-cta:hover { background: rgba(255,255,255,0.2); }
 
-    /* ---- GLOBE ---- */
+    /* Globe */
     .globe-wrap {
       width: 700px;
       max-width: 100%;
@@ -228,13 +254,45 @@
       object-position: center top;
       border: 3px solid rgba(255,255,255,0.9);
       box-shadow: 0 4px 28px rgba(0,0,0,0.45), 0 0 0 6px rgba(120,60,255,0.25);
-      top: 175px;
+      top: 140px;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 3;
     }
 
-    /* ---- CHAT (liquid glass, just under hero) ---- */
+    /* Hero stats (below globe, inside hero) */
+    .hero-stats {
+      display: flex;
+      gap: clamp(24px, 4vw, 56px);
+      justify-content: center;
+      align-items: flex-start;
+      padding: 14px var(--pad) 20px;
+      flex-shrink: 0;
+    }
+
+    .hero-stat { text-align: center; }
+
+    .hero-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(22px, 2.8vw, 34px);
+      color: #ffffff;
+      line-height: 1;
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.42);
+      margin-top: 6px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* ====================================================
+       CHAT (dark bento, just under hero)
+    ==================================================== */
     .s-chat {
       padding: 28px var(--pad) 30px;
     }
@@ -275,7 +333,7 @@
 
     .live-desc {
       font-size: 12px;
-      color: var(--muted);
+      color: rgba(255,255,255,0.42);
       margin-left: 2px;
     }
 
@@ -291,7 +349,7 @@
     .message-area:empty { display: none; }
 
     .message-area::-webkit-scrollbar { width: 4px; }
-    .message-area::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 2px; }
+    .message-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
 
     @keyframes bubbleIn { to { opacity: 1; transform: translateY(0); } }
 
@@ -307,10 +365,10 @@
 
     .chat-bubble.ai {
       align-self: flex-start;
-      background: rgba(255,255,255,0.85);
-      border: 1px solid rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.10);
       border-radius: 4px 16px 16px 16px;
-      color: var(--text);
+      color: rgba(255,255,255,0.90);
       font-weight: 300;
     }
 
@@ -330,7 +388,7 @@
 
     .typing-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--muted);
+      background: rgba(255,255,255,0.4);
       animation: typingDot 1.2s ease-in-out infinite;
     }
 
@@ -339,16 +397,16 @@
 
     .chat-input-row {
       display: flex;
-      border: 1.5px solid rgba(0,0,0,0.1);
+      border: 1.5px solid rgba(255,255,255,0.14);
       border-radius: 999px;
       overflow: hidden;
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.07);
       transition: border-color 250ms, box-shadow 250ms;
     }
 
     .chat-input-row:focus-within {
-      border-color: rgba(108,43,217,0.35);
-      box-shadow: 0 0 0 3px rgba(108,43,217,0.07);
+      border-color: rgba(108,43,217,0.6);
+      box-shadow: 0 0 0 3px rgba(108,43,217,0.14);
     }
 
     .chat-input {
@@ -356,56 +414,62 @@
       background: transparent;
       border: none;
       padding: 14px 22px;
-      color: var(--text);
+      color: #fff;
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 300;
       outline: none;
     }
 
-    .chat-input::placeholder { color: var(--dim); }
+    .chat-input::placeholder { color: rgba(255,255,255,0.28); }
 
     .send-btn {
-      background: var(--text);
+      background: #ffffff;
       border: none;
       cursor: pointer;
       padding: 0 24px;
-      color: #fff;
+      color: #111;
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 500;
       border-radius: 0 999px 999px 0;
-      transition: background 200ms;
+      transition: background 200ms, color 200ms;
       white-space: nowrap;
     }
 
-    .send-btn:hover { background: var(--accent); }
+    .send-btn:hover { background: var(--accent); color: #fff; }
 
-    /* ---- SECTION LABELS / HEADLINES ---- */
+    /* ====================================================
+       SECTION LABELS / HEADLINES
+    ==================================================== */
     .section-label {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: rgba(185,145,255,0.9);
       margin-bottom: 8px;
     }
+
+    .s-plain .section-label { color: var(--accent); }
 
     .section-headline {
       font-family: 'Playfair Display', serif;
       font-size: clamp(26px, 2.8vw, 40px);
       font-weight: 400;
-      color: var(--text);
+      color: #ffffff;
       line-height: 1.15;
     }
+
+    .s-plain .section-headline { color: var(--text); }
 
     .section-headline em { font-style: italic; }
     .section-headline strong { font-weight: 700; }
 
-    /* ---- BIO (plain) ---- */
-    .bio-block {
-      max-width: 700px;
-    }
+    /* ====================================================
+       BIO (plain)
+    ==================================================== */
+    .bio-block { max-width: 700px; }
 
     .bio-headline {
       font-family: 'Playfair Display', serif;
@@ -426,10 +490,10 @@
 
     .bio-block p + p { margin-top: 10px; }
 
-    /* ---- SCROLL STRIPS ---- */
-    .work-header {
-      padding: var(--pad) var(--pad) 28px;
-    }
+    /* ====================================================
+       SCROLL STRIPS
+    ==================================================== */
+    .work-header { padding: var(--pad) var(--pad) 28px; }
 
     .scroll-strip {
       position: relative;
@@ -450,16 +514,17 @@
     .scroll-strip::before { left: 0; }
     .scroll-strip::after  { right: 0; }
 
-    .s-card   .scroll-strip::before { background: linear-gradient(to right, var(--warm),  transparent); }
-    .s-card   .scroll-strip::after  { background: linear-gradient(to left,  var(--warm),  transparent); }
-    .s-plain  .scroll-strip::before { background: linear-gradient(to right, var(--white), transparent); }
-    .s-plain  .scroll-strip::after  { background: linear-gradient(to left,  var(--white), transparent); }
+    .s-dark  .scroll-strip::before { background: linear-gradient(to right, var(--dark), transparent); }
+    .s-dark  .scroll-strip::after  { background: linear-gradient(to left,  var(--dark), transparent); }
+    .s-plain .scroll-strip::before { background: linear-gradient(to right, var(--white), transparent); }
+    .s-plain .scroll-strip::after  { background: linear-gradient(to left,  var(--white), transparent); }
 
     .scroll-track {
       display: flex;
       gap: var(--gap);
       padding: 4px 0;
       width: max-content;
+      align-items: flex-start;
     }
 
     .scroll-track.go-left  { animation: scrollLeft  36s linear infinite; }
@@ -473,16 +538,16 @@
     .work-scroll-card {
       width: 320px;
       flex-shrink: 0;
-      background: var(--white);
+      background: #1c1c1c;
       border-radius: 16px;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,255,255,0.08);
       transition: transform 280ms, box-shadow 280ms;
     }
 
-    .work-scroll-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+    .work-scroll-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
 
-    .work-scroll-thumb { width: 100%; height: 210px; overflow: hidden; background: var(--warm); }
+    .work-scroll-thumb { width: 100%; height: 210px; overflow: hidden; background: #2a2a2a; }
     .work-scroll-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 400ms; }
     .work-scroll-card:hover .work-scroll-thumb img { transform: scale(1.04); }
 
@@ -491,27 +556,25 @@
     .work-scroll-title {
       font-family: 'Playfair Display', serif;
       font-size: 17px;
-      color: var(--text);
+      color: #fff;
       margin-bottom: 5px;
     }
 
     .work-scroll-desc {
       font-size: 13px;
       font-weight: 300;
-      color: var(--muted);
+      color: rgba(255,255,255,0.48);
       line-height: 1.5;
     }
 
-    /* Performance marketing: portrait images, no crop */
+    /* Performance marketing: natural aspect ratio */
     .img-card {
       flex-shrink: 0;
       border-radius: 14px;
       overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--warm);
+      border: 1px solid rgba(0,0,0,0.07);
+      background: #f0eee9;
       transition: transform 280ms, box-shadow 280ms;
-      display: flex;
-      align-items: flex-start;
     }
 
     .img-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
@@ -522,7 +585,9 @@
       height: auto;
     }
 
-    /* ---- SOCIAL STATS (card with glass tiles) ---- */
+    /* ====================================================
+       SOCIAL STATS (dark bento)
+    ==================================================== */
     .social-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -530,17 +595,11 @@
       padding: var(--pad);
     }
 
-    /* Glass stat tiles */
     .stat-tile {
-      background: linear-gradient(140deg, rgba(255,255,255,0.80) 0%, rgba(245,240,255,0.65) 100%);
-      backdrop-filter: blur(20px) saturate(1.4);
-      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      background: rgba(255,255,255,0.05);
       border-radius: 18px;
-      border: 1px solid rgba(255,255,255,0.65);
-      box-shadow:
-        0 1px 12px rgba(0,0,0,0.06),
-        inset 0 1px 0 rgba(255,255,255,0.85),
-        inset 0 -0.5px 0 rgba(200,170,255,0.14);
+      border: 1px solid rgba(255,255,255,0.10);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
       padding: 28px;
       display: flex;
       flex-direction: column;
@@ -550,26 +609,20 @@
     .stat-number {
       font-size: clamp(34px, 4vw, 50px);
       font-weight: 700;
-      color: var(--text);
+      color: #ffffff;
       line-height: 1;
     }
 
     .stat-label {
       font-size: 13px;
-      color: var(--muted);
+      color: rgba(255,255,255,0.45);
       margin-top: 7px;
     }
 
     .niche-tile {
-      grid-column: span 1;
-      background: linear-gradient(140deg, rgba(108,43,217,0.10) 0%, rgba(108,43,217,0.05) 100%);
-      backdrop-filter: blur(20px) saturate(1.3);
-      -webkit-backdrop-filter: blur(20px) saturate(1.3);
+      background: rgba(108,43,217,0.22);
       border-radius: 18px;
-      border: 1px solid rgba(108,43,217,0.18);
-      box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.5),
-        0 1px 10px rgba(108,43,217,0.06);
+      border: 1px solid rgba(108,43,217,0.35);
       padding: 28px;
       display: flex;
       flex-direction: column;
@@ -581,7 +634,7 @@
       font-weight: 600;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: rgba(185,145,255,0.9);
       margin-bottom: 12px;
     }
 
@@ -590,14 +643,16 @@
     .niche-tag {
       font-size: 12px;
       font-weight: 500;
-      color: var(--accent);
-      background: rgba(108,43,217,0.1);
-      border: 1px solid rgba(108,43,217,0.18);
+      color: rgba(200,165,255,1);
+      background: rgba(108,43,217,0.2);
+      border: 1px solid rgba(108,43,217,0.35);
       border-radius: 999px;
       padding: 4px 12px;
     }
 
-    /* ---- TESTIMONIALS (card section) ---- */
+    /* ====================================================
+       TESTIMONIALS (dark bento)
+    ==================================================== */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -606,30 +661,46 @@
     }
 
     .testimonial-tile {
-      background: var(--white);
+      background: #1c1c1c;
       border-radius: 18px;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255,255,255,0.07);
       padding: 32px 34px;
       display: flex;
       flex-direction: column;
       gap: 18px;
     }
 
-    .testimonial-logo { height: 24px; width: auto; object-fit: contain; opacity: 0.6; }
-    .testimonial-logo-text { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.05em; }
+    .testimonial-logo {
+      height: 38px;
+      width: auto;
+      max-width: 140px;
+      object-fit: contain;
+      object-position: left center;
+      filter: brightness(0) invert(1);
+      opacity: 0.70;
+    }
+
+    .testimonial-logo-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.42);
+      letter-spacing: 0.05em;
+    }
 
     .testimonial-quote {
       font-size: 15px;
       font-weight: 300;
-      color: var(--text);
+      color: rgba(255,255,255,0.82);
       line-height: 1.75;
       flex: 1;
     }
 
-    .testimonial-name { font-size: 14px; font-weight: 600; color: var(--text); }
-    .testimonial-role { font-size: 12px; font-weight: 300; color: var(--muted); margin-top: 3px; }
+    .testimonial-name { font-size: 14px; font-weight: 600; color: #ffffff; }
+    .testimonial-role { font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.45); margin-top: 3px; }
 
-    /* ---- CONTACT (plain section) ---- */
+    /* ====================================================
+       CONTACT (plain white)
+    ==================================================== */
     .contact-headline {
       font-family: 'Playfair Display', serif;
       font-size: clamp(30px, 4vw, 54px);
@@ -666,7 +737,7 @@
     .contact-form input,
     .contact-form textarea {
       width: 100%;
-      background: var(--warm);
+      background: #f5f3ee;
       border: 1.5px solid var(--border);
       border-radius: 12px;
       padding: 13px 18px;
@@ -703,7 +774,9 @@
 
     .contact-form-btn:hover { background: var(--accent); }
 
-    /* ---- FOOTER ---- */
+    /* ====================================================
+       FOOTER + REVEAL
+    ==================================================== */
     footer {
       text-align: center;
       padding: 24px var(--margin) 36px;
@@ -711,7 +784,6 @@
 
     footer p { font-size: 12px; font-weight: 300; color: var(--dim); }
 
-    /* ---- SCROLL REVEAL ---- */
     .reveal {
       opacity: 0;
       transform: translateY(18px);
@@ -720,7 +792,9 @@
 
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ---- RESPONSIVE ---- */
+    /* ====================================================
+       RESPONSIVE
+    ==================================================== */
     @media (max-width: 1000px) {
       .social-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
@@ -728,28 +802,29 @@
 
     @media (max-width: 768px) {
       :root { --pad: 24px; --margin: 12px; }
-      nav { width: calc(100% - 24px); top: 10px; }
+      nav { padding: 0 var(--pad); }
       .nav-links { display: none; }
-      .page-sections { padding-top: 70px; }
+      .page-sections { padding-top: 68px; }
       .globe-wrap { width: 100vw; height: 50vw; }
-      .hero-photo { top: 25vw; width: 90px; height: 90px; }
+      .hero-photo { top: 20vw; width: 90px; height: 90px; }
       .social-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .img-card img { width: 170px; }
+      .hero-stats { gap: 20px; }
     }
 
     @media (max-width: 480px) {
       .social-grid { grid-template-columns: 1fr; }
-      .niche-tile { grid-column: span 1; }
       .img-card img { width: 140px; }
       .work-scroll-card { width: 260px; }
+      .hero-stat-num { font-size: 20px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV — liquid glass pill -->
-  <nav>
+  <!-- NAV — full bar on load, morphs to pill on scroll -->
+  <nav id="mainNav">
     <a href="#" class="nav-monogram">SL</a>
     <div class="nav-links">
       <a href="#work-web">Work</a>
@@ -760,7 +835,7 @@
 
   <div class="page-sections">
 
-    <!-- 1. HERO — dark card, 100svh -->
+    <!-- 1. HERO — dark, 100svh -->
     <div class="s-hero reveal">
       <div class="hero-text">
         <p class="hero-location">Melbourne, Australia</p>
@@ -772,15 +847,29 @@
         <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
         <canvas id="globe" width="700" height="700"></canvas>
       </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-hero-target="5" data-hero-suffix="+">5+</span>
+          <div class="hero-stat-label">years of experience</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-hero-target="30" data-hero-suffix="+">30+</span>
+          <div class="hero-stat-label">brands represented</div>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num" data-hero-target="2" data-hero-suffix="M+">2M+</span>
+          <div class="hero-stat-label">social media impressions</div>
+        </div>
+      </div>
     </div>
 
-    <!-- 2. CHAT — liquid glass, just under the hero -->
-    <div class="s-glass s-chat reveal">
+    <!-- 2. CHAT — black bento, just under hero -->
+    <div class="s-dark s-chat reveal">
       <div class="chat-top">
         <div class="live-row">
           <div class="live-dot"></div>
           <span class="live-label">Live</span>
-          <span class="live-desc">— ask me anything</span>
+          <span class="live-desc">ask me anything about my experience, skills, or suitability for your role</span>
         </div>
         <div class="message-area" id="messageArea"></div>
         <div class="chat-input-row">
@@ -796,14 +885,14 @@
       <div class="inner">
         <div class="bio-block">
           <h2 class="bio-headline">Marketing built on <em>craft</em> and backed by results.</h2>
-          <p>Melbourne-based marketing and brand specialist. I work at the intersection of brand strategy, performance marketing, and creative execution — currently at HungryHungry, growing a portfolio of hospitality brands.</p>
+          <p>Melbourne-based marketing and brand specialist. I work at the intersection of brand strategy, performance marketing, and creative execution. Currently at HungryHungry, growing a portfolio of hospitality brands.</p>
           <p>Previously four years at Dental Focus managing campaigns for 30+ clients. Bachelor of Business, La Trobe University.</p>
         </div>
       </div>
     </div>
 
-    <!-- 4. WEB DESIGN — warm card -->
-    <div class="s-card reveal" id="work-web">
+    <!-- 4. WEB DESIGN — black bento -->
+    <div class="s-dark reveal" id="work-web">
       <div class="work-header">
         <p class="section-label">Web Design</p>
         <h2 class="section-headline">Brands built <em><strong>from scratch.</strong></em></h2>
@@ -841,37 +930,25 @@
           <!-- Duplicate for seamless loop -->
           <div class="work-scroll-card">
             <div class="work-scroll-thumb"><img src="images/creatine-lab-brand.jpg" alt="" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">The Creatine Lab</div>
-              <div class="work-scroll-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
-            </div>
+            <div class="work-scroll-body"><div class="work-scroll-title">The Creatine Lab</div><div class="work-scroll-desc">Full brand identity, packaging, and web presence built from the ground up.</div></div>
           </div>
           <div class="work-scroll-card">
             <div class="work-scroll-thumb"><img src="images/final-edit-brand.png" alt="" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">Final Edit Mockups</div>
-              <div class="work-scroll-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div>
-            </div>
+            <div class="work-scroll-body"><div class="work-scroll-title">Final Edit Mockups</div><div class="work-scroll-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div></div>
           </div>
           <div class="work-scroll-card">
             <div class="work-scroll-thumb"><img src="images/portfolio-render-1.gif" alt="" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">Brand Renders</div>
-              <div class="work-scroll-desc">3D brand renders and mockups for client campaigns and presentations.</div>
-            </div>
+            <div class="work-scroll-body"><div class="work-scroll-title">Brand Renders</div><div class="work-scroll-desc">3D brand renders and mockups for client campaigns and presentations.</div></div>
           </div>
           <div class="work-scroll-card">
             <div class="work-scroll-thumb"><img src="images/misc-3.png" alt="" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">Design Work</div>
-              <div class="work-scroll-desc">Visual direction and creative assets across brand and digital channels.</div>
-            </div>
+            <div class="work-scroll-body"><div class="work-scroll-title">Design Work</div><div class="work-scroll-desc">Visual direction and creative assets across brand and digital channels.</div></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 5. PERFORMANCE MARKETING — plain white, portrait images (no crop) -->
+    <!-- 5. PERFORMANCE MARKETING — plain white, natural aspect ratio -->
     <div class="s-plain reveal" id="work-marketing">
       <div class="inner" style="padding-bottom: 0;">
         <p class="section-label">Performance Marketing</p>
@@ -900,8 +977,8 @@
       </div>
     </div>
 
-    <!-- 6. SOCIAL MEDIA STATS — warm card with glass tiles (moved below work sections) -->
-    <div class="s-card reveal">
+    <!-- 6. SOCIAL STATS — black bento -->
+    <div class="s-dark reveal" id="stats-section">
       <div class="social-grid">
         <div class="stat-tile">
           <div class="stat-number" data-target="2" data-suffix="M+">0M+</div>
@@ -927,8 +1004,8 @@
       </div>
     </div>
 
-    <!-- 7. TESTIMONIALS — warm card -->
-    <div class="s-card reveal">
+    <!-- 7. TESTIMONIALS — black bento -->
+    <div class="s-dark reveal">
       <div class="testimonials-grid">
         <div class="testimonial-tile">
           <div class="testimonial-logo-text">The Creatine Lab</div>
@@ -969,17 +1046,43 @@
   </div>
 
   <footer>
-    <p>Sean Lyons 2026 · Melbourne, Australia</p>
+    <p>Sean Lyons 2026 &middot; Melbourne, Australia</p>
   </footer>
 
   <script>
     const ANTHROPIC_API_KEY = 'YOUR_KEY_HERE';
 
+    // ---- Easing + countUp ----
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
+    function countUp(el, target, suffix, duration) {
+      const start = performance.now();
+      (function tick(now) {
+        const p = Math.min((now - start) / duration, 1);
+        el.textContent = Math.floor(easeOutExpo(p) * target) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      })(start);
+    }
+
+    // ---- On load ----
     document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+
+      // Hero stat count-up on page load (with short delay)
+      setTimeout(() => {
+        document.querySelectorAll('[data-hero-target]').forEach(el => {
+          countUp(el, +el.dataset.heroTarget, el.dataset.heroSuffix, 2000);
+        });
+      }, 700);
     });
 
-    // Scroll reveal
+    // ---- Nav scroll morph ----
+    const mainNav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      mainNav.classList.toggle('scrolled', window.scrollY > 55);
+    }, { passive: true });
+
+    // ---- Scroll reveal ----
     const ro = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }});
     }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
@@ -989,9 +1092,26 @@
       ro.observe(el);
     });
 
-    // --------------------------------------------------
-    // GLOBE — dark moon / nebula style
-    // --------------------------------------------------
+    // ---- Social stats count-up on scroll ----
+    let statsDone = false;
+    const statsObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !statsDone) {
+          statsDone = true;
+          document.querySelectorAll('[data-target]').forEach(el => {
+            countUp(el, +el.dataset.target, el.dataset.suffix, 1800);
+          });
+          statsObs.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const statsSection = document.getElementById('stats-section');
+    if (statsSection) statsObs.observe(statsSection);
+
+    // ====================================================
+    // GLOBE — dark moon / nebula
+    // ====================================================
     const ROTATION_SPEED = (Math.PI * 2) / (24 * 60);
     let rotation = 0;
 
@@ -1005,7 +1125,6 @@
       };
     }
 
-    // Seeded RNG so star positions are deterministic
     const rng = (seed => () => {
       seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5;
       return (seed >>> 0) / 4294967296;
@@ -1033,64 +1152,53 @@
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Dark purple base
       const base = ctx.createRadialGradient(cx - r * .14, cy - r * .18, r * .04, cx, cy, r);
       base.addColorStop(0,    '#3e1878');
       base.addColorStop(0.3,  '#200a4a');
       base.addColorStop(0.65, '#120330');
       base.addColorStop(1,    '#060012');
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fillStyle = base;
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = base; ctx.fill();
 
-      // Surface texture patches
       texPatches.forEach(p => {
         const proj = project(p.lat, p.lon, rotation, cx, cy, r);
         if (proj.z > 0) {
-          const alpha = proj.z * 0.22;
-          const pr    = (p.size / 100) * r;
           ctx.beginPath();
-          ctx.arc(proj.x, proj.y, pr, 0, Math.PI * 2);
+          ctx.arc(proj.x, proj.y, (p.size / 100) * r, 0, Math.PI * 2);
           ctx.fillStyle = p.dark
-            ? `rgba(4, 0, 18, ${alpha})`
-            : `rgba(90, 35, 175, ${alpha * 0.55})`;
+            ? `rgba(4,0,18,${proj.z * 0.22})`
+            : `rgba(90,35,175,${proj.z * 0.12})`;
           ctx.fill();
         }
       });
 
-      // Star speckles on surface
       stars.forEach(s => {
         const proj = project(s.lat, s.lon, rotation, cx, cy, r);
         if (proj.z > 0.02) {
-          const alpha = proj.z * s.b * 0.9;
           ctx.beginPath();
           ctx.arc(proj.x, proj.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(225, 205, 255, ${alpha})`;
+          ctx.fillStyle = `rgba(225,205,255,${proj.z * s.b * 0.9})`;
           ctx.fill();
         }
       });
 
-      // Limb darkening (edges fade to black)
       const limb = ctx.createRadialGradient(cx, cy, r * .58, cx, cy, r);
       limb.addColorStop(0, 'rgba(0,0,0,0)');
       limb.addColorStop(1, 'rgba(0,0,15,0.78)');
       ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.fillStyle = limb; ctx.fill();
 
-      // Specular highlight — purple, top-left
       const spec = ctx.createRadialGradient(cx - r * .30, cy - r * .36, 0, cx - r * .30, cy - r * .36, r * .85);
-      spec.addColorStop(0,   'rgba(175, 115, 255, 0.30)');
-      spec.addColorStop(0.4, 'rgba(130,  80, 255, 0.08)');
-      spec.addColorStop(1,   'rgba(0, 0, 0, 0)');
+      spec.addColorStop(0,   'rgba(175,115,255,0.30)');
+      spec.addColorStop(0.4, 'rgba(130,80,255,0.08)');
+      spec.addColorStop(1,   'rgba(0,0,0,0)');
       ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.fillStyle = spec; ctx.fill();
 
-      // Atmosphere rim glow
       const atm = ctx.createRadialGradient(cx, cy, r * .84, cx, cy, r * 1.14);
-      atm.addColorStop(0,   'rgba(105, 45, 255, 0)');
-      atm.addColorStop(0.4, 'rgba(105, 45, 255, 0.24)');
-      atm.addColorStop(1,   'rgba(70,  20, 200, 0)');
+      atm.addColorStop(0,   'rgba(105,45,255,0)');
+      atm.addColorStop(0.4, 'rgba(105,45,255,0.24)');
+      atm.addColorStop(1,   'rgba(70,20,200,0)');
       ctx.beginPath(); ctx.arc(cx, cy, r * 1.07, 0, Math.PI * 2);
       ctx.fillStyle = atm; ctx.fill();
     }
@@ -1111,46 +1219,16 @@
       wrap.style.width  = size + 'px';
       wrap.style.height = (size / 2) + 'px';
       const photo = document.querySelector('.hero-photo');
-      if (photo) photo.style.top = Math.round(size * 0.25) + 'px';
+      if (photo) photo.style.top = Math.round(size * 0.20) + 'px';
     }
 
     resizeGlobe();
     window.addEventListener('resize', resizeGlobe);
     animateGlobe();
 
-    // --------------------------------------------------
-    // STAT COUNT-UP
-    // --------------------------------------------------
-    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
-
-    function countUp(el, target, suffix, duration) {
-      const start = performance.now();
-      (function tick(now) {
-        const p = Math.min((now - start) / duration, 1);
-        el.textContent = Math.floor(easeOutExpo(p) * target) + suffix;
-        if (p < 1) requestAnimationFrame(tick);
-      })(start);
-    }
-
-    let statsDone = false;
-    const statsObs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting && !statsDone) {
-          statsDone = true;
-          document.querySelectorAll('[data-target]').forEach(el => {
-            countUp(el, +el.dataset.target, el.dataset.suffix, 1800);
-          });
-          statsObs.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-
-    const firstStat = document.querySelector('[data-target]');
-    if (firstStat) statsObs.observe(firstStat.closest('.s-card'));
-
-    // --------------------------------------------------
+    // ====================================================
     // CHAT
-    // --------------------------------------------------
+    // ====================================================
     const conversationHistory = [];
     const messageArea = document.getElementById('messageArea');
     const chatInput   = document.getElementById('chatInput');
@@ -1200,11 +1278,7 @@ If unsure about something, invite them to reach out via the contact section.`;
       b.id = 'typingBubble';
       const ind = document.createElement('div');
       ind.classList.add('typing-indicator');
-      for (let i = 0; i < 3; i++) {
-        const d = document.createElement('div');
-        d.classList.add('typing-dot');
-        ind.appendChild(d);
-      }
+      for (let i = 0; i < 3; i++) { const d = document.createElement('div'); d.classList.add('typing-dot'); ind.appendChild(d); }
       b.appendChild(ind);
       messageArea.appendChild(b);
       messageArea.scrollTop = messageArea.scrollHeight;
