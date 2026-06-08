@@ -687,6 +687,55 @@
       color: #fff;
     }
 
+    /* ---- CONTACT FORM ---- */
+    .contact-form {
+      margin-top: 48px;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 250ms;
+      resize: none;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: var(--text-dim); }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-color: rgba(108,43,217,0.4); }
+
+    .contact-form textarea { min-height: 120px; }
+
+    .contact-form-btn {
+      align-self: flex-start;
+      background: var(--text);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      padding: 13px 30px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 200ms;
+    }
+
+    .contact-form-btn:hover { background: var(--accent); }
+
     /* ---- FOOTER ---- */
     footer {
       padding: 32px var(--gutter);
@@ -945,6 +994,15 @@
       <div class="contact-buttons reveal">
         <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="contact-btn">Contact me</a>
       </div>
+      <form class="contact-form reveal" action="https://formsubmit.co/lyo.2000s@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from your portfolio">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://lyo2000s-glitch.github.io/Sean-portfolio/">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <textarea name="message" placeholder="Your message" required></textarea>
+        <button type="submit" class="contact-form-btn">Send message</button>
+      </form>
     </div>
   </section>
 
