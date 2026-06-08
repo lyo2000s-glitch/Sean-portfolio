@@ -138,6 +138,11 @@
     .hero-headline em { font-style: italic; }
     .hero-headline strong { font-weight: 700; }
 
+    .hero-sub {
+      font-size: clamp(28px, 3.8vw, 54px);
+      display: block;
+    }
+
     .hero-cta {
       display: inline-block;
       background: var(--text);
@@ -422,6 +427,29 @@
       line-height: 1.55;
     }
 
+    .img-card {
+      width: 280px;
+      height: 280px;
+      flex-shrink: 0;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 280ms, transform 280ms;
+    }
+
+    .img-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-4px);
+    }
+
+    .img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     /* ---- TESTIMONIALS ---- */
     #testimonials {
       padding: var(--section-pad) var(--gutter);
@@ -451,21 +479,34 @@
       gap: 28px;
     }
 
-    .testimonial-quote {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(16px, 1.7vw, 20px);
-      font-weight: 400;
-      color: var(--text);
-      line-height: 1.65;
+    .testimonial-logo {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.7;
+      margin-bottom: 20px;
     }
 
-    .testimonial-author {}
+    .testimonial-logo-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+
+    .testimonial-quote {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text);
+      line-height: 1.75;
+    }
 
     .testimonial-name {
       font-size: 14px;
       font-weight: 600;
       color: var(--text);
+      margin-top: 20px;
     }
 
     .testimonial-role {
@@ -482,68 +523,20 @@
     }
 
     .chat-inner {
-      max-width: var(--content-max);
+      max-width: 720px;
       margin: 0 auto;
     }
 
-    .chat-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      max-width: 720px;
-      margin: 48px auto 0;
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .chat-header {
-      padding: 18px 26px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .chat-header-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50%       { transform: scale(1.4); opacity: 0.45; }
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      animation: pulse 2s ease-in-out infinite;
-      flex-shrink: 0;
-    }
-
-    .chat-header-title {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .chat-header-hint {
-      font-size: 12px;
-      color: var(--text-dim);
-    }
-
     .message-area {
-      min-height: 280px;
-      max-height: 380px;
+      max-height: 340px;
       overflow-y: auto;
-      padding: 22px 26px;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      margin-bottom: 16px;
     }
+
+    .message-area:empty { display: none; }
 
     .message-area::-webkit-scrollbar { width: 4px; }
     .message-area::-webkit-scrollbar-track { background: transparent; }
@@ -565,7 +558,7 @@
 
     .chat-bubble.ai {
       align-self: flex-start;
-      background: var(--bg);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px 16px 16px 16px;
       color: var(--text);
@@ -598,40 +591,46 @@
     .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
     .chat-input-row {
-      padding: 14px 26px;
-      border-top: 1px solid var(--border);
       display: flex;
-      gap: 10px;
-      align-items: center;
+      gap: 0;
+      align-items: stretch;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 250ms;
+    }
+
+    .chat-input-row:focus-within {
+      border-color: rgba(108,43,217,0.4);
     }
 
     .chat-input {
       flex: 1;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 11px 20px;
+      background: transparent;
+      border: none;
+      padding: 16px 24px;
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 300;
       outline: none;
-      transition: border-color 250ms;
     }
 
     .chat-input::placeholder { color: var(--text-dim); }
-    .chat-input:focus { border-color: rgba(108,43,217,0.4); }
 
     .send-btn {
-      width: 38px; height: 38px;
-      border-radius: 50%;
       background: var(--text);
       border: none;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 0 26px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
       transition: background 200ms;
-      flex-shrink: 0;
+      white-space: nowrap;
+      border-radius: 0 999px 999px 0;
     }
 
     .send-btn:hover { background: var(--accent); }
@@ -756,8 +755,7 @@
       <p class="hero-location">Melbourne, Australia</p>
       <h1 class="hero-headline">
         Are you looking for<br>
-        <em><strong>a Brand &amp; Marketing</strong></em><br>
-        <em><strong>Specialist?</strong></em>
+        <span class="hero-sub"><em><strong>Brand &amp; Marketing Specialist?</strong></em></span>
       </h1>
       <a href="#work-web" class="hero-cta">View my work</a>
     </div>
@@ -884,91 +882,23 @@
     <div class="scroll-strip">
       <div class="scroll-track go-right">
         <!-- Set 1 -->
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Joiluxe Media</div>
-            <div class="work-card-desc">3D ad creatives for DTC brands. Built to stop the scroll.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Ad Creative</div>
-            <div class="work-card-desc">Paid social creative across Meta and Instagram, built for multiple brands.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/cilara-ad-1.png" alt="Cilara Campaign" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Cilara Skincare</div>
-            <div class="work-card-desc">Performance ad creative for a skincare DTC brand across Meta placements.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Campaign Creative</div>
-            <div class="work-card-desc">High-converting ad creative developed across a range of direct-to-consumer brands.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/esei-products.gif" alt="Product Creative" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Product Animation</div>
-            <div class="work-card-desc">Animated product creative for DTC brand campaigns and paid social.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Social Ads</div>
-            <div class="work-card-desc">Meta and Instagram ad creative built for performance and brand awareness.</div>
-          </div>
-        </div>
+        <div class="img-card"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
+        <div class="img-card"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
+        <div class="img-card"><img src="images/cilara-ad-1.png" alt="Cilara Campaign" loading="lazy"></div>
+        <div class="img-card"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
+        <div class="img-card"><img src="images/esei-products.gif" alt="Product Creative" loading="lazy"></div>
+        <div class="img-card"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
+        <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="Vertical Ad" loading="lazy"></div>
+        <div class="img-card"><img src="images/ad-3.png" alt="Ad Creative" loading="lazy"></div>
         <!-- Set 2 (duplicate for seamless loop) -->
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Joiluxe Media</div>
-            <div class="work-card-desc">3D ad creatives for DTC brands. Built to stop the scroll.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Ad Creative</div>
-            <div class="work-card-desc">Paid social creative across Meta and Instagram, built for multiple brands.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/cilara-ad-1.png" alt="Cilara Campaign" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Cilara Skincare</div>
-            <div class="work-card-desc">Performance ad creative for a skincare DTC brand across Meta placements.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Campaign Creative</div>
-            <div class="work-card-desc">High-converting ad creative developed across a range of direct-to-consumer brands.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/esei-products.gif" alt="Product Creative" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Product Animation</div>
-            <div class="work-card-desc">Animated product creative for DTC brand campaigns and paid social.</div>
-          </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Social Ads</div>
-            <div class="work-card-desc">Meta and Instagram ad creative built for performance and brand awareness.</div>
-          </div>
-        </div>
+        <div class="img-card"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
+        <div class="img-card"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
+        <div class="img-card"><img src="images/cilara-ad-1.png" alt="Cilara Campaign" loading="lazy"></div>
+        <div class="img-card"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
+        <div class="img-card"><img src="images/esei-products.gif" alt="Product Creative" loading="lazy"></div>
+        <div class="img-card"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
+        <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="Vertical Ad" loading="lazy"></div>
+        <div class="img-card"><img src="images/ad-3.png" alt="Ad Creative" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -980,19 +910,17 @@
       <div class="testimonials-grid">
 
         <div class="testimonial-card">
+          <div class="testimonial-logo-text">The Creatine Lab</div>
           <p class="testimonial-quote">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-name">Needal</div>
-            <div class="testimonial-role">Founder, The Creatine Lab</div>
-          </div>
+          <div class="testimonial-name">Needal</div>
+          <div class="testimonial-role">Founder, The Creatine Lab</div>
         </div>
 
         <div class="testimonial-card">
+          <img src="images/heaps-normal-logo.png" class="testimonial-logo" alt="Heaps Normal">
           <p class="testimonial-quote">"Sean demonstrated a keen understanding of our brand vision and was able to translate it into visually stunning 3D elements that added creativity and vibrancy to our campaign materials. His work definitely made a defined impact on our marketing objectives."</p>
-          <div class="testimonial-author">
-            <div class="testimonial-name">Tim Snape</div>
-            <div class="testimonial-role">Marketing Director, Heaps Normal</div>
-          </div>
+          <div class="testimonial-name">Tim Snape</div>
+          <div class="testimonial-role">Marketing Director, Heaps Normal</div>
         </div>
 
       </div>
@@ -1001,25 +929,11 @@
 
   <!-- CHAT SECTION -->
   <section id="chat">
-    <div class="chat-inner">
-      <p class="section-label">Ask me anything</p>
-      <div class="chat-card reveal">
-        <div class="chat-header">
-          <div class="chat-header-left">
-            <div class="pulse-dot"></div>
-            <div class="chat-header-title">AI Assistant</div>
-          </div>
-          <span class="chat-header-hint">Ask about Sean's experience or background</span>
-        </div>
-        <div class="message-area" id="messageArea"></div>
-        <div class="chat-input-row">
-          <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything...">
-          <button class="send-btn" id="sendBtn" aria-label="Send">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M2 8h12M10 4l4 4-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        </div>
+    <div class="chat-inner reveal">
+      <div class="message-area" id="messageArea"></div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about my experience, qualifications, or background...">
+        <button class="send-btn" id="sendBtn">Ask</button>
       </div>
     </div>
   </section>
@@ -1028,10 +942,8 @@
   <section id="contact">
     <div class="contact-inner">
       <h2 class="contact-headline reveal">Let's work <em><strong>together.</strong></em></h2>
-      <p class="contact-sub reveal">Open to full-time and contract roles in Melbourne.</p>
       <div class="contact-buttons reveal">
-        <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="contact-btn">LinkedIn</a>
-        <a href="mailto:eight.joi@gmail.com" class="contact-btn">eight.joi@gmail.com</a>
+        <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="contact-btn">Contact me</a>
       </div>
     </div>
   </section>
@@ -1411,7 +1323,6 @@ If a recruiter asks something you do not know about Sean, say you are not sure a
     sendBtn.addEventListener('click', handleSend);
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
 
-    appendMessage('ai', "Ask me anything about my experience, qualifications, or just about myself.");
   </script>
 </body>
 </html>
