@@ -91,7 +91,7 @@
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-size: 19px;
-      color: rgba(255,255,255,0.92);
+      color: var(--text);
       text-decoration: none;
       transition: color 350ms ease;
     }
@@ -102,18 +102,18 @@
 
     nav a {
       text-decoration: none;
-      color: rgba(255,255,255,0.65);
+      color: var(--muted);
       font-size: 13px;
       transition: color 350ms ease;
     }
 
-    nav a:hover { color: rgba(255,255,255,1); }
+    nav a:hover { color: var(--text); }
     nav.scrolled a { color: var(--muted); }
     nav.scrolled a:hover { color: var(--text); }
 
     .nav-pill {
-      border: 1.5px solid rgba(255,255,255,0.45) !important;
-      color: rgba(255,255,255,0.92) !important;
+      border: 1.5px solid var(--text) !important;
+      color: var(--text) !important;
       padding: 5px 16px;
       border-radius: 999px;
       font-size: 13px;
@@ -127,6 +127,11 @@
     }
 
     nav.scrolled .nav-pill:hover {
+      background: var(--text) !important;
+      color: #fff !important;
+    }
+
+    .nav-pill:hover {
       background: var(--text) !important;
       color: #fff !important;
     }
