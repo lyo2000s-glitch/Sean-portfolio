@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Sean Lyons - Brand & Marketing Specialist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -195,6 +195,7 @@
     }
 
     .hero-location {
+      font-family: 'Inter', sans-serif;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.24em;
@@ -267,14 +268,14 @@
       z-index: 3;
     }
 
-    /* Hero stats — overlaid on the globe, absolute inside globe-wrap */
+    /* Hero stats — overlaid on globe, just below photo */
     .hero-stats {
       position: absolute;
-      bottom: 22px;
+      top: 210px;
       left: 0; right: 0;
       display: flex;
       justify-content: center;
-      gap: clamp(28px, 5vw, 64px);
+      gap: clamp(32px, 6vw, 80px);
       z-index: 5;
       pointer-events: none;
     }
@@ -284,33 +285,33 @@
     .hero-stat-num {
       font-family: 'Inter', sans-serif;
       font-style: normal;
-      font-weight: 700;
-      font-size: clamp(30px, 4vw, 54px);
-      letter-spacing: -0.03em;
+      font-weight: 800;
+      font-size: clamp(36px, 5.5vw, 68px);
+      letter-spacing: -0.04em;
       color: #ffffff;
       line-height: 1;
       display: block;
-      text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 20px rgba(0,0,0,0.6);
     }
 
     .hero-stat-label {
-      font-size: 11px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
       color: rgba(255,255,255,0.5);
-      margin-top: 5px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      margin-top: 6px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      text-shadow: 0 1px 8px rgba(0,0,0,0.6);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.7);
     }
 
     /* Testimonials 5-star image */
     .five-stars {
-      height: 20px;
+      height: 22px;
       width: auto;
       object-fit: contain;
       object-position: left;
-      opacity: 0.85;
-      filter: brightness(0) invert(1);
+      display: block;
     }
 
     /* ====================================================
@@ -610,6 +611,22 @@
       height: auto;
     }
 
+    /* YouTube Shorts cards */
+    .shorts-card {
+      flex-shrink: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      width: 180px;
+      height: 320px;
+      border: 1px solid rgba(0,0,0,0.07);
+      transition: transform 280ms, box-shadow 280ms;
+    }
+    .shorts-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+    .shorts-card iframe {
+      width: 100%; height: 100%;
+      border: none; display: block;
+    }
+
     /* ====================================================
        SOCIAL STATS (dark bento)
     ==================================================== */
@@ -832,17 +849,17 @@
       .page-sections { padding-top: 68px; }
       .globe-wrap { width: 100vw; height: 50vw; }
       .hero-photo { top: 20vw; width: 90px; height: 90px; }
+      .hero-stats { top: calc(20vw + 56px); gap: 20px; }
       .social-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .img-card img { width: 170px; }
-      .hero-stats { gap: 20px; }
     }
 
     @media (max-width: 480px) {
       .social-grid { grid-template-columns: 1fr; }
       .img-card img { width: 140px; }
       .work-scroll-card { width: 260px; }
-      .hero-stat-num { font-size: 20px; }
+      .hero-stat-num { font-size: 28px; }
     }
   </style>
 </head>
@@ -982,19 +999,25 @@
       <div class="scroll-strip" style="margin-top: 28px;">
         <div class="scroll-track go-right">
           <div class="img-card"><img src="images/cilara-skincare.gif" alt="" loading="lazy"></div>
+          <div class="shorts-card"><iframe src="https://www.youtube.com/embed/J6_RY-Rk4Z4?autoplay=1&mute=1&loop=1&playlist=J6_RY-Rk4Z4&controls=0&playsinline=1&rel=0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <div class="img-card"><img src="images/apple-ad.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/cilara-ad-1.png" alt="" loading="lazy"></div>
+          <div class="shorts-card"><iframe src="https://www.youtube.com/embed/BO2xd6Bqdhs?autoplay=1&mute=1&loop=1&playlist=BO2xd6Bqdhs&controls=0&playsinline=1&rel=0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <div class="img-card"><img src="images/ad-1.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/esei-products.gif" alt="" loading="lazy"></div>
+          <div class="shorts-card"><iframe src="https://www.youtube.com/embed/YZYCGd-77bA?autoplay=1&mute=1&loop=1&playlist=YZYCGd-77bA&controls=0&playsinline=1&rel=0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <div class="img-card"><img src="images/ad-2.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/ad-3.png" alt="" loading="lazy"></div>
           <!-- Duplicate for seamless loop -->
           <div class="img-card"><img src="images/cilara-skincare.gif" alt="" loading="lazy"></div>
+          <div class="shorts-card"><iframe src="https://www.youtube.com/embed/J6_RY-Rk4Z4?autoplay=1&mute=1&loop=1&playlist=J6_RY-Rk4Z4&controls=0&playsinline=1&rel=0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <div class="img-card"><img src="images/apple-ad.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/cilara-ad-1.png" alt="" loading="lazy"></div>
+          <div class="shorts-card"><iframe src="https://www.youtube.com/embed/BO2xd6Bqdhs?autoplay=1&mute=1&loop=1&playlist=BO2xd6Bqdhs&controls=0&playsinline=1&rel=0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <div class="img-card"><img src="images/ad-1.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/esei-products.gif" alt="" loading="lazy"></div>
+          <div class="shorts-card"><iframe src="https://www.youtube.com/embed/YZYCGd-77bA?autoplay=1&mute=1&loop=1&playlist=YZYCGd-77bA&controls=0&playsinline=1&rel=0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
           <div class="img-card"><img src="images/ad-2.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="" loading="lazy"></div>
           <div class="img-card"><img src="images/ad-3.png" alt="" loading="lazy"></div>
