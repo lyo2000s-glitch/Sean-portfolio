@@ -170,13 +170,11 @@
        HERO
     ==================================================== */
     .s-hero {
-      background:
-        radial-gradient(ellipse 85% 105% at -8% 95%, rgba(112,26,255,0.82) 0%, rgba(68,12,205,0.52) 22%, rgba(28,5,90,0.28) 45%, transparent 65%),
-        radial-gradient(ellipse 55% 80% at -5% 35%, rgba(80,18,220,0.40) 0%, rgba(45,8,150,0.20) 40%, transparent 68%),
-        #030009;
+      background: #030009;
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,0.05);
       overflow: hidden;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -184,6 +182,59 @@
       min-height: 580px;
       padding-top: 40px;
     }
+
+    /* Animated breathing purple glow */
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-glow::before {
+      content: '';
+      position: absolute;
+      width: 72%;
+      height: 95%;
+      left: -18%;
+      bottom: -25%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(112,28,255,0.72) 0%, rgba(68,12,210,0.40) 38%, transparent 68%);
+      filter: blur(38px);
+      will-change: transform, opacity;
+      animation: glowMain 8s ease-in-out infinite;
+    }
+
+    .hero-glow::after {
+      content: '';
+      position: absolute;
+      width: 52%;
+      height: 75%;
+      left: -8%;
+      top: 10%;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(90,18,230,0.42) 0%, rgba(50,8,170,0.20) 45%, transparent 70%);
+      filter: blur(52px);
+      will-change: transform, opacity;
+      animation: glowSecondary 13s ease-in-out infinite;
+    }
+
+    @keyframes glowMain {
+      0%   { transform: translate(0%,   0%)   scale(1.00); opacity: 0.70; }
+      28%  { transform: translate(14%,  -7%)  scale(1.18); opacity: 1.00; }
+      55%  { transform: translate(5%,   8%)   scale(0.90); opacity: 0.75; }
+      80%  { transform: translate(-6%,  -4%)  scale(1.10); opacity: 0.88; }
+      100% { transform: translate(0%,   0%)   scale(1.00); opacity: 0.70; }
+    }
+
+    @keyframes glowSecondary {
+      0%   { transform: translate(0%,   0%)   scale(1.00); opacity: 0.55; }
+      35%  { transform: translate(20%,  -12%) scale(1.14); opacity: 0.80; }
+      68%  { transform: translate(-4%,  10%)  scale(0.88); opacity: 0.62; }
+      100% { transform: translate(0%,   0%)   scale(1.00); opacity: 0.55; }
+    }
+
+    .hero-text, .hero-profile { position: relative; z-index: 1; }
 
     .hero-text {
       flex: 1;
@@ -941,6 +992,7 @@
 
     <!-- 1. HERO — dark, 100svh -->
     <div class="s-hero reveal">
+      <div class="hero-glow" aria-hidden="true"></div>
       <div class="hero-text">
         <p class="hero-location">Melbourne, Australia</p>
         <h1 class="hero-headline">Are you looking for a</h1>
@@ -996,8 +1048,10 @@
 
     <!-- 4. WEB DESIGN — black bento -->
     <div class="s-dark reveal" id="work-web">
-      <div style="padding: var(--pad);">
-        <h2 class="section-headline" style="margin-bottom: 24px;">Brand <em><strong>design.</strong></em></h2>
+      <div style="padding: var(--pad) var(--pad) 20px;">
+        <h2 class="section-headline">Brand <em><strong>design.</strong></em></h2>
+      </div>
+      <div style="padding: 0 var(--pad) var(--pad);">
         <div class="work-tiles">
           <a href="the-creatine-lab.html" class="work-tile">
             <div class="work-tile-thumb">
