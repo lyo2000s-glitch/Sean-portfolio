@@ -573,6 +573,73 @@
 
     .work-scroll-link { text-decoration: none; color: inherit; display: block; cursor: pointer; }
 
+    /* Static 2-tile work grid */
+    .work-tiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      margin-top: 20px;
+    }
+
+    .work-tile {
+      display: flex;
+      flex-direction: column;
+      background: #1c1c1c;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 280ms, box-shadow 280ms;
+    }
+
+    .work-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
+
+    .work-tile-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #0e0a1a;
+    }
+
+    .work-tile-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 400ms ease;
+    }
+
+    .work-tile:hover .work-tile-thumb img { transform: scale(1.04); }
+
+    .work-tile-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 8px; }
+
+    .work-tile-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.32);
+    }
+
+    .work-tile-title {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 20px; letter-spacing: -0.02em; color: #fff;
+    }
+
+    .work-tile-desc {
+      font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.45);
+      font-weight: 300;
+    }
+
+    .work-tile-cta {
+      font-size: 12px; font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      margin-top: 4px;
+      transition: color 200ms;
+    }
+
+    .work-tile:hover .work-tile-cta { color: rgba(255,255,255,0.75); }
+
+    @media (max-width: 600px) {
+      .work-tiles { grid-template-columns: 1fr; }
+    }
+
     .work-scroll-thumb { width: 100%; height: 210px; overflow: hidden; background: #2a2a2a; }
     .work-scroll-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 400ms; }
     .work-scroll-card:hover .work-scroll-thumb img { transform: scale(1.04); }
@@ -935,58 +1002,30 @@
 
     <!-- 4. WEB DESIGN — black bento -->
     <div class="s-dark reveal" id="work-web">
-      <div class="work-header">
-        <p class="section-label">Web Design</p>
-        <h2 class="section-headline">Brands built <em><strong>from scratch.</strong></em></h2>
-      </div>
-      <div class="scroll-strip">
-        <div class="scroll-track go-left">
-          <a href="the-creatine-lab.html" class="work-scroll-card work-scroll-link">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/creatine-logo-768x768.png" alt="The Creatine Lab" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">The Creatine Lab</div>
-              <div class="work-scroll-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
-            </div>
-          </a>
-          <a href="final-edit-mockups.html" class="work-scroll-card work-scroll-link">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/can-spin-animation-1.gif" alt="Final Edit Mockups" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">Final Edit Mockups</div>
-              <div class="work-scroll-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div>
-            </div>
-          </a>
-          <div class="work-scroll-card">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/Portfolio-render-1.gif" alt="Brand Renders" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">Brand Renders</div>
-              <div class="work-scroll-desc">3D brand renders and mockups for client campaigns and presentations.</div>
-            </div>
+      <p class="section-label">Web Design</p>
+      <div class="work-tiles">
+        <a href="the-creatine-lab.html" class="work-tile">
+          <div class="work-tile-thumb">
+            <img src="https://seanportfolio.site/wp-content/uploads/2025/08/creatine-logo-768x768.png" alt="The Creatine Lab" loading="lazy">
           </div>
-          <div class="work-scroll-card">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/22-768x768.webp" alt="Design Work" loading="lazy"></div>
-            <div class="work-scroll-body">
-              <div class="work-scroll-title">Design Work</div>
-              <div class="work-scroll-desc">Visual direction and creative assets across brand and digital channels.</div>
-            </div>
+          <div class="work-tile-body">
+            <div class="work-tile-tag">Brand Identity</div>
+            <div class="work-tile-title">The Creatine Lab</div>
+            <div class="work-tile-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
+            <div class="work-tile-cta">View case study →</div>
           </div>
-          <!-- Duplicate for seamless loop -->
-          <a href="the-creatine-lab.html" class="work-scroll-card work-scroll-link">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/creatine-logo-768x768.png" alt="" loading="lazy"></div>
-            <div class="work-scroll-body"><div class="work-scroll-title">The Creatine Lab</div><div class="work-scroll-desc">Full brand identity, packaging, and web presence built from the ground up.</div></div>
-          </a>
-          <a href="final-edit-mockups.html" class="work-scroll-card work-scroll-link">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/can-spin-animation-1.gif" alt="" loading="lazy"></div>
-            <div class="work-scroll-body"><div class="work-scroll-title">Final Edit Mockups</div><div class="work-scroll-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div></div>
-          </a>
-          <div class="work-scroll-card">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/Portfolio-render-1.gif" alt="" loading="lazy"></div>
-            <div class="work-scroll-body"><div class="work-scroll-title">Brand Renders</div><div class="work-scroll-desc">3D brand renders and mockups for client campaigns and presentations.</div></div>
+        </a>
+        <a href="final-edit-mockups.html" class="work-tile">
+          <div class="work-tile-thumb">
+            <img src="https://seanportfolio.site/wp-content/uploads/2025/08/can-spin-animation-1.gif" alt="Final Edit Mockups" loading="lazy">
           </div>
-          <div class="work-scroll-card">
-            <div class="work-scroll-thumb"><img src="https://seanportfolio.site/wp-content/uploads/2025/08/22-768x768.webp" alt="" loading="lazy"></div>
-            <div class="work-scroll-body"><div class="work-scroll-title">Design Work</div><div class="work-scroll-desc">Visual direction and creative assets across brand and digital channels.</div></div>
+          <div class="work-tile-body">
+            <div class="work-tile-tag">Website Design</div>
+            <div class="work-tile-title">Final Edit Mockups</div>
+            <div class="work-tile-desc">Logo, brand identity, and ecommerce site for a creative mockup resource platform.</div>
+            <div class="work-tile-cta">View case study →</div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
 
