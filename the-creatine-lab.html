@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>The Creatine Lab — Sean Lyons</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:  #ffffff;
+      --dark:   #0e0e0e;
+      --border: rgba(0,0,0,0.07);
+      --shadow: 0 2px 14px rgba(0,0,0,0.06);
+      --accent: #6c2bd9;
+      --text:   #111111;
+      --muted:  #666666;
+      --dim:    #aaaaaa;
+      --radius: 24px;
+      --gap:    14px;
+      --pad:    40px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--white);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      opacity: 0;
+      transition: opacity 400ms ease;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: none; height: 60px;
+      background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none;
+      border-radius: 0; border: none; box-shadow: none;
+      padding: 0 var(--pad); z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: top 400ms cubic-bezier(0.34,1.56,0.64,1), width 400ms cubic-bezier(0.34,1.56,0.64,1),
+        height 300ms ease, border-radius 400ms ease, background 350ms ease,
+        box-shadow 350ms ease, padding 400ms ease, border 350ms ease;
+    }
+
+    nav.scrolled {
+      top: 14px; width: calc(100% - 40px); max-width: 1260px; height: 50px;
+      background: rgba(250,248,245,0.60);
+      backdrop-filter: blur(36px) saturate(1.8) brightness(1.06);
+      -webkit-backdrop-filter: blur(36px) saturate(1.8) brightness(1.06);
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.55);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.10), inset 0 1.5px 0 rgba(255,255,255,0.85),
+        inset 0 -1px 0 rgba(0,0,0,0.04);
+      padding: 0 22px;
+    }
+
+    .nav-monogram {
+      font-family: 'Playfair Display', serif; font-style: italic; font-size: 19px;
+      color: var(--text); text-decoration: none; transition: color 350ms ease;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+
+    nav a {
+      text-decoration: none; color: var(--muted); font-size: 13px;
+      transition: color 350ms ease;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .nav-pill {
+      border: 1.5px solid var(--text) !important; color: var(--text) !important;
+      padding: 5px 16px; border-radius: 999px; font-size: 13px; font-weight: 500;
+    }
+
+    .nav-pill:hover { background: var(--text) !important; color: #fff !important; }
+    nav.scrolled .nav-pill { border-color: var(--text) !important; color: var(--text) !important; }
+    nav.scrolled .nav-pill:hover { background: var(--text) !important; color: #fff !important; }
+
+    /* LAYOUT */
+    .page-wrap {
+      max-width: 1300px; margin: 0 auto;
+      padding: 80px var(--gap) var(--gap);
+      display: flex; flex-direction: column; gap: var(--gap);
+    }
+
+    /* PROJECT HERO */
+    .proj-hero {
+      background: radial-gradient(ellipse at 50% 0%, #3d1575 0%, #1a0545 45%, #090118 100%);
+      border-radius: var(--radius);
+      padding: 72px var(--pad) 60px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .proj-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px; padding: 5px 14px;
+      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.7);
+      width: fit-content;
+    }
+
+    .proj-title {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: clamp(36px, 5vw, 72px); letter-spacing: -0.03em;
+      line-height: 1.0; color: #fff;
+    }
+
+    .proj-desc {
+      font-size: clamp(15px, 1.8vw, 18px); font-weight: 300; line-height: 1.7;
+      color: rgba(255,255,255,0.65); max-width: 640px;
+    }
+
+    /* DARK BENTO */
+    .s-dark {
+      background: var(--dark); border-radius: var(--radius); padding: var(--pad);
+    }
+
+    .s-plain {
+      background: var(--white); border-radius: var(--radius); padding: var(--pad);
+    }
+
+    /* Image grids */
+    .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
+    .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
+    .img-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--gap); }
+
+    .img-cell {
+      border-radius: 16px; overflow: hidden;
+      background: #1a0a2e;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-cell.sq { aspect-ratio: 1; }
+    .img-cell.tall { min-height: 360px; }
+    .img-cell.medium { min-height: 260px; }
+
+    .img-wide { border-radius: 16px; overflow: hidden; }
+    .img-wide img { width: 100%; display: block; }
+
+    /* Logo showcase */
+    .logo-row {
+      display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
+      padding: 20px 0;
+    }
+    .logo-row img { height: 80px; width: auto; object-fit: contain; }
+
+    /* Section label */
+    .section-label {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      margin-bottom: 20px;
+    }
+    .section-label.dark-label { color: var(--dim); }
+
+    /* Text block */
+    .text-block { max-width: 720px; }
+    .text-block h2 {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: clamp(24px, 3vw, 40px); letter-spacing: -0.025em;
+      color: var(--text); margin-bottom: 16px; line-height: 1.15;
+    }
+    .text-block p { font-size: 16px; line-height: 1.75; color: var(--muted); margin-bottom: 16px; }
+
+    /* Testimonial */
+    .testimonial-block {
+      background: #0e0e0e; border-radius: var(--radius); padding: var(--pad);
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .testimonial-block .five-stars { height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; }
+
+    .testimonial-heading {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: clamp(22px, 2.8vw, 36px); letter-spacing: -0.025em;
+      line-height: 1.2; color: #fff;
+    }
+
+    .testimonial-quote-text {
+      font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.62);
+      font-weight: 300; max-width: 680px;
+    }
+
+    .testimonial-source {
+      display: flex; align-items: center; gap: 14px; margin-top: 4px;
+    }
+    .testimonial-logo-img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
+    .testimonial-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); }
+    .testimonial-role { font-size: 12px; color: rgba(255,255,255,0.38); font-weight: 300; margin-top: 1px; }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 13px; text-decoration: none;
+      transition: color 200ms ease;
+    }
+    .back-link:hover { color: var(--text); }
+
+    /* Footer */
+    footer { text-align: center; padding: 28px 0 20px; }
+    footer p { font-size: 12px; font-weight: 300; color: var(--dim); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 600ms ease, transform 600ms ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .proj-hero { padding: 52px 24px 44px; }
+      .s-dark, .s-plain { padding: 24px; }
+      .img-grid-2, .img-grid-3, .img-grid-4 { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 20px; }
+      nav.scrolled { width: calc(100% - 24px); }
+    }
+
+    @media (max-width: 480px) {
+      .img-grid-2, .img-grid-3, .img-grid-4 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="mainNav">
+    <a href="index.html" class="nav-monogram">SL</a>
+    <div class="nav-links">
+      <a href="index.html#work-web">Work</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+    <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="nav-pill">LinkedIn</a>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- PROJECT HERO -->
+    <div class="proj-hero reveal">
+      <span class="proj-tag">Brand Identity Design</span>
+      <h1 class="proj-title">The Creatine<br>Lab</h1>
+      <p class="proj-desc">Developing a cohesive brand identity tailored for the health and fitness market. Logo design, packaging, brand visuals, and ad creatives that create a consistent, memorable presence and engage the target audience.</p>
+    </div>
+
+    <!-- PERFORMANCE MARKETING CREATIVES -->
+    <div class="s-dark reveal">
+      <p class="section-label">Performance Marketing Creatives</p>
+      <div class="img-grid-4">
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/3-768x768.png" alt="Creatine Lab creative">
+        </div>
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/1-768x768.webp" alt="Creatine Lab creative">
+        </div>
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/6-768x768.webp" alt="Creatine Lab creative">
+        </div>
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/apple-ad-768x768.webp" alt="Apple ad creative">
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND PHILOSOPHY TEXT -->
+    <div class="s-plain reveal">
+      <p class="section-label dark-label">Brand Philosophy</p>
+      <div class="text-block">
+        <h2>Bold varsity identity built for peak performance</h2>
+        <p>The Creatine Lab project involved developing a cohesive brand identity tailored for the health and fitness market. This included logo design, packaging, and brand visuals that create a consistent and memorable presence.</p>
+        <p>The brand and logo design was crafted to reflect the owner's vision of bold, varsity-style branding. The logo features a distinctive mountain symbol, representing summits and peak performance, reinforcing the brand's strong association with sports and athletic achievement.</p>
+      </div>
+    </div>
+
+    <!-- LOGO SHOWCASE -->
+    <div class="s-dark reveal">
+      <p class="section-label">Logo & Identity</p>
+      <div class="img-grid-2">
+        <div class="img-cell tall">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/creatine-logo-768x768.png" alt="The Creatine Lab logo">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--gap);">
+          <div class="img-cell medium">
+            <img src="https://seanportfolio.site/wp-content/uploads/2025/08/7-1-768x768.png" alt="Brand visual">
+          </div>
+          <div class="img-cell medium">
+            <img src="https://seanportfolio.site/wp-content/uploads/2025/08/2-1-768x768.png" alt="Brand visual">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BRAND VISUALS GRID -->
+    <div class="s-dark reveal">
+      <p class="section-label">Brand Visuals</p>
+      <div class="img-grid-3">
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/3-2-768x768.png" alt="Brand visual">
+        </div>
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/4-768x768.webp" alt="Brand visual">
+        </div>
+        <div class="img-cell sq">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/5-768x419.png" alt="Brand visual">
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIAL -->
+    <div class="testimonial-block reveal">
+      <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Untitled-design-2-768x164.png" class="five-stars" alt="5 stars">
+      <p class="testimonial-heading">"This branding gave us an<br>identity worth backing"</p>
+      <p class="testimonial-quote-text">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
+      <div class="testimonial-source">
+        <img src="https://seanportfolio.site/wp-content/uploads/2025/08/New-Project-51.png" class="testimonial-logo-img" alt="The Creatine Lab">
+        <div>
+          <div class="testimonial-name">Needal</div>
+          <div class="testimonial-role">Founder, The Creatine Lab</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACK TO PORTFOLIO -->
+    <div class="s-plain reveal" style="padding: 36px var(--pad);">
+      <a href="index.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M13 8H3M7 4L3 8l4 4"/>
+        </svg>
+        Back to portfolio
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Sean Lyons 2026 &middot; Melbourne, Australia</p>
+  </footer>
+
+  <script>
+    document.body.style.opacity = '1';
+
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 55);
+    }, { passive: true });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
