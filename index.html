@@ -202,7 +202,7 @@
       background: radial-gradient(ellipse at center, rgba(112,28,255,0.72) 0%, rgba(68,12,210,0.40) 38%, transparent 68%);
       filter: blur(38px);
       will-change: transform, opacity;
-      animation: glowMain 8s ease-in-out infinite;
+      animation: glowBounce 7s ease-in-out infinite;
     }
 
     .hero-glow::after {
@@ -216,22 +216,17 @@
       background: radial-gradient(ellipse at center, rgba(90,18,230,0.42) 0%, rgba(50,8,170,0.20) 45%, transparent 70%);
       filter: blur(52px);
       will-change: transform, opacity;
-      animation: glowSecondary 13s ease-in-out infinite;
+      animation: glowFollow 7s ease-in-out 1s infinite;
     }
 
-    @keyframes glowMain {
-      0%   { transform: translate(0%,   0%)   scale(1.00); opacity: 0.70; }
-      28%  { transform: translate(14%,  -7%)  scale(1.18); opacity: 1.00; }
-      55%  { transform: translate(5%,   8%)   scale(0.90); opacity: 0.75; }
-      80%  { transform: translate(-6%,  -4%)  scale(1.10); opacity: 0.88; }
-      100% { transform: translate(0%,   0%)   scale(1.00); opacity: 0.70; }
+    @keyframes glowBounce {
+      0%, 100% { transform: translateX(0%)  scale(1.00); opacity: 0.75; }
+      50%       { transform: translateX(52%) scale(1.10); opacity: 0.95; }
     }
 
-    @keyframes glowSecondary {
-      0%   { transform: translate(0%,   0%)   scale(1.00); opacity: 0.55; }
-      35%  { transform: translate(20%,  -12%) scale(1.14); opacity: 0.80; }
-      68%  { transform: translate(-4%,  10%)  scale(0.88); opacity: 0.62; }
-      100% { transform: translate(0%,   0%)   scale(1.00); opacity: 0.55; }
+    @keyframes glowFollow {
+      0%, 100% { transform: translateX(0%)  scale(1.00); opacity: 0.50; }
+      50%       { transform: translateX(52%) scale(1.08); opacity: 0.70; }
     }
 
     .hero-text, .hero-profile { position: relative; z-index: 1; }
