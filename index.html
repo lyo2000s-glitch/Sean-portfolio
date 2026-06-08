@@ -1070,7 +1070,7 @@
   </footer>
 
   <script>
-    const ANTHROPIC_API_KEY = 'YOUR_KEY_HERE';
+    const PROXY_URL = 'https://sean-portfolio-proxy.YOUR-SUBDOMAIN.workers.dev';
 
     // ---- Easing + countUp ----
     function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
@@ -1196,13 +1196,10 @@ If unsure about something, invite them to reach out via the contact section.`;
 
     async function sendMessage(userText) {
       conversationHistory.push({ role: 'user', content: userText });
-      const res = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch(PROXY_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': ANTHROPIC_API_KEY,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
