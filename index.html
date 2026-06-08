@@ -206,7 +206,7 @@
 
     .hero-headline {
       font-family: 'Playfair Display', serif;
-      font-style: italic;
+      font-style: normal;
       font-size: clamp(28px, 4.5vw, 64px);
       font-weight: 400;
       line-height: 1.1;
@@ -217,7 +217,7 @@
 
     .hero-sub {
       font-family: 'Playfair Display', serif;
-      font-style: italic;
+      font-style: normal;
       font-weight: 700;
       font-size: clamp(26px, 3.6vw, 56px);
       letter-spacing: -0.01em;
@@ -291,11 +291,11 @@
     .hero-stat { text-align: center; }
 
     .hero-stat-num {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Playfair Display', serif;
       font-style: normal;
-      font-weight: 800;
+      font-weight: 700;
       font-size: clamp(36px, 5.5vw, 68px);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.02em;
       color: #ffffff;
       line-height: 1;
       display: block;
@@ -303,13 +303,13 @@
     }
 
     .hero-stat-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 10px;
+      font-family: 'Playfair Display', serif;
+      font-style: normal;
+      font-size: 11px;
       color: rgba(255,255,255,0.5);
       margin-top: 6px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      font-weight: 400;
+      letter-spacing: 0.04em;
       text-shadow: 0 1px 8px rgba(0,0,0,0.7);
     }
 
@@ -317,9 +317,9 @@
     .five-stars {
       height: 22px;
       width: auto;
-      object-fit: contain;
-      object-position: left;
       display: block;
+      filter: brightness(0) invert(1);
+      opacity: 0.75;
     }
 
     /* ====================================================
@@ -1317,13 +1317,13 @@ If unsure about something, invite them to reach out via the contact section.`;
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
   </script>
 
-  <!-- Three.js photorealistic globe -->
-  <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
-
+  <!-- Three.js UMD build — loaded as regular script so THREE is guaranteed global -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script>
+  (function () {
     /* Deterministic pseudo-random — same globe every load */
-    let _s = 0xdeadbeef;
-    const rng = () => { _s^=_s<<13; _s^=_s>>17; _s^=_s<<5; return (_s>>>0)/4294967296; };
+    var _s = 0xdeadbeef;
+    var rng = function () { _s^=_s<<13; _s^=_s>>17; _s^=_s<<5; return (_s>>>0)/4294967296; };
 
     function buildColorMap(size) {
       const c = document.createElement('canvas'); c.width = c.height = size;
@@ -1458,6 +1458,7 @@ If unsure about something, invite them to reach out via the contact section.`;
         renderer.render(scene, camera);
       })();
     }
+  })();
   </script>
 </body>
 </html>
