@@ -1317,148 +1317,139 @@ If unsure about something, invite them to reach out via the contact section.`;
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
   </script>
 
-  <!-- Three.js UMD build — loaded as regular script so THREE is guaranteed global -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <script>
-  (function () {
-    /* Deterministic pseudo-random — same globe every load */
-    var _s = 0xdeadbeef;
-    var rng = function () { _s^=_s<<13; _s^=_s>>17; _s^=_s<<5; return (_s>>>0)/4294967296; };
+  <!-- Three.js ESM build — module scope, no global needed -->
+  <script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
-    function buildColorMap(size) {
-      const c = document.createElement('canvas'); c.width = c.height = size;
-      const ctx = c.getContext('2d');
-      /* Deep space-purple base */
-      ctx.fillStyle = '#140430'; ctx.fillRect(0, 0, size, size);
-      /* Dark maria / ocean patches */
-      for (let i = 0; i < 90; i++) {
-        const cx = rng()*size, cy = rng()*size, rx = rng()*size*0.14+20, ry = rng()*size*0.07+10;
-        const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(rx,ry));
-        grad.addColorStop(0,'rgba(10,2,30,0.55)');
-        grad.addColorStop(1,'rgba(10,2,30,0)');
-        ctx.save(); ctx.scale(rx/Math.max(rx,ry),ry/Math.max(rx,ry)); ctx.fillStyle=grad; ctx.beginPath();
-        ctx.arc(cx*(Math.max(rx,ry)/rx),cy*(Math.max(rx,ry)/ry),Math.max(rx,ry),0,Math.PI*2);
-        ctx.fill(); ctx.restore();
-      }
-      /* Highland / continent blobs — mid-purple */
-      for (let i = 0; i < 70; i++) {
-        const cx = rng()*size, cy = rng()*size, r = rng()*size*0.09+8;
-        const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-        const a = 0.18+rng()*0.22;
-        grad.addColorStop(0,`rgba(90,40,160,${a})`);
-        grad.addColorStop(1,'rgba(90,40,160,0)');
-        ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-      }
-      /* Crystal speckles — pale violet-white */
-      for (let i = 0; i < 1400; i++) {
-        const x = rng()*size, y = rng()*size, r = rng()*1.4+0.3;
-        const a = rng()*0.35+0.05;
-        ctx.fillStyle = `rgba(210,185,255,${a})`; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
-      }
-      return new THREE.CanvasTexture(c);
+  let _s = 0xdeadbeef;
+  const rng = () => { _s^=_s<<13; _s^=_s>>17; _s^=_s<<5; return (_s>>>0)/4294967296; };
+
+  function buildColorMap(size) {
+    const c = document.createElement('canvas'); c.width = c.height = size;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#140430'; ctx.fillRect(0, 0, size, size);
+    for (let i = 0; i < 90; i++) {
+      const cx = rng()*size, cy = rng()*size, rx = rng()*size*0.14+20, ry = rng()*size*0.07+10;
+      const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(rx,ry));
+      grad.addColorStop(0,'rgba(10,2,30,0.55)');
+      grad.addColorStop(1,'rgba(10,2,30,0)');
+      ctx.save(); ctx.scale(rx/Math.max(rx,ry),ry/Math.max(rx,ry)); ctx.fillStyle=grad; ctx.beginPath();
+      ctx.arc(cx*(Math.max(rx,ry)/rx),cy*(Math.max(rx,ry)/ry),Math.max(rx,ry),0,Math.PI*2);
+      ctx.fill(); ctx.restore();
     }
-
-    function buildBumpMap(size) {
-      const c = document.createElement('canvas'); c.width = c.height = size;
-      const ctx = c.getContext('2d');
-      ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, size, size);
-      for (let i = 0; i < 160; i++) {
-        const cx = rng()*size, cy = rng()*size, r = rng()*size*0.07+5;
-        const bright = rng() > 0.5;
-        const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-        grad.addColorStop(0, bright ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)');
-        grad.addColorStop(1,'rgba(128,128,128,0)');
-        ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-      }
-      return new THREE.CanvasTexture(c);
+    for (let i = 0; i < 70; i++) {
+      const cx = rng()*size, cy = rng()*size, r = rng()*size*0.09+8;
+      const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+      const a = 0.18+rng()*0.22;
+      grad.addColorStop(0,`rgba(90,40,160,${a})`);
+      grad.addColorStop(1,'rgba(90,40,160,0)');
+      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
     }
-
-    const canvas = document.getElementById('globe');
-    if (!canvas) { console.warn('Globe canvas not found'); }
-    else {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 100);
-      camera.position.z = 4.0;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-      renderer.setClearColor(0, 0);
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-      /* Lighting */
-      scene.add(new THREE.AmbientLight(0x1a0840, 0.9));
-      const sun = new THREE.DirectionalLight(0xddc8ff, 5.5); sun.position.set(-1.4, 2.0, 2.4); scene.add(sun);
-      const rim = new THREE.DirectionalLight(0x5533cc, 0.55); rim.position.set(1.8, -0.6, -2.0); scene.add(rim);
-      const fill = new THREE.DirectionalLight(0x220066, 0.35); fill.position.set(0, -2, 1); scene.add(fill);
-
-      /* Globe sphere */
-      const sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(1, 128, 128),
-        new THREE.MeshStandardMaterial({
-          map: buildColorMap(1024),
-          bumpMap: buildBumpMap(512),
-          bumpScale: 0.026,
-          roughness: 0.78,
-          metalness: 0.0,
-          color: new THREE.Color(0x1a0840),
-          emissive: new THREE.Color(0x09001e),
-          emissiveIntensity: 0.50
-        })
-      );
-      scene.add(sphere);
-
-      /* Inner atmosphere glow */
-      const atmoInner = new THREE.Mesh(
-        new THREE.SphereGeometry(1.055, 64, 64),
-        new THREE.MeshBasicMaterial({
-          color: new THREE.Color(0x7733ff),
-          transparent: true,
-          opacity: 0.08,
-          blending: THREE.AdditiveBlending,
-          side: THREE.FrontSide,
-          depthWrite: false
-        })
-      );
-      scene.add(atmoInner);
-
-      /* Outer halo */
-      const atmoOuter = new THREE.Mesh(
-        new THREE.SphereGeometry(1.13, 64, 64),
-        new THREE.MeshBasicMaterial({
-          color: new THREE.Color(0x5511cc),
-          transparent: true,
-          opacity: 0.055,
-          blending: THREE.AdditiveBlending,
-          side: THREE.BackSide,
-          depthWrite: false
-        })
-      );
-      scene.add(atmoOuter);
-
-      /* Resize to match wrap */
-      const wrap = document.querySelector('.globe-wrap');
-      const container = document.querySelector('.globe-container');
-      const photo = document.querySelector('.hero-photo');
-      function resize() {
-        const size = innerWidth <= 768 ? Math.min(innerWidth, 500) : 700;
-        renderer.setSize(size, size);
-        wrap.style.width = size + 'px';
-        wrap.style.height = Math.round(size / 2) + 'px';
-        if (container) container.style.width = size + 'px';
-        if (photo) photo.style.top = Math.round(size * 0.20) + 'px';
-      }
-      resize();
-      addEventListener('resize', resize);
-
-      (function tick() {
-        requestAnimationFrame(tick);
-        sphere.rotation.y += 0.0007;
-        renderer.render(scene, camera);
-      })();
+    for (let i = 0; i < 1400; i++) {
+      const x = rng()*size, y = rng()*size, r = rng()*1.4+0.3;
+      const a = rng()*0.35+0.05;
+      ctx.fillStyle = `rgba(210,185,255,${a})`; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
     }
-  })();
+    return new THREE.CanvasTexture(c);
+  }
+
+  function buildBumpMap(size) {
+    const c = document.createElement('canvas'); c.width = c.height = size;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, size, size);
+    for (let i = 0; i < 160; i++) {
+      const cx = rng()*size, cy = rng()*size, r = rng()*size*0.07+5;
+      const bright = rng() > 0.5;
+      const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+      grad.addColorStop(0, bright ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)');
+      grad.addColorStop(1,'rgba(128,128,128,0)');
+      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+    }
+    return new THREE.CanvasTexture(c);
+  }
+
+  const canvas = document.getElementById('globe');
+  if (!canvas) {
+    console.warn('Globe canvas not found');
+  } else {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 100);
+    camera.position.z = 4.0;
+
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setClearColor(0, 0);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.15;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+    scene.add(new THREE.AmbientLight(0x1a0840, 0.9));
+    const sun = new THREE.DirectionalLight(0xddc8ff, 5.5); sun.position.set(-1.4, 2.0, 2.4); scene.add(sun);
+    const rim = new THREE.DirectionalLight(0x5533cc, 0.55); rim.position.set(1.8, -0.6, -2.0); scene.add(rim);
+    const fill = new THREE.DirectionalLight(0x220066, 0.35); fill.position.set(0, -2, 1); scene.add(fill);
+
+    const sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 128, 128),
+      new THREE.MeshStandardMaterial({
+        map: buildColorMap(1024),
+        bumpMap: buildBumpMap(512),
+        bumpScale: 0.026,
+        roughness: 0.78,
+        metalness: 0.0,
+        color: new THREE.Color(0x1a0840),
+        emissive: new THREE.Color(0x09001e),
+        emissiveIntensity: 0.50
+      })
+    );
+    scene.add(sphere);
+
+    const atmoInner = new THREE.Mesh(
+      new THREE.SphereGeometry(1.055, 64, 64),
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color(0x7733ff),
+        transparent: true,
+        opacity: 0.08,
+        blending: THREE.AdditiveBlending,
+        side: THREE.FrontSide,
+        depthWrite: false
+      })
+    );
+    scene.add(atmoInner);
+
+    const atmoOuter = new THREE.Mesh(
+      new THREE.SphereGeometry(1.13, 64, 64),
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color(0x5511cc),
+        transparent: true,
+        opacity: 0.055,
+        blending: THREE.AdditiveBlending,
+        side: THREE.BackSide,
+        depthWrite: false
+      })
+    );
+    scene.add(atmoOuter);
+
+    const wrap = document.querySelector('.globe-wrap');
+    const container = document.querySelector('.globe-container');
+    const photo = document.querySelector('.hero-photo');
+
+    function resize() {
+      const size = innerWidth <= 768 ? Math.min(innerWidth, 500) : 700;
+      renderer.setSize(size, size);
+      wrap.style.width = size + 'px';
+      wrap.style.height = Math.round(size / 2) + 'px';
+      if (container) container.style.width = size + 'px';
+      if (photo) photo.style.top = Math.round(size * 0.20) + 'px';
+    }
+    resize();
+    addEventListener('resize', resize);
+
+    (function tick() {
+      requestAnimationFrame(tick);
+      sphere.rotation.y += 0.0007;
+      renderer.render(scene, camera);
+    })();
+  }
   </script>
 </body>
 </html>
