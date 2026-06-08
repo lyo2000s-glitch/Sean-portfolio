@@ -1319,139 +1319,140 @@ If unsure about something, invite them to reach out via the contact section.`;
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
   </script>
 
-  <!-- Three.js ESM build — module scope, no global needed -->
-  <script type="module">
-  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+  <!-- Three.js r155 UMD — last stable version with full UMD support -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
+  <script>
+  (function () {
+    if (typeof THREE === 'undefined') { console.error('THREE not loaded'); return; }
 
-  let _s = 0xdeadbeef;
-  const rng = () => { _s^=_s<<13; _s^=_s>>17; _s^=_s<<5; return (_s>>>0)/4294967296; };
+    /* Seeded PRNG — deterministic texture every load */
+    var S = 0xc0ffee;
+    function rng() { S^=S<<13; S^=S>>17; S^=S<<5; return (S>>>0)/4294967296; }
 
-  function buildColorMap(size) {
-    const c = document.createElement('canvas'); c.width = c.height = size;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = '#140430'; ctx.fillRect(0, 0, size, size);
-    for (let i = 0; i < 90; i++) {
-      const cx = rng()*size, cy = rng()*size, rx = rng()*size*0.14+20, ry = rng()*size*0.07+10;
-      const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(rx,ry));
-      grad.addColorStop(0,'rgba(10,2,30,0.55)');
-      grad.addColorStop(1,'rgba(10,2,30,0)');
-      ctx.save(); ctx.scale(rx/Math.max(rx,ry),ry/Math.max(rx,ry)); ctx.fillStyle=grad; ctx.beginPath();
-      ctx.arc(cx*(Math.max(rx,ry)/rx),cy*(Math.max(rx,ry)/ry),Math.max(rx,ry),0,Math.PI*2);
-      ctx.fill(); ctx.restore();
+    /* Procedural surface texture — high contrast purples + bright speckles */
+    function buildColorMap(size) {
+      var c = document.createElement('canvas'); c.width = c.height = size;
+      var ctx = c.getContext('2d');
+      /* Dark-but-not-background base */
+      ctx.fillStyle = '#08021c'; ctx.fillRect(0, 0, size, size);
+      /* Large continent-like blobs — mid purple, visible */
+      for (var i = 0; i < 60; i++) {
+        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.12+14;
+        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+        var a = (0.3+rng()*0.35).toFixed(2);
+        g.addColorStop(0,'rgba(85,35,175,'+a+')');
+        g.addColorStop(1,'rgba(85,35,175,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+      }
+      /* Bright aurora-like streaks */
+      for (var i = 0; i < 18; i++) {
+        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.06+6;
+        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+        g.addColorStop(0,'rgba(160,100,255,0.5)');
+        g.addColorStop(1,'rgba(160,100,255,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+      }
+      /* Dense bright speckles — cities / stars */
+      for (var i = 0; i < 2000; i++) {
+        var x = rng()*size, y = rng()*size, r = rng()*1.6+0.2;
+        var a = (rng()*0.55+0.2).toFixed(2);
+        ctx.fillStyle='rgba(225,200,255,'+a+')';
+        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
+      }
+      return new THREE.CanvasTexture(c);
     }
-    for (let i = 0; i < 70; i++) {
-      const cx = rng()*size, cy = rng()*size, r = rng()*size*0.09+8;
-      const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-      const a = 0.18+rng()*0.22;
-      grad.addColorStop(0,`rgba(90,40,160,${a})`);
-      grad.addColorStop(1,'rgba(90,40,160,0)');
-      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-    }
-    for (let i = 0; i < 1400; i++) {
-      const x = rng()*size, y = rng()*size, r = rng()*1.4+0.3;
-      const a = rng()*0.35+0.05;
-      ctx.fillStyle = `rgba(210,185,255,${a})`; ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
-    }
-    return new THREE.CanvasTexture(c);
-  }
 
-  function buildBumpMap(size) {
-    const c = document.createElement('canvas'); c.width = c.height = size;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, size, size);
-    for (let i = 0; i < 160; i++) {
-      const cx = rng()*size, cy = rng()*size, r = rng()*size*0.07+5;
-      const bright = rng() > 0.5;
-      const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-      grad.addColorStop(0, bright ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.18)');
-      grad.addColorStop(1,'rgba(128,128,128,0)');
-      ctx.fillStyle = grad; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+    function buildBumpMap(size) {
+      var c = document.createElement('canvas'); c.width = c.height = size;
+      var ctx = c.getContext('2d');
+      ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, size, size);
+      for (var i = 0; i < 140; i++) {
+        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.06+4;
+        var bright = rng() > 0.5;
+        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
+        g.addColorStop(0, bright?'rgba(255,255,255,0.28)':'rgba(0,0,0,0.22)');
+        g.addColorStop(1,'rgba(128,128,128,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
+      }
+      return new THREE.CanvasTexture(c);
     }
-    return new THREE.CanvasTexture(c);
-  }
 
-  const canvas = document.getElementById('globe');
-  if (!canvas) {
-    console.warn('Globe canvas not found');
-  } else {
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 100);
-    camera.position.z = 4.0;
+    var canvas = document.getElementById('globe');
+    if (!canvas) { console.warn('globe canvas missing'); return; }
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-    renderer.setClearColor(0, 0);
+    var scene    = new THREE.Scene();
+    /* FOV 45° — sphere properly framed, full globe visible, not a close-up */
+    var camera   = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
+    camera.position.z = 3.8;
+
+    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.15;
+    renderer.toneMappingExposure = 1.2;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-    scene.add(new THREE.AmbientLight(0x1a0840, 0.9));
-    const sun = new THREE.DirectionalLight(0xddc8ff, 5.5); sun.position.set(-1.4, 2.0, 2.4); scene.add(sun);
-    const rim = new THREE.DirectionalLight(0x5533cc, 0.55); rim.position.set(1.8, -0.6, -2.0); scene.add(rim);
-    const fill = new THREE.DirectionalLight(0x220066, 0.35); fill.position.set(0, -2, 1); scene.add(fill);
+    /* Lighting — enough to show the sphere clearly against the dark bg */
+    scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+    var sun = new THREE.DirectionalLight(0xeeddff, 3.5);
+    sun.position.set(-1.8, 2.2, 2.5); scene.add(sun);
+    var rim = new THREE.DirectionalLight(0xaa55ff, 1.8);
+    rim.position.set(2.0, -0.5, -2.0); scene.add(rim);
 
-    const sphere = new THREE.Mesh(
-      new THREE.SphereGeometry(1, 128, 128),
+    /* Globe sphere */
+    var sphere = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 96, 96),
       new THREE.MeshStandardMaterial({
-        map: buildColorMap(1024),
-        bumpMap: buildBumpMap(512),
-        bumpScale: 0.026,
-        roughness: 0.78,
-        metalness: 0.0,
-        color: new THREE.Color(0x1a0840),
-        emissive: new THREE.Color(0x09001e),
-        emissiveIntensity: 0.50
+        map:             buildColorMap(1024),
+        bumpMap:         buildBumpMap(512),
+        bumpScale:       0.03,
+        roughness:       0.65,
+        metalness:       0.05,
+        emissive:        new THREE.Color(0x5522cc),
+        emissiveIntensity: 0.55
       })
     );
     scene.add(sphere);
 
-    const atmoInner = new THREE.Mesh(
-      new THREE.SphereGeometry(1.055, 64, 64),
+    /* Inner atmosphere — soft inner glow */
+    scene.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.06, 64, 64),
       new THREE.MeshBasicMaterial({
-        color: new THREE.Color(0x7733ff),
-        transparent: true,
-        opacity: 0.08,
-        blending: THREE.AdditiveBlending,
-        side: THREE.FrontSide,
-        depthWrite: false
+        color: 0x9944ff, transparent: true, opacity: 0.10,
+        blending: THREE.AdditiveBlending, side: THREE.FrontSide, depthWrite: false
       })
-    );
-    scene.add(atmoInner);
+    ));
 
-    const atmoOuter = new THREE.Mesh(
-      new THREE.SphereGeometry(1.13, 64, 64),
+    /* Outer halo — large, clearly visible purple ring at the edge */
+    scene.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.38, 64, 64),
       new THREE.MeshBasicMaterial({
-        color: new THREE.Color(0x5511cc),
-        transparent: true,
-        opacity: 0.055,
-        blending: THREE.AdditiveBlending,
-        side: THREE.BackSide,
-        depthWrite: false
+        color: 0x8833ff, transparent: true, opacity: 0.22,
+        blending: THREE.AdditiveBlending, side: THREE.BackSide, depthWrite: false
       })
-    );
-    scene.add(atmoOuter);
+    ));
 
-    const wrap = document.querySelector('.globe-wrap');
-    const container = document.querySelector('.globe-container');
-    const photo = document.querySelector('.hero-photo');
+    /* Layout sync */
+    var wrap      = document.querySelector('.globe-wrap');
+    var container = document.querySelector('.globe-container');
+    var photo     = document.querySelector('.hero-photo');
 
     function resize() {
-      const size = innerWidth <= 768 ? Math.min(innerWidth, 500) : 700;
+      var size = window.innerWidth <= 768 ? Math.min(window.innerWidth - 16, 500) : 700;
       renderer.setSize(size, size);
-      wrap.style.width = size + 'px';
-      wrap.style.height = Math.round(size / 2) + 'px';
-      if (container) container.style.width = size + 'px';
-      if (photo) photo.style.top = Math.round(size * 0.20) + 'px';
+      if (wrap)      { wrap.style.width = size+'px'; wrap.style.height = Math.round(size*0.5)+'px'; }
+      if (container) { container.style.width = size+'px'; }
+      if (photo)     { photo.style.top = Math.round(size*0.20)+'px'; }
     }
     resize();
-    addEventListener('resize', resize);
+    window.addEventListener('resize', resize);
 
     (function tick() {
       requestAnimationFrame(tick);
-      sphere.rotation.y += 0.0007;
+      sphere.rotation.y += 0.0006;
       renderer.render(scene, camera);
-    })();
-  }
+    }());
+  })();
   </script>
 </body>
 </html>
