@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sean Lyons - Marketing and Brand Specialist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #0a0a0f;
+      --surface:      #111118;
+      --surface-2:    #1a1a2e;
+      --border:       rgba(255, 255, 255, 0.07);
+      --border-hover: rgba(123, 47, 255, 0.4);
+      --accent:       #7b2fff;
+      --accent-light: #9b6fff;
+      --text:         #ffffff;
+      --text-muted:   #888899;
+      --text-dim:     #555566;
+      --hero-gradient: radial-gradient(ellipse 80% 60% at 50% 0%, #7b2fff 0%, #3d0066 40%, #1a0040 100%);
+      --section-pad-desktop: 130px;
+      --section-pad-mobile:  64px;
+      --content-max:         1160px;
+      --gutter-desktop:      48px;
+      --gutter-mobile:       24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      opacity: 0;
+      transition: opacity 600ms ease;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(10, 10, 15, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--gutter-desktop);
+      z-index: 100;
+    }
+
+    .nav-monogram {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 21px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    nav a {
+      position: relative;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      transition: color 300ms ease;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 300ms ease;
+    }
+
+    nav a:hover { color: var(--text); }
+    nav a:hover::after { transform: scaleX(1); }
+
+    .nav-pill {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: background 300ms ease, color 300ms ease;
+    }
+
+    .nav-pill:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .nav-pill::after { display: none; }
+
+    /* ---- SECTION COMMON ---- */
+    .section-inner {
+      max-width: var(--content-max);
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .section-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(28px, 3.5vw, 48px);
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 48px;
+    }
+
+    /* ---- HERO ---- */
+    #hero {
+      min-height: 100vh;
+      min-height: 640px;
+      background: var(--hero-gradient);
+      padding-top: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 80px;
+    }
+
+    .hero-location {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-top: 100px;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 7.5vw, 100px);
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--text);
+      margin-top: 20px;
+    }
+
+    .hero-headline em strong {
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .globe-wrap {
+      position: relative;
+      width: 600px;
+      height: 600px;
+      margin: 48px auto 0;
+    }
+
+    .globe-glow {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,47,255,0.3) 0%, transparent 70%);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      filter: blur(40px);
+    }
+
+    #globe {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-photo {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      border: 3px solid rgba(123, 47, 255, 0.85);
+      box-shadow: 0 0 0 6px rgba(123, 47, 255, 0.15), 0 0 40px rgba(123, 47, 255, 0.35);
+      top: 28%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+    }
+
+    .hero-name {
+      margin-top: 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    .hero-cta {
+      display: inline-block;
+      margin-top: 28px;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      padding: 13px 30px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: background 300ms ease;
+    }
+
+    .hero-cta:hover { background: var(--accent-light); }
+
+    /* ---- SCROLL REVEAL ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- CHAT SECTION ---- */
+    #chat {
+      padding: var(--section-pad-desktop) var(--gutter-desktop);
+      background: var(--bg);
+    }
+
+    .chat-subtext {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .chat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      max-width: 740px;
+      margin: 48px auto 0;
+      overflow: hidden;
+    }
+
+    .chat-header {
+      padding: 18px 26px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.4); opacity: 0.5; }
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    .chat-header-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .chat-header-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-muted);
+    }
+
+    .chat-header-hint {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+    }
+
+    .message-area {
+      min-height: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .message-area::-webkit-scrollbar { width: 4px; }
+    .message-area::-webkit-scrollbar-track { background: transparent; }
+    .message-area::-webkit-scrollbar-thumb { background: rgba(123,47,255,0.3); border-radius: 2px; }
+
+    @keyframes bubbleIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-bubble {
+      opacity: 0;
+      transform: translateY(8px);
+      animation: bubbleIn 400ms ease forwards;
+      max-width: 82%;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      padding: 13px 17px;
+    }
+
+    .chat-bubble.ai {
+      align-self: flex-start;
+      background: var(--surface-2);
+      border-radius: 4px 16px 16px 16px;
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: var(--accent);
+      border-radius: 16px 4px 16px 16px;
+      color: #fff;
+      font-weight: 400;
+    }
+
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    @keyframes typingDot {
+      0%, 60%, 100% { opacity: 0.2; transform: translateY(0); }
+      30%            { opacity: 1;   transform: translateY(-4px); }
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      animation: typingDot 1.2s ease-in-out infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    .chat-input-row {
+      padding: 14px 26px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 11px 20px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 300ms ease;
+    }
+
+    .chat-input::placeholder { color: var(--text-dim); }
+    .chat-input:focus { border-color: rgba(123, 47, 255, 0.6); }
+
+    .send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 300ms ease;
+      flex-shrink: 0;
+    }
+
+    .send-btn:hover { background: var(--accent-light); }
+
+    /* ---- WORK SECTION ---- */
+    #work {
+      padding: var(--section-pad-desktop) var(--gutter-desktop);
+      background: var(--bg);
+    }
+
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .work-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: default;
+      transition: transform 300ms ease, border-color 300ms ease, box-shadow 300ms ease;
+    }
+
+    .work-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-hover);
+      box-shadow: 0 16px 48px rgba(123, 47, 255, 0.12);
+    }
+
+    .card-image {
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      background: var(--surface-2);
+    }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 400ms ease;
+    }
+
+    .work-card:hover .card-image img { transform: scale(1.03); }
+
+    .card-body {
+      padding: 22px 24px 24px;
+    }
+
+    .card-category {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .card-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--accent-light);
+      background: rgba(123, 47, 255, 0.12);
+      border: 1px solid rgba(123, 47, 255, 0.25);
+      border-radius: 999px;
+      padding: 4px 11px;
+    }
+
+    .card-testimonial {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .card-testimonial blockquote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.65;
+      margin: 0 0 10px 0;
+    }
+
+    .card-testimonial cite {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+
+    /* ---- STATS SECTION ---- */
+    #stats {
+      padding: var(--section-pad-desktop) var(--gutter-desktop);
+      background: var(--bg);
+    }
+
+    .stats-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-top: -32px;
+      margin-bottom: 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 34px 24px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: clamp(34px, 4vw, 52px);
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .stat-niche {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    /* ---- CONTACT SECTION ---- */
+    #contact {
+      padding: var(--section-pad-desktop) var(--gutter-desktop);
+      background: var(--bg);
+    }
+
+    .contact-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-top: -32px;
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .contact-btn {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 13px 30px;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: background 300ms ease, color 300ms ease;
+      display: inline-block;
+    }
+
+    .contact-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .contact-btn::after { display: none; }
+
+    /* ---- FOOTER ---- */
+    footer {
+      padding: 36px var(--gutter-desktop);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--text-dim);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      nav { padding: 0 var(--gutter-mobile); }
+
+      .hero-headline { font-size: clamp(38px, 9vw, 60px); }
+
+      .globe-wrap { width: 340px; height: 340px; }
+      #globe { width: 340px; height: 340px; }
+      .hero-photo { width: 100px; height: 100px; }
+
+      .work-grid { grid-template-columns: 1fr; }
+
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+      #chat, #work, #stats, #contact {
+        padding: var(--section-pad-mobile) var(--gutter-mobile);
+      }
+
+      footer { padding: 32px var(--gutter-mobile); }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-monogram">SL</a>
+    <div class="nav-right">
+      <div class="nav-links" style="display:flex;gap:32px;align-items:center;">
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="nav-pill">LinkedIn</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-location">Melbourne, Australia</p>
+    <h1 class="hero-headline">
+      Brand thinking,<br>
+      marketing that <em><strong>moves,</strong></em><br>
+      <em><strong>and the proof</strong></em> to back it up.
+    </h1>
+    <div class="globe-wrap">
+      <div class="globe-glow"></div>
+      <!-- sean.png not found locally - add images/sean.png to show photo -->
+      <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
+      <canvas id="globe" width="600" height="600"></canvas>
+    </div>
+    <p class="hero-name">Sean Lyons - Marketing and Brand Specialist</p>
+    <a href="#work" class="hero-cta">View my work</a>
+  </section>
+
+  <!-- CHAT SECTION -->
+  <section id="chat">
+    <div class="section-inner">
+      <p class="section-label">Ask me anything</p>
+      <p class="chat-subtext">Recruiters - ask about my background, experience, or what I'm looking for.</p>
+      <div class="chat-card reveal">
+        <div class="chat-header">
+          <div class="chat-header-left">
+            <div class="pulse-dot"></div>
+            <div>
+              <div class="chat-header-title">AI Assistant</div>
+              <div class="chat-header-sub">Powered by Claude</div>
+            </div>
+          </div>
+          <span class="chat-header-hint">Ask me anything about Sean</span>
+        </div>
+        <div class="message-area" id="messageArea"></div>
+        <div class="chat-input-row">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything...">
+          <button class="send-btn" id="sendBtn" aria-label="Send">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 8h12M10 4l4 4-4 4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK SECTION -->
+  <section id="work">
+    <div class="section-inner">
+      <p class="section-label">Selected Work</p>
+      <h2 class="section-headline">Work that <em><strong>actually ran.</strong></em></h2>
+      <div class="work-grid">
+
+        <!-- Card 1: The Creatine Lab -->
+        <div class="work-card reveal">
+          <div class="card-image">
+            <img src="images/creatine-lab-brand.jpg" alt="The Creatine Lab">
+          </div>
+          <div class="card-body">
+            <p class="card-category">Brand Identity</p>
+            <h3 class="card-title">The Creatine Lab</h3>
+            <p class="card-desc">Logo, packaging, and full brand identity built from the ground up.</p>
+            <div class="card-tags">
+              <span class="tag">Brand Identity</span>
+              <span class="tag">Packaging</span>
+              <span class="tag">Meta Ads</span>
+            </div>
+            <div class="card-testimonial">
+              <blockquote>"This branding gave us an identity worth backing. Every detail feels considered and sharp."</blockquote>
+              <cite>Needal, Founder, The Creatine Lab</cite>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Joiluxe Media -->
+        <div class="work-card reveal">
+          <div class="card-image">
+            <img src="images/cilara-skincare.gif" alt="Joiluxe Media">
+          </div>
+          <div class="card-body">
+            <p class="card-category">Content Creation</p>
+            <h3 class="card-title">Joiluxe Media</h3>
+            <p class="card-desc">3D visuals and ad creatives for a range of direct-to-consumer brands.</p>
+            <div class="card-tags">
+              <span class="tag">3D Visuals</span>
+              <span class="tag">Ad Creative</span>
+              <span class="tag">DTC</span>
+            </div>
+            <div class="card-testimonial">
+              <blockquote>"Sean demonstrated a real understanding of our brand vision. His work made a defined impact on our marketing objectives."</blockquote>
+              <cite>Tim Snape, Marketing Director, Heaps Normal</cite>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Final Edit Mockups -->
+        <div class="work-card reveal">
+          <div class="card-image">
+            <img src="images/final-edit-brand.png" alt="Final Edit Mockups">
+          </div>
+          <div class="card-body">
+            <p class="card-category">Brand and Web</p>
+            <h3 class="card-title">Final Edit Mockups</h3>
+            <p class="card-desc">Logo, brand identity, and ecommerce website for a free mockup resource platform.</p>
+            <div class="card-tags">
+              <span class="tag">Branding</span>
+              <span class="tag">Web Design</span>
+              <span class="tag">Ecommerce</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Ad Creative -->
+        <div class="work-card reveal">
+          <div class="card-image">
+            <img src="images/apple-ad.png" alt="Ad Creative Development">
+          </div>
+          <div class="card-body">
+            <p class="card-category">Paid Social</p>
+            <h3 class="card-title">Ad Creative</h3>
+            <p class="card-desc">Paid social creative for multiple brands, built for Meta and Instagram.</p>
+            <div class="card-tags">
+              <span class="tag">Ad Creative</span>
+              <span class="tag">Meta Ads</span>
+              <span class="tag">Social</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section id="stats">
+    <div class="section-inner">
+      <p class="section-label">By the Numbers</p>
+      <p class="stats-sub">Content for marketers, brand builders, and startup founders.</p>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card reveal">
+          <div class="stat-number" data-target="2" data-suffix="M+">0M+</div>
+          <div class="stat-label">Total Views</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-number" data-target="200" data-suffix="K+">0K+</div>
+          <div class="stat-label">Total Likes</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-number" data-target="30" data-suffix="K+">0K+</div>
+          <div class="stat-label">Total Shares</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="stat-niche">Marketing / Design / Startup</div>
+          <div class="stat-label" style="margin-top:14px;">Niche</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-headline">Let's work <em><strong>together.</strong></em></h2>
+      <p class="contact-sub">Open to full-time and contract roles in Melbourne.</p>
+      <div class="contact-buttons">
+        <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="contact-btn reveal">LinkedIn</a>
+        <a href="mailto:eight.joi@gmail.com" class="contact-btn reveal">eight.joi@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Sean Lyons 2026 - Melbourne, Australia</p>
+  </footer>
+
+  <script>
+    // -------------------------------------------------------
+    // IMPORTANT: Replace the value below with your Anthropic API key
+    // Get one at https://console.anthropic.com
+    // -------------------------------------------------------
+    const ANTHROPIC_API_KEY = 'YOUR_KEY_HERE';
+
+    // Page load fade
+    document.addEventListener('DOMContentLoaded', () => {
+      requestAnimationFrame(() => {
+        document.body.style.opacity = '1';
+      });
+    });
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = `${i % 4 * 100}ms`;
+      revealObserver.observe(el);
+    });
+
+    // Globe animation
+    const ROTATION_SPEED = (Math.PI * 2) / (18 * 60);
+    let rotation = 0;
+
+    function drawGlobe(canvas) {
+      const ctx = canvas.getContext('2d');
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const r = canvas.width * 0.46;
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const grad = ctx.createRadialGradient(cx - r * 0.2, cy - r * 0.2, r * 0.1, cx, cy, r);
+      grad.addColorStop(0, '#1a0050');
+      grad.addColorStop(1, '#0d0020');
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(123, 47, 255, 0.45)';
+      ctx.lineWidth = 0.8;
+      for (let lat = -80; lat <= 80; lat += 20) {
+        const latRad = (lat * Math.PI) / 180;
+        const ry = r * Math.cos(latRad);
+        const yPos = cy + r * Math.sin(latRad);
+        ctx.beginPath();
+        ctx.ellipse(cx, yPos, ry, ry * 0.18, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      for (let lon = 0; lon < 360; lon += 20) {
+        const lonRad = ((lon + rotation * 180 / Math.PI) * Math.PI) / 180;
+        const rx = r * Math.abs(Math.cos(lonRad));
+        ctx.beginPath();
+        ctx.ellipse(cx, cy, rx, r, lonRad > Math.PI / 2 && lonRad < Math.PI * 1.5 ? 0 : 0, 0, Math.PI * 2);
+        ctx.globalAlpha = 0.5;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
+      const highlight = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.35, 0, cx - r * 0.35, cy - r * 0.35, r * 0.6);
+      highlight.addColorStop(0, 'rgba(160, 100, 255, 0.15)');
+      highlight.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fillStyle = highlight;
+      ctx.fill();
+    }
+
+    function animateGlobe() {
+      const canvas = document.getElementById('globe');
+      if (canvas) {
+        drawGlobe(canvas);
+        rotation += ROTATION_SPEED;
+      }
+      requestAnimationFrame(animateGlobe);
+    }
+
+    animateGlobe();
+
+    // Handle mobile globe resize
+    function resizeGlobe() {
+      const canvas = document.getElementById('globe');
+      const wrap = document.querySelector('.globe-wrap');
+      if (window.innerWidth <= 768) {
+        canvas.width = 340;
+        canvas.height = 340;
+        wrap.style.width = '340px';
+        wrap.style.height = '340px';
+      } else {
+        canvas.width = 600;
+        canvas.height = 600;
+        wrap.style.width = '600px';
+        wrap.style.height = '600px';
+      }
+    }
+    resizeGlobe();
+    window.addEventListener('resize', resizeGlobe);
+
+    // Stat count-up
+    function easeOutExpo(t) {
+      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+    }
+
+    function countUp(el, target, suffix, duration) {
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutExpo(progress);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    let statsTriggered = false;
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !statsTriggered) {
+          statsTriggered = true;
+          document.querySelectorAll('[data-target]').forEach(el => {
+            const target = parseInt(el.dataset.target);
+            const suffix = el.dataset.suffix;
+            countUp(el, target, suffix, 1800);
+          });
+          statsObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const statsGrid = document.getElementById('statsGrid');
+    if (statsGrid) statsObserver.observe(statsGrid);
+
+    // Chat
+    const conversationHistory = [];
+    const messageArea = document.getElementById('messageArea');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    const SYSTEM_PROMPT = `You are an AI assistant embedded in Sean Lyons' personal portfolio website. Your job is to answer questions from recruiters about Sean's career, skills, experience, and what he is looking for. Be conversational, warm, and concise. Keep every response to 2 to 4 sentences. Never use em dashes. Never use bullet points. Write in plain, natural sentences. Never make things up - if you are unsure of something, say so and invite them to reach out directly.
+
+ABOUT SEAN LYONS
+
+Sean Lyons is a Melbourne-based marketing and brand specialist in his mid-twenties. He holds a Bachelor of Business, majoring in Marketing and Media, from La Trobe University, completed November 2021.
+
+CURRENT ROLE
+
+Company: HungryHungry
+Title: Marketing (Performance and Brand)
+Start date: March 2026, present
+Responsibilities: Growing a portfolio of hospitality brands including Otto, HungryHungry, and MOBI. Day to day work includes performance marketing, Meta ads strategy and execution, event expos and activations, campaign planning and coordination, email marketing, and AI-powered marketing automation workflows.
+
+PREVIOUS ROLE
+
+Company: Dental Focus Marketing
+Title: Marketing Manager
+Dates: April 2022 to early 2026
+Responsibilities: Managed and delivered marketing campaigns across digital, social, email, and web channels for over 30 dental clients simultaneously. Maintained a 5-star client rating throughout. Built automated EDM campaigns using Mailchimp and Apollo.io. Led SEO projects to improve organic rankings and traffic. Designed and managed websites on WordPress, Wix, and HTML. Coordinated trade events and generated new business. Developed and implemented marketing strategies focused on conversion optimisation and user experience.
+
+INTERNSHIP
+
+Company: SkyThanks
+Title: Digital Marketing Intern
+Dates: April 2021 to September 2021
+Responsibilities: Managed social media channels, created promotional content, mapped EDM campaign workflows, and managed HubSpot CRM to organise leads and optimise campaign performance.
+Reference letter available at: https://tinyurl.com/Skythanks-reference-2021
+
+FREELANCE WORK
+
+The Creatine Lab: Logo design, packaging design, full brand identity system, and Meta and Instagram ad creatives to support paid growth campaigns.
+
+Joiluxe Media: Bespoke 3D visuals and ad creatives produced for a range of direct-to-consumer brands.
+
+Final Edit Mockups: Logo design, brand identity, and full ecommerce website development. This is also Sean's own product - a website offering free mockup resources for brand and graphic designers.
+
+Client testimonial from The Creatine Lab (Needal, Founder): "This branding gave us an identity worth backing. We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved."
+
+Client testimonial from Heaps Normal (Tim Snape, Marketing Director): "Sean demonstrated a keen understanding of our brand vision and translated it into visually stunning 3D elements. His work definitely made a defined impact on our marketing objectives."
+
+SKILLS
+
+Marketing and strategy: Meta Ads, performance marketing, SEO, email marketing, campaign planning, conversion optimisation, brand strategy, content creation, social media management.
+
+Tools and platforms: Mailchimp, Brevo, Klaviyo, Apollo.io, HubSpot, WordPress, Wix, Make.com, Claude API, Apify, Twilio, Google Analytics.
+
+Creative tools: Adobe Photoshop, Adobe Illustrator, Adobe Premiere Pro, Adobe After Effects, DaVinci Resolve, Blender, Figma.
+
+Technical: HTML, CSS, basic JavaScript, AI workflow automation.
+
+CONTENT CREATION
+
+Sean runs a content page targeting marketers, brand builders, and startup founders. The page has accumulated over 2 million total views, 200 thousand total likes, and 30 thousand total shares.
+
+WHAT SEAN IS LOOKING FOR
+
+Sean is actively looking for full-time or contract roles in Melbourne across marketing coordinator, marketing specialist, brand, creative, and marketing automation positions. He is particularly interested in companies doing something interesting in the startup, DTC, or hospitality space.
+
+CONTACT
+
+LinkedIn: https://www.linkedin.com/in/sean-lyons-3417751a4/
+Email: eight.joi@gmail.com
+
+If a recruiter asks something you do not know about Sean, say you are not sure and invite them to reach out to him directly via the contact section or at eight.joi@gmail.com.`;
+
+    function appendMessage(role, text) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('chat-bubble', role);
+      bubble.textContent = text;
+      messageArea.appendChild(bubble);
+      messageArea.scrollTop = messageArea.scrollHeight;
+      return bubble;
+    }
+
+    function showTyping() {
+      const bubble = document.createElement('div');
+      bubble.classList.add('chat-bubble', 'ai');
+      bubble.id = 'typingIndicator';
+      const indicator = document.createElement('div');
+      indicator.classList.add('typing-indicator');
+      for (let i = 0; i < 3; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('typing-dot');
+        indicator.appendChild(dot);
+      }
+      bubble.appendChild(indicator);
+      messageArea.appendChild(bubble);
+      messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    function removeTyping() {
+      const el = document.getElementById('typingIndicator');
+      if (el) el.remove();
+    }
+
+    async function sendMessage(userText) {
+      conversationHistory.push({ role: 'user', content: userText });
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': ANTHROPIC_API_KEY,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 400,
+          system: SYSTEM_PROMPT,
+          messages: conversationHistory
+        })
+      });
+
+      const data = await response.json();
+      const reply = data.content[0].text;
+      conversationHistory.push({ role: 'assistant', content: reply });
+      return reply;
+    }
+
+    async function handleSend() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      chatInput.value = '';
+      appendMessage('user', text);
+      showTyping();
+
+      try {
+        const reply = await sendMessage(text);
+        removeTyping();
+        appendMessage('ai', reply);
+      } catch (err) {
+        removeTyping();
+        appendMessage('ai', 'Something went wrong. Feel free to reach out to Sean directly using the contact section below.');
+      }
+    }
+
+    sendBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleSend();
+    });
+
+    // Seed message on load
+    appendMessage('ai', "Hi, I'm an AI trained on Sean's background. Ask me anything about his experience, the roles he's after, or his work.");
+  </script>
+</body>
+</html>
