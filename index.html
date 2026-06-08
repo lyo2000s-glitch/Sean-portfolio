@@ -3,30 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sean Lyons - Marketing and Brand Specialist</title>
+  <title>Sean Lyons - Brand & Marketing Specialist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:           #f4f2ed;
-      --surface:      #ffffff;
-      --surface-2:    #edeae3;
-      --border:       rgba(0, 0, 0, 0.07);
-      --border-hover: rgba(108, 43, 217, 0.25);
-      --accent:       #6c2bd9;
-      --accent-light: #9b6fff;
-      --accent-bg:    rgba(108, 43, 217, 0.07);
-      --text:         #111111;
-      --text-muted:   #666666;
-      --text-dim:     #aaaaaa;
-      --shadow-sm:    0 2px 10px rgba(0,0,0,0.06);
-      --shadow-md:    0 6px 28px rgba(0,0,0,0.09);
-      --content-max:  1180px;
-      --gutter:       48px;
-      --gutter-sm:    24px;
-      --section-pad:  96px;
+      --bg:      #eeece6;
+      --card:    #ffffff;
+      --border:  rgba(0,0,0,0.07);
+      --shadow:  0 2px 12px rgba(0,0,0,0.06);
+      --accent:  #6c2bd9;
+      --text:    #111111;
+      --muted:   #666666;
+      --dim:     #aaaaaa;
+      --radius:  24px;
+      --gap:     14px;
+      --pad:     36px;
+      --max:     1200px;
+      --gutter:  40px;
     }
 
     html { scroll-behavior: smooth; }
@@ -42,23 +38,29 @@
     /* ---- NAV ---- */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 60px;
-      background: rgba(244, 242, 237, 0.94);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border-bottom: 1px solid var(--border);
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 80px);
+      max-width: var(--max);
+      height: 52px;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 var(--gutter);
+      padding: 0 24px;
       z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
     }
 
     .nav-monogram {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 20px;
+      font-size: 19px;
       color: var(--text);
       text-decoration: none;
     }
@@ -66,13 +68,13 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 28px;
     }
 
     nav a {
       text-decoration: none;
-      color: var(--text-muted);
-      font-size: 14px;
+      color: var(--muted);
+      font-size: 13px;
       font-weight: 400;
       transition: color 200ms;
     }
@@ -80,7 +82,7 @@
     nav a:hover { color: var(--text); }
 
     .nav-pill {
-      border: 1.5px solid var(--text);
+      border: 1.5px solid var(--text) !important;
       color: var(--text) !important;
       padding: 6px 18px;
       border-radius: 999px;
@@ -90,57 +92,71 @@
     }
 
     .nav-pill:hover {
-      background: var(--text);
+      background: var(--text) !important;
       color: #fff !important;
     }
 
-    /* ---- HERO ---- */
-    #hero {
-      min-height: 100vh;
+    /* ---- PAGE WRAP ---- */
+    .page-wrap {
+      max-width: calc(var(--max) + var(--gutter) * 2);
+      margin: 0 auto;
+      padding: 88px var(--gutter) 48px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      padding-top: 60px;
-      background: linear-gradient(180deg, #e9e5da 0%, #f4f2ed 60%);
+      gap: var(--gap);
+    }
+
+    /* ---- BASE CARD ---- */
+    .bcard {
+      background: var(--card);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .hero-text {
-      flex: 1;
+    /* ---- HERO CARD ---- */
+    .hero-card {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      background: linear-gradient(170deg, #e8e4d9 0%, #f5f3ee 100%);
+      padding-top: 56px;
+    }
+
+    .hero-text {
       text-align: center;
-      padding: 40px var(--gutter) 48px;
-      max-width: 920px;
+      padding: 0 var(--gutter) 48px;
+      max-width: 860px;
       width: 100%;
     }
 
     .hero-location {
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.24em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 22px;
+      color: var(--muted);
+      margin-bottom: 20px;
     }
 
     .hero-headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(46px, 6.5vw, 92px);
+      font-size: clamp(42px, 6vw, 86px);
       font-weight: 400;
       line-height: 1.08;
       color: var(--text);
-      margin-bottom: 38px;
+      margin-bottom: 6px;
     }
 
-    .hero-headline em { font-style: italic; }
-    .hero-headline strong { font-weight: 700; }
-
     .hero-sub {
-      font-size: clamp(28px, 3.8vw, 54px);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(24px, 3.2vw, 48px);
+      line-height: 1.15;
       display: block;
+      margin-bottom: 36px;
     }
 
     .hero-cta {
@@ -149,16 +165,13 @@
       color: #fff;
       font-size: 14px;
       font-weight: 500;
-      padding: 14px 34px;
+      padding: 13px 32px;
       border-radius: 999px;
       text-decoration: none;
-      transition: background 200ms, transform 200ms;
+      transition: background 200ms;
     }
 
-    .hero-cta:hover {
-      background: var(--accent);
-      transform: translateY(-1px);
-    }
+    .hero-cta:hover { background: var(--accent); }
 
     /* ---- GLOBE ---- */
     .globe-wrap {
@@ -168,101 +181,92 @@
       overflow: hidden;
       position: relative;
       flex-shrink: 0;
-      margin-top: auto;
+      margin-top: 8px;
     }
 
-    #globe {
-      display: block;
-      margin: 0 auto;
-    }
+    #globe { display: block; margin: 0 auto; }
 
     .hero-photo {
       position: absolute;
-      width: 130px;
-      height: 130px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       object-fit: cover;
       object-position: center top;
       border: 3px solid rgba(255,255,255,0.95);
-      box-shadow: 0 4px 28px rgba(0,0,0,0.22);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
       top: 175px;
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 3;
     }
 
-    /* ---- BENTO SECTION ---- */
-    #bento {
-      padding: var(--section-pad) var(--gutter);
-    }
-
-    .bento-grid {
-      max-width: var(--content-max);
-      margin: 0 auto;
+    /* ---- BENTO ROWS ---- */
+    .brow {
       display: grid;
+      gap: var(--gap);
+    }
+
+    .stats-brow {
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
+      grid-auto-rows: 1fr;
     }
 
-    .bento-card {
-      background: var(--surface);
-      border-radius: 20px;
-      padding: 30px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .bento-bio {
+    .bio-card {
       grid-column: span 2;
       grid-row: span 2;
-    }
-
-    .bento-bio-headline {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 2.4vw, 30px);
-      font-weight: 400;
-      line-height: 1.3;
-      color: var(--text);
-      margin-bottom: 16px;
-    }
-
-    .bento-bio-headline em { font-style: italic; }
-
-    .bento-bio p {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-
-    .bento-bio p + p { margin-top: 12px; }
-
-    .bento-stat {
+      padding: var(--pad);
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
-    .bento-stat-number {
-      font-size: clamp(38px, 4.5vw, 54px);
+    .bio-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 16px;
+    }
+
+    .bio-headline em { font-style: italic; }
+
+    .bio-card p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .bio-card p + p { margin-top: 10px; }
+
+    .stat-card {
+      padding: var(--pad);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat-number {
+      font-size: clamp(34px, 4vw, 50px);
       font-weight: 700;
       color: var(--text);
       line-height: 1;
     }
 
-    .bento-stat-label {
+    .stat-label {
       font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
+      color: var(--muted);
       margin-top: 8px;
     }
 
-    .bento-niche {
-      background: var(--accent-bg);
-      border-color: rgba(108, 43, 217, 0.1);
+    .niche-card {
+      padding: var(--pad);
+      background: rgba(108,43,217,0.05);
+      border-color: rgba(108,43,217,0.1);
     }
 
-    .bento-niche-eyebrow {
+    .niche-eyebrow {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.16em;
@@ -271,32 +275,27 @@
       margin-bottom: 14px;
     }
 
-    .bento-tags {
+    .niche-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
     }
 
-    .bento-tag {
+    .niche-tag {
       font-size: 12px;
       font-weight: 500;
       color: var(--accent);
-      background: rgba(108, 43, 217, 0.1);
-      border: 1px solid rgba(108, 43, 217, 0.18);
+      background: rgba(108,43,217,0.1);
+      border: 1px solid rgba(108,43,217,0.18);
       border-radius: 999px;
       padding: 5px 13px;
     }
 
-    /* ---- WORK SCROLL SECTIONS ---- */
-    .work-section {
-      padding: var(--section-pad) 0;
-      overflow: hidden;
-    }
+    /* ---- WORK CARDS ---- */
+    .work-bcard { }
 
-    .work-section-header {
-      padding: 0 var(--gutter);
-      max-width: var(--content-max);
-      margin: 0 auto 44px;
+    .work-header {
+      padding: var(--pad) var(--pad) 28px;
     }
 
     .section-label {
@@ -305,12 +304,12 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .section-headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(28px, 3vw, 44px);
+      font-size: clamp(26px, 2.8vw, 40px);
       font-weight: 400;
       color: var(--text);
       line-height: 1.15;
@@ -319,9 +318,11 @@
     .section-headline em { font-style: italic; }
     .section-headline strong { font-weight: 700; }
 
+    /* ---- SCROLL STRIPS ---- */
     .scroll-strip {
       position: relative;
       overflow: hidden;
+      padding-bottom: var(--pad);
     }
 
     .scroll-strip::before,
@@ -329,39 +330,31 @@
       content: '';
       position: absolute;
       top: 0; bottom: 0;
-      width: 100px;
+      width: 80px;
       z-index: 2;
       pointer-events: none;
     }
 
     .scroll-strip::before {
       left: 0;
-      background: linear-gradient(to right, var(--bg), transparent);
+      background: linear-gradient(to right, var(--card), transparent);
     }
 
     .scroll-strip::after {
       right: 0;
-      background: linear-gradient(to left, var(--bg), transparent);
+      background: linear-gradient(to left, var(--card), transparent);
     }
 
     .scroll-track {
       display: flex;
-      gap: 20px;
-      padding: 12px 0;
+      gap: var(--gap);
+      padding: 4px 0;
       width: max-content;
     }
 
-    .scroll-track.go-left {
-      animation: scrollLeft 38s linear infinite;
-    }
-
-    .scroll-track.go-right {
-      animation: scrollRight 38s linear infinite;
-    }
-
-    .scroll-track:hover {
-      animation-play-state: paused;
-    }
+    .scroll-track.go-left  { animation: scrollLeft  36s linear infinite; }
+    .scroll-track.go-right { animation: scrollRight 36s linear infinite; }
+    .scroll-track:hover    { animation-play-state: paused; }
 
     @keyframes scrollLeft {
       from { transform: translateX(0); }
@@ -373,126 +366,97 @@
       to   { transform: translateX(0); }
     }
 
-    .work-card {
-      width: 340px;
+    .work-scroll-card {
+      width: 320px;
       flex-shrink: 0;
-      background: var(--surface);
-      border-radius: 18px;
+      background: var(--bg);
+      border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow 280ms, transform 280ms;
+      transition: transform 280ms, box-shadow 280ms;
     }
 
-    .work-card:hover {
-      box-shadow: var(--shadow-md);
+    .work-scroll-card:hover {
       transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
     }
 
-    .work-card-thumb {
-      width: 100%;
-      height: 220px;
+    .work-scroll-thumb {
+      width: 100%; height: 210px;
       overflow: hidden;
-      background: var(--surface-2);
+      background: #e5e3de;
     }
 
-    .work-card-thumb img {
-      width: 100%;
-      height: 100%;
+    .work-scroll-thumb img {
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 400ms ease;
+      transition: transform 400ms;
     }
 
-    .work-card:hover .work-card-thumb img {
-      transform: scale(1.04);
-    }
+    .work-scroll-card:hover .work-scroll-thumb img { transform: scale(1.04); }
 
-    .work-card-body {
-      padding: 20px 22px 22px;
-    }
+    .work-scroll-body { padding: 18px 20px 20px; }
 
-    .work-card-title {
+    .work-scroll-title {
       font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: 400;
+      font-size: 17px;
       color: var(--text);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
-    .work-card-desc {
+    .work-scroll-desc {
       font-size: 13px;
       font-weight: 300;
-      color: var(--text-muted);
-      line-height: 1.55;
+      color: var(--muted);
+      line-height: 1.5;
     }
 
     .img-card {
-      width: 280px;
-      height: 280px;
+      width: 260px;
+      height: 260px;
       flex-shrink: 0;
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
       border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
-      transition: box-shadow 280ms, transform 280ms;
+      transition: transform 280ms, box-shadow 280ms;
     }
 
     .img-card:hover {
-      box-shadow: var(--shadow-md);
       transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.1);
     }
 
     .img-card img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       display: block;
     }
 
     /* ---- TESTIMONIALS ---- */
-    #testimonials {
-      padding: var(--section-pad) var(--gutter);
-      background: var(--surface);
-    }
-
-    .testimonials-inner {
-      max-width: var(--content-max);
-      margin: 0 auto;
-    }
-
-    .testimonials-grid {
-      display: grid;
+    .testimonials-brow {
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 48px;
     }
 
-    .testimonial-card {
-      background: var(--bg);
-      border-radius: 20px;
-      padding: 36px 38px;
-      border: 1px solid var(--border);
+    .testimonial-bcard {
+      padding: var(--pad);
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      gap: 28px;
+      gap: 20px;
     }
 
     .testimonial-logo {
-      height: 28px;
+      height: 26px;
       width: auto;
       object-fit: contain;
-      opacity: 0.7;
-      margin-bottom: 20px;
+      opacity: 0.65;
     }
 
     .testimonial-logo-text {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 0.04em;
-      margin-bottom: 20px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
     }
 
     .testimonial-quote {
@@ -500,35 +464,29 @@
       font-weight: 300;
       color: var(--text);
       line-height: 1.75;
+      flex: 1;
     }
 
     .testimonial-name {
       font-size: 14px;
       font-weight: 600;
       color: var(--text);
-      margin-top: 20px;
     }
 
     .testimonial-role {
       font-size: 12px;
       font-weight: 300;
-      color: var(--text-muted);
+      color: var(--muted);
       margin-top: 3px;
     }
 
-    /* ---- CHAT SECTION ---- */
-    #chat {
-      padding: var(--section-pad) var(--gutter);
-      background: var(--bg);
-    }
-
-    .chat-inner {
-      max-width: 720px;
-      margin: 0 auto;
+    /* ---- CHAT CARD ---- */
+    .chat-bcard {
+      padding: var(--pad);
     }
 
     .message-area {
-      max-height: 340px;
+      max-height: 320px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -550,15 +508,15 @@
       opacity: 0;
       transform: translateY(8px);
       animation: bubbleIn 350ms ease forwards;
-      max-width: 82%;
+      max-width: 80%;
       font-size: 14px;
       line-height: 1.6;
-      padding: 12px 17px;
+      padding: 12px 16px;
     }
 
     .chat-bubble.ai {
       align-self: flex-start;
-      background: var(--surface);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 4px 16px 16px 16px;
       color: var(--text);
@@ -570,7 +528,6 @@
       background: var(--accent);
       border-radius: 16px 4px 16px 16px;
       color: #fff;
-      font-weight: 400;
     }
 
     .typing-indicator { display: flex; align-items: center; gap: 4px; }
@@ -583,7 +540,7 @@
     .typing-dot {
       width: 6px; height: 6px;
       border-radius: 50%;
-      background: var(--text-muted);
+      background: var(--muted);
       animation: typingDot 1.2s ease-in-out infinite;
     }
 
@@ -592,32 +549,28 @@
 
     .chat-input-row {
       display: flex;
-      gap: 0;
-      align-items: stretch;
       border: 1.5px solid var(--border);
       border-radius: 999px;
       overflow: hidden;
-      background: var(--surface);
+      background: var(--bg);
       transition: border-color 250ms;
     }
 
-    .chat-input-row:focus-within {
-      border-color: rgba(108,43,217,0.4);
-    }
+    .chat-input-row:focus-within { border-color: rgba(108,43,217,0.4); }
 
     .chat-input {
       flex: 1;
       background: transparent;
       border: none;
-      padding: 16px 24px;
+      padding: 15px 22px;
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 300;
       outline: none;
     }
 
-    .chat-input::placeholder { color: var(--text-dim); }
+    .chat-input::placeholder { color: var(--dim); }
 
     .send-btn {
       background: var(--text);
@@ -628,72 +581,49 @@
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 500;
+      border-radius: 0 999px 999px 0;
       transition: background 200ms;
       white-space: nowrap;
-      border-radius: 0 999px 999px 0;
     }
 
     .send-btn:hover { background: var(--accent); }
 
-    /* ---- CONTACT ---- */
-    #contact {
-      padding: var(--section-pad) var(--gutter);
-      background: var(--surface);
-    }
-
-    .contact-inner {
-      max-width: var(--content-max);
-      margin: 0 auto;
+    /* ---- CONTACT CARD ---- */
+    .contact-bcard {
+      padding: var(--pad);
     }
 
     .contact-headline {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(34px, 4.5vw, 60px);
+      font-size: clamp(30px, 4vw, 54px);
       font-weight: 400;
-      color: var(--text);
       line-height: 1.1;
-      margin-bottom: 16px;
+      margin-bottom: 28px;
     }
 
     .contact-headline em { font-style: italic; }
     .contact-headline strong { font-weight: 700; }
 
-    .contact-sub {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--text-muted);
-      margin-bottom: 38px;
-    }
-
-    .contact-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-    }
-
     .contact-btn {
+      display: inline-block;
       border: 1.5px solid var(--text);
       color: var(--text);
-      padding: 13px 30px;
+      padding: 12px 28px;
       border-radius: 999px;
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;
       transition: background 200ms, color 200ms;
+      margin-bottom: 36px;
     }
 
-    .contact-btn:hover {
-      background: var(--text);
-      color: #fff;
-    }
+    .contact-btn:hover { background: var(--text); color: #fff; }
 
-    /* ---- CONTACT FORM ---- */
     .contact-form {
-      margin-top: 48px;
-      max-width: 560px;
+      max-width: 520px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .contact-form input,
@@ -702,7 +632,7 @@
       background: var(--bg);
       border: 1.5px solid var(--border);
       border-radius: 12px;
-      padding: 14px 18px;
+      padding: 13px 18px;
       color: var(--text);
       font-family: 'Inter', sans-serif;
       font-size: 14px;
@@ -713,12 +643,12 @@
     }
 
     .contact-form input::placeholder,
-    .contact-form textarea::placeholder { color: var(--text-dim); }
+    .contact-form textarea::placeholder { color: var(--dim); }
 
     .contact-form input:focus,
     .contact-form textarea:focus { border-color: rgba(108,43,217,0.4); }
 
-    .contact-form textarea { min-height: 120px; }
+    .contact-form textarea { min-height: 110px; }
 
     .contact-form-btn {
       align-self: flex-start;
@@ -726,7 +656,7 @@
       color: #fff;
       border: none;
       border-radius: 999px;
-      padding: 13px 30px;
+      padding: 12px 28px;
       font-family: 'Inter', sans-serif;
       font-size: 14px;
       font-weight: 500;
@@ -738,51 +668,51 @@
 
     /* ---- FOOTER ---- */
     footer {
-      padding: 32px var(--gutter);
-      border-top: 1px solid var(--border);
-      background: var(--bg);
+      text-align: center;
+      padding: 28px var(--gutter) 40px;
     }
 
     footer p {
       font-size: 12px;
       font-weight: 300;
-      color: var(--text-dim);
-      text-align: center;
+      color: var(--dim);
     }
 
     /* ---- SCROLL REVEAL ---- */
     .reveal {
       opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 650ms cubic-bezier(0.16,1,0.3,1),
-                  transform 650ms cubic-bezier(0.16,1,0.3,1);
+      transform: translateY(18px);
+      transition: opacity 600ms cubic-bezier(0.16,1,0.3,1),
+                  transform 600ms cubic-bezier(0.16,1,0.3,1);
     }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* ---- RESPONSIVE ---- */
-    @media (max-width: 960px) {
-      :root { --gutter: 32px; --section-pad: 72px; }
-      .bento-grid { grid-template-columns: repeat(2, 1fr); }
-      .bento-bio { grid-column: span 2; grid-row: span 1; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+    @media (max-width: 1000px) {
+      :root { --gutter: 24px; }
+      .stats-brow { grid-template-columns: repeat(2, 1fr); }
+      .bio-card { grid-column: span 2; grid-row: span 1; }
+      .testimonials-brow { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 768px) {
-      :root { --gutter: 20px; --section-pad: 56px; }
+      :root { --gutter: 16px; --pad: 24px; }
+      nav { width: calc(100% - 32px); top: 10px; }
       .nav-links { display: none; }
+      .page-wrap { padding-top: 72px; }
       .globe-wrap { width: 100vw; height: 50vw; }
-      .hero-photo { top: calc(50vw * 0.5); width: 100px; height: 100px; }
+      .hero-photo { top: calc(50vw * 0.5); width: 90px; height: 90px; }
+      .stats-brow { grid-template-columns: repeat(2, 1fr); }
+      .bio-card { grid-column: span 2; }
     }
 
-    @media (max-width: 540px) {
-      .bento-grid { grid-template-columns: 1fr; }
-      .bento-bio { grid-column: span 1; }
-      .work-card { width: 280px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
+    @media (max-width: 480px) {
+      .stats-brow { grid-template-columns: 1fr; }
+      .bio-card { grid-column: span 1; }
+      .testimonials-brow { grid-template-columns: 1fr; }
+      .img-card { width: 220px; height: 220px; }
+      .work-scroll-card { width: 260px; }
     }
   </style>
 </head>
@@ -798,203 +728,195 @@
     <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="nav-pill">LinkedIn</a>
   </nav>
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-text">
-      <p class="hero-location">Melbourne, Australia</p>
-      <h1 class="hero-headline">
-        Are you looking for<br>
-        <span class="hero-sub"><em><strong>Brand &amp; Marketing Specialist?</strong></em></span>
-      </h1>
-      <a href="#work-web" class="hero-cta">View my work</a>
-    </div>
-    <div class="globe-wrap">
-      <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
-      <canvas id="globe" width="700" height="700"></canvas>
-    </div>
-  </section>
+  <div class="page-wrap">
 
-  <!-- BENTO: STATS + BIO -->
-  <section id="bento">
-    <div class="bento-grid">
+    <!-- HERO CARD -->
+    <div class="bcard hero-card reveal">
+      <div class="hero-text">
+        <p class="hero-location">Melbourne, Australia</p>
+        <h1 class="hero-headline">Are you looking for</h1>
+        <span class="hero-sub">Brand &amp; Marketing Specialist?</span>
+        <a href="#work-web" class="hero-cta">View my work</a>
+      </div>
+      <div class="globe-wrap">
+        <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
+        <canvas id="globe" width="700" height="700"></canvas>
+      </div>
+    </div>
 
-      <div class="bento-card bento-bio reveal">
-        <p class="bento-bio-headline">Marketing built on <em>craft</em><br>and backed by results.</p>
+    <!-- STATS BENTO GRID -->
+    <div class="brow stats-brow">
+
+      <div class="bcard bio-card reveal">
+        <p class="bio-headline">Marketing built on <em>craft</em> and backed by results.</p>
         <p>Melbourne-based marketing and brand specialist. I work at the intersection of brand strategy, performance marketing, and creative execution. Currently at HungryHungry, growing a portfolio of hospitality brands.</p>
         <p>Previously four years at Dental Focus managing campaigns for 30+ clients. Bachelor of Business, La Trobe University.</p>
       </div>
 
-      <div class="bento-card bento-stat reveal">
-        <div class="bento-stat-number" data-target="2" data-suffix="M+">0M+</div>
-        <div class="bento-stat-label">Total Views</div>
+      <div class="bcard stat-card reveal">
+        <div class="stat-number" data-target="2" data-suffix="M+">0M+</div>
+        <div class="stat-label">Total Views</div>
       </div>
 
-      <div class="bento-card bento-stat reveal">
-        <div class="bento-stat-number" data-target="200" data-suffix="K+">0K+</div>
-        <div class="bento-stat-label">Total Likes</div>
+      <div class="bcard stat-card reveal">
+        <div class="stat-number" data-target="200" data-suffix="K+">0K+</div>
+        <div class="stat-label">Total Likes</div>
       </div>
 
-      <div class="bento-card bento-stat reveal">
-        <div class="bento-stat-number" data-target="30" data-suffix="K+">0K+</div>
-        <div class="bento-stat-label">Total Shares</div>
+      <div class="bcard stat-card reveal">
+        <div class="stat-number" data-target="30" data-suffix="K+">0K+</div>
+        <div class="stat-label">Total Shares</div>
       </div>
 
-      <div class="bento-card bento-niche reveal">
-        <div class="bento-niche-eyebrow">Niche</div>
-        <div class="bento-tags">
-          <span class="bento-tag">Marketing</span>
-          <span class="bento-tag">Brand</span>
-          <span class="bento-tag">Startup</span>
-          <span class="bento-tag">DTC</span>
+      <div class="bcard niche-card reveal">
+        <div class="niche-eyebrow">Niche</div>
+        <div class="niche-tags">
+          <span class="niche-tag">Marketing</span>
+          <span class="niche-tag">Brand</span>
+          <span class="niche-tag">Startup</span>
+          <span class="niche-tag">DTC</span>
         </div>
       </div>
 
     </div>
-  </section>
 
-  <!-- WORK: WEB DESIGN -->
-  <section class="work-section" id="work-web">
-    <div class="work-section-header reveal">
-      <p class="section-label">Web Design</p>
-      <h2 class="section-headline">Brands built <em><strong>from scratch.</strong></em></h2>
-    </div>
-    <div class="scroll-strip">
-      <div class="scroll-track go-left">
-        <!-- Set 1 -->
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/creatine-lab-brand.jpg" alt="The Creatine Lab" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">The Creatine Lab</div>
-            <div class="work-card-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
+    <!-- WEB DESIGN CARD -->
+    <div class="bcard work-bcard reveal" id="work-web">
+      <div class="work-header">
+        <p class="section-label">Web Design</p>
+        <h2 class="section-headline">Brands built <em><strong>from scratch.</strong></em></h2>
+      </div>
+      <div class="scroll-strip">
+        <div class="scroll-track go-left">
+          <!-- Set 1 -->
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/creatine-lab-brand.jpg" alt="The Creatine Lab" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">The Creatine Lab</div>
+              <div class="work-scroll-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
+            </div>
           </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/final-edit-brand.png" alt="Final Edit Mockups" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Final Edit Mockups</div>
-            <div class="work-card-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div>
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/final-edit-brand.png" alt="Final Edit Mockups" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">Final Edit Mockups</div>
+              <div class="work-scroll-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div>
+            </div>
           </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/portfolio-render-1.gif" alt="Brand Design" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Brand Renders</div>
-            <div class="work-card-desc">3D brand renders and mockups for client campaigns and presentations.</div>
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/portfolio-render-1.gif" alt="Brand Renders" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">Brand Renders</div>
+              <div class="work-scroll-desc">3D brand renders and mockups for client campaigns and presentations.</div>
+            </div>
           </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/misc-3.png" alt="Design Work" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Design Work</div>
-            <div class="work-card-desc">Visual direction and creative assets across brand and digital channels.</div>
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/misc-3.png" alt="Design Work" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">Design Work</div>
+              <div class="work-scroll-desc">Visual direction and creative assets across brand and digital channels.</div>
+            </div>
           </div>
-        </div>
-        <!-- Set 2 (duplicate for seamless loop) -->
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/creatine-lab-brand.jpg" alt="The Creatine Lab" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">The Creatine Lab</div>
-            <div class="work-card-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/creatine-lab-brand.jpg" alt="The Creatine Lab" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">The Creatine Lab</div>
+              <div class="work-scroll-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
+            </div>
           </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/final-edit-brand.png" alt="Final Edit Mockups" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Final Edit Mockups</div>
-            <div class="work-card-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div>
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/final-edit-brand.png" alt="Final Edit Mockups" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">Final Edit Mockups</div>
+              <div class="work-scroll-desc">Logo, brand identity, and ecommerce site for a free mockup resource platform.</div>
+            </div>
           </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/portfolio-render-1.gif" alt="Brand Design" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Brand Renders</div>
-            <div class="work-card-desc">3D brand renders and mockups for client campaigns and presentations.</div>
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/portfolio-render-1.gif" alt="Brand Renders" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">Brand Renders</div>
+              <div class="work-scroll-desc">3D brand renders and mockups for client campaigns and presentations.</div>
+            </div>
           </div>
-        </div>
-        <div class="work-card">
-          <div class="work-card-thumb"><img src="images/misc-3.png" alt="Design Work" loading="lazy"></div>
-          <div class="work-card-body">
-            <div class="work-card-title">Design Work</div>
-            <div class="work-card-desc">Visual direction and creative assets across brand and digital channels.</div>
+          <div class="work-scroll-card">
+            <div class="work-scroll-thumb"><img src="images/misc-3.png" alt="Design Work" loading="lazy"></div>
+            <div class="work-scroll-body">
+              <div class="work-scroll-title">Design Work</div>
+              <div class="work-scroll-desc">Visual direction and creative assets across brand and digital channels.</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- WORK: PERFORMANCE MARKETING -->
-  <section class="work-section" id="work-marketing">
-    <div class="work-section-header reveal">
-      <p class="section-label">Performance Marketing</p>
-      <h2 class="section-headline">Creative that <em><strong>converts.</strong></em></h2>
-    </div>
-    <div class="scroll-strip">
-      <div class="scroll-track go-right">
-        <!-- Set 1 -->
-        <div class="img-card"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
-        <div class="img-card"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
-        <div class="img-card"><img src="images/cilara-ad-1.png" alt="Cilara Campaign" loading="lazy"></div>
-        <div class="img-card"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
-        <div class="img-card"><img src="images/esei-products.gif" alt="Product Creative" loading="lazy"></div>
-        <div class="img-card"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
-        <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="Vertical Ad" loading="lazy"></div>
-        <div class="img-card"><img src="images/ad-3.png" alt="Ad Creative" loading="lazy"></div>
-        <!-- Set 2 (duplicate for seamless loop) -->
-        <div class="img-card"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
-        <div class="img-card"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
-        <div class="img-card"><img src="images/cilara-ad-1.png" alt="Cilara Campaign" loading="lazy"></div>
-        <div class="img-card"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
-        <div class="img-card"><img src="images/esei-products.gif" alt="Product Creative" loading="lazy"></div>
-        <div class="img-card"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
-        <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="Vertical Ad" loading="lazy"></div>
-        <div class="img-card"><img src="images/ad-3.png" alt="Ad Creative" loading="lazy"></div>
+    <!-- PERFORMANCE MARKETING CARD -->
+    <div class="bcard work-bcard reveal" id="work-marketing">
+      <div class="work-header">
+        <p class="section-label">Performance Marketing</p>
+        <h2 class="section-headline">Creative that <em><strong>converts.</strong></em></h2>
+      </div>
+      <div class="scroll-strip">
+        <div class="scroll-track go-right">
+          <!-- Set 1 -->
+          <div class="img-card"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
+          <div class="img-card"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
+          <div class="img-card"><img src="images/cilara-ad-1.png" alt="Cilara" loading="lazy"></div>
+          <div class="img-card"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
+          <div class="img-card"><img src="images/esei-products.gif" alt="Product Animation" loading="lazy"></div>
+          <div class="img-card"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
+          <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="Vertical Ad" loading="lazy"></div>
+          <div class="img-card"><img src="images/ad-3.png" alt="Ad Creative" loading="lazy"></div>
+          <!-- Set 2 (duplicate for seamless loop) -->
+          <div class="img-card"><img src="images/cilara-skincare.gif" alt="Joiluxe Media" loading="lazy"></div>
+          <div class="img-card"><img src="images/apple-ad.png" alt="Ad Creative" loading="lazy"></div>
+          <div class="img-card"><img src="images/cilara-ad-1.png" alt="Cilara" loading="lazy"></div>
+          <div class="img-card"><img src="images/ad-1.png" alt="Campaign Creative" loading="lazy"></div>
+          <div class="img-card"><img src="images/esei-products.gif" alt="Product Animation" loading="lazy"></div>
+          <div class="img-card"><img src="images/ad-2.png" alt="Social Ads" loading="lazy"></div>
+          <div class="img-card"><img src="images/cilara-vertical-ad.png" alt="Vertical Ad" loading="lazy"></div>
+          <div class="img-card"><img src="images/ad-3.png" alt="Ad Creative" loading="lazy"></div>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- TESTIMONIALS -->
-  <section id="testimonials">
-    <div class="testimonials-inner reveal">
-      <p class="section-label">What clients say</p>
-      <div class="testimonials-grid">
+    <!-- TESTIMONIALS ROW -->
+    <div class="brow testimonials-brow">
 
-        <div class="testimonial-card">
-          <div class="testimonial-logo-text">The Creatine Lab</div>
-          <p class="testimonial-quote">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
+      <div class="bcard testimonial-bcard reveal">
+        <div class="testimonial-logo-text">The Creatine Lab</div>
+        <p class="testimonial-quote">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
+        <div>
           <div class="testimonial-name">Needal</div>
           <div class="testimonial-role">Founder, The Creatine Lab</div>
         </div>
+      </div>
 
-        <div class="testimonial-card">
-          <img src="images/heaps-normal-logo.png" class="testimonial-logo" alt="Heaps Normal">
-          <p class="testimonial-quote">"Sean demonstrated a keen understanding of our brand vision and was able to translate it into visually stunning 3D elements that added creativity and vibrancy to our campaign materials. His work definitely made a defined impact on our marketing objectives."</p>
+      <div class="bcard testimonial-bcard reveal">
+        <img src="images/heaps-normal-logo.png" class="testimonial-logo" alt="Heaps Normal">
+        <p class="testimonial-quote">"Sean demonstrated a keen understanding of our brand vision and was able to translate it into visually stunning 3D elements that added creativity and vibrancy to our campaign materials. His work definitely made a defined impact on our marketing objectives."</p>
+        <div>
           <div class="testimonial-name">Tim Snape</div>
           <div class="testimonial-role">Marketing Director, Heaps Normal</div>
         </div>
-
       </div>
-    </div>
-  </section>
 
-  <!-- CHAT SECTION -->
-  <section id="chat">
-    <div class="chat-inner reveal">
+    </div>
+
+    <!-- CHAT CARD -->
+    <div class="bcard chat-bcard reveal">
       <div class="message-area" id="messageArea"></div>
       <div class="chat-input-row">
         <input type="text" class="chat-input" id="chatInput" placeholder="Ask me anything about my experience, qualifications, or background...">
         <button class="send-btn" id="sendBtn">Ask</button>
       </div>
     </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="contact-inner">
-      <h2 class="contact-headline reveal">Let's work <em><strong>together.</strong></em></h2>
-      <div class="contact-buttons reveal">
-        <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="contact-btn">Contact me</a>
-      </div>
-      <form class="contact-form reveal" action="https://formsubmit.co/lyo.2000s@gmail.com" method="POST">
+    <!-- CONTACT CARD -->
+    <div class="bcard contact-bcard reveal" id="contact">
+      <h2 class="contact-headline">Let's work <em><strong>together.</strong></em></h2>
+      <a href="https://www.linkedin.com/in/sean-lyons-3417751a4/" target="_blank" class="contact-btn">Contact me</a>
+      <form class="contact-form" action="https://formsubmit.co/lyo.2000s@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New message from your portfolio">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://lyo2000s-glitch.github.io/Sean-portfolio/">
@@ -1004,7 +926,8 @@
         <button type="submit" class="contact-form-btn">Send message</button>
       </form>
     </div>
-  </section>
+
+  </div>
 
   <!-- FOOTER -->
   <footer>
@@ -1014,7 +937,6 @@
   <script>
     const ANTHROPIC_API_KEY = 'YOUR_KEY_HERE';
 
-    // Page fade in
     document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => { document.body.style.opacity = '1'; });
     });
@@ -1027,10 +949,10 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
 
     document.querySelectorAll('.reveal').forEach((el, i) => {
-      el.style.transitionDelay = `${(i % 4) * 80}ms`;
+      el.style.transitionDelay = `${(i % 4) * 70}ms`;
       revealObserver.observe(el);
     });
 
@@ -1051,60 +973,47 @@
     }
 
     const landPatches = [
-      // North America
       {lat:70,lon:-80,s:7},{lat:65,lon:-95,s:8},{lat:65,lon:-115,s:8},
       {lat:60,lon:-105,s:9},{lat:55,lon:-100,s:10},{lat:50,lon:-90,s:10},
       {lat:45,lon:-85,s:9},{lat:42,lon:-95,s:10},{lat:38,lon:-100,s:10},
-      {lat:35,lon:-95,s:9},{lat:32,lon:-88,s:8},{lat:30,lon:-95,s:8},
-      {lat:25,lon:-100,s:7},{lat:48,lon:-120,s:8},{lat:56,lon:-125,s:8},
-      // Greenland
+      {lat:35,lon:-95,s:9},{lat:30,lon:-95,s:8},{lat:25,lon:-100,s:7},
+      {lat:48,lon:-120,s:8},{lat:56,lon:-125,s:8},
       {lat:72,lon:-42,s:9},{lat:76,lon:-37,s:8},{lat:69,lon:-50,s:7},
-      // South America
       {lat:8,lon:-70,s:7},{lat:2,lon:-63,s:8},{lat:-5,lon:-58,s:10},
       {lat:-15,lon:-53,s:11},{lat:-22,lon:-50,s:10},{lat:-30,lon:-58,s:9},
       {lat:-38,lon:-65,s:8},{lat:5,lon:-75,s:6},
-      // Europe
-      {lat:60,lon:15,s:6},{lat:57,lon:25,s:6},{lat:62,lon:27,s:5},
-      {lat:55,lon:10,s:6},{lat:52,lon:5,s:6},{lat:50,lon:12,s:6},
-      {lat:46,lon:7,s:5},{lat:44,lon:14,s:5},{lat:41,lon:12,s:5},
-      {lat:40,lon:23,s:5},{lat:55,lon:-3,s:4},{lat:64,lon:20,s:6},
-      {lat:65,lon:28,s:5},{lat:68,lon:20,s:5},
-      // Africa
+      {lat:60,lon:15,s:6},{lat:57,lon:25,s:6},{lat:55,lon:10,s:6},
+      {lat:52,lon:5,s:6},{lat:50,lon:12,s:6},{lat:46,lon:7,s:5},
+      {lat:44,lon:14,s:5},{lat:41,lon:12,s:5},{lat:40,lon:23,s:5},
+      {lat:55,lon:-3,s:4},{lat:64,lon:20,s:6},{lat:65,lon:28,s:5},
       {lat:32,lon:2,s:8},{lat:28,lon:12,s:9},{lat:22,lon:18,s:12},
       {lat:15,lon:16,s:12},{lat:8,lon:20,s:12},{lat:2,lon:22,s:12},
       {lat:-5,lon:25,s:12},{lat:-12,lon:28,s:11},{lat:-20,lon:28,s:11},
       {lat:-28,lon:26,s:10},{lat:35,lon:9,s:7},{lat:8,lon:38,s:7},
-      // Middle East
       {lat:32,lon:38,s:7},{lat:27,lon:44,s:7},{lat:24,lon:55,s:6},
       {lat:33,lon:44,s:6},{lat:38,lon:30,s:5},{lat:36,lon:36,s:5},
-      // Asia West/Central
       {lat:40,lon:52,s:8},{lat:43,lon:60,s:10},{lat:48,lon:70,s:12},
       {lat:55,lon:68,s:12},{lat:60,lon:80,s:14},{lat:55,lon:90,s:14},
       {lat:60,lon:100,s:12},{lat:52,lon:112,s:12},{lat:48,lon:56,s:8},
-      // Asia East/South
       {lat:35,lon:105,s:14},{lat:30,lon:95,s:12},{lat:27,lon:85,s:10},
       {lat:22,lon:80,s:10},{lat:18,lon:75,s:9},{lat:28,lon:118,s:10},
-      {lat:35,lon:118,s:10},{lat:42,lon:125,s:9},{lat:38,lon:125,s:8},
-      // Southeast Asia
+      {lat:35,lon:118,s:10},{lat:42,lon:125,s:9},
       {lat:16,lon:102,s:8},{lat:13,lon:108,s:7},{lat:8,lon:100,s:6},
       {lat:3,lon:113,s:6},{lat:-3,lon:117,s:7},{lat:-7,lon:110,s:6},
-      // Japan
       {lat:36,lon:137,s:4},{lat:43,lon:142,s:4},
-      // Australia
       {lat:-18,lon:127,s:11},{lat:-23,lon:134,s:13},{lat:-28,lon:142,s:12},
       {lat:-33,lon:148,s:10},{lat:-30,lon:118,s:10},{lat:-35,lon:138,s:9},
     ];
 
     function drawGlobe(canvas) {
       const ctx = canvas.getContext('2d');
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const r  = canvas.width * 0.46;
+      const cx  = canvas.width / 2;
+      const cy  = canvas.height / 2;
+      const r   = canvas.width * 0.46;
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Ocean
-      const ocean = ctx.createRadialGradient(cx - r*0.12, cy - r*0.18, r*0.05, cx, cy, r);
+      const ocean = ctx.createRadialGradient(cx - r*.12, cy - r*.18, r*.05, cx, cy, r);
       ocean.addColorStop(0,   '#3a7fc1');
       ocean.addColorStop(0.5, '#1e5a9c');
       ocean.addColorStop(1,   '#0c2c60');
@@ -1113,7 +1022,6 @@
       ctx.fillStyle = ocean;
       ctx.fill();
 
-      // Land patches
       landPatches.forEach(p => {
         const proj = project(p.lat, p.lon, rotation, cx, cy, r);
         if (proj.z > 0) {
@@ -1121,24 +1029,21 @@
           const pr = (p.s / 100) * r * (0.55 + 0.45 * proj.z);
           ctx.beginPath();
           ctx.arc(proj.x, proj.y, pr, 0, Math.PI*2);
-          ctx.fillStyle = `rgba(62, 118, 68, ${alpha})`;
+          ctx.fillStyle = `rgba(62,118,68,${alpha})`;
           ctx.fill();
         }
       });
 
-      // Grid lines
-      ctx.strokeStyle = 'rgba(200, 225, 255, 0.16)';
+      ctx.strokeStyle = 'rgba(200,225,255,0.16)';
       ctx.lineWidth = 0.5;
-
       for (let lat = -80; lat <= 80; lat += 20) {
-        const latR = (lat * Math.PI) / 180;
+        const latR = lat * Math.PI / 180;
         const ry   = r * Math.cos(latR);
         const yPos = cy - r * Math.sin(latR);
         ctx.beginPath();
         ctx.ellipse(cx, yPos, ry, ry * 0.17, 0, 0, Math.PI*2);
         ctx.stroke();
       }
-
       for (let lon = 0; lon < 360; lon += 20) {
         const lonR = ((lon + rotation * 180 / Math.PI) * Math.PI) / 180;
         const rx   = r * Math.abs(Math.cos(lonR));
@@ -1149,34 +1054,18 @@
         ctx.globalAlpha = 1;
       }
 
-      // Limb darkening
-      const limb = ctx.createRadialGradient(cx, cy, r*0.68, cx, cy, r);
+      const limb = ctx.createRadialGradient(cx, cy, r*.68, cx, cy, r);
       limb.addColorStop(0, 'rgba(0,0,0,0)');
       limb.addColorStop(1, 'rgba(0,8,28,0.55)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI*2);
-      ctx.fillStyle = limb;
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.fillStyle = limb; ctx.fill();
 
-      // Specular highlight
-      const spec = ctx.createRadialGradient(cx - r*0.28, cy - r*0.32, 0, cx - r*0.28, cy - r*0.32, r*0.72);
+      const spec = ctx.createRadialGradient(cx - r*.28, cy - r*.32, 0, cx - r*.28, cy - r*.32, r*.72);
       spec.addColorStop(0,   'rgba(255,255,255,0.22)');
       spec.addColorStop(0.5, 'rgba(255,255,255,0.05)');
       spec.addColorStop(1,   'rgba(255,255,255,0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI*2);
-      ctx.fillStyle = spec;
-      ctx.fill();
-
-      // Atmosphere rim
-      const atm = ctx.createRadialGradient(cx, cy, r*0.92, cx, cy, r*1.08);
-      atm.addColorStop(0,   'rgba(100,160,255,0)');
-      atm.addColorStop(0.5, 'rgba(100,160,255,0.12)');
-      atm.addColorStop(1,   'rgba(100,160,255,0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, r*1.04, 0, Math.PI*2);
-      ctx.fillStyle = atm;
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI*2);
+      ctx.fillStyle = spec; ctx.fill();
     }
 
     function animateGlobe() {
@@ -1207,16 +1096,14 @@
     // --------------------------------------------------
     // STAT COUNT-UP
     // --------------------------------------------------
-    function easeOutExpo(t) {
-      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-    }
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
 
     function countUp(el, target, suffix, duration) {
       const start = performance.now();
-      (function update(now) {
+      (function tick(now) {
         const p = Math.min((now - start) / duration, 1);
         el.textContent = Math.floor(easeOutExpo(p) * target) + suffix;
-        if (p < 1) requestAnimationFrame(update);
+        if (p < 1) requestAnimationFrame(tick);
       })(start);
     }
 
@@ -1233,8 +1120,8 @@
       });
     }, { threshold: 0.3 });
 
-    const bentoEl = document.getElementById('bento');
-    if (bentoEl) statsObserver.observe(bentoEl);
+    const firstStat = document.querySelector('.stat-card');
+    if (firstStat) statsObserver.observe(firstStat);
 
     // --------------------------------------------------
     // CHAT
@@ -1270,7 +1157,6 @@ Company: SkyThanks
 Title: Digital Marketing Intern
 Dates: April 2021 to September 2021
 Responsibilities: Managed social media channels, created promotional content, mapped EDM campaign workflows, and managed HubSpot CRM to organise leads and optimise campaign performance.
-Reference letter available at: https://tinyurl.com/Skythanks-reference-2021
 
 FREELANCE WORK
 
@@ -1278,11 +1164,7 @@ The Creatine Lab: Logo design, packaging design, full brand identity system, and
 
 Joiluxe Media: Bespoke 3D visuals and ad creatives produced for a range of direct-to-consumer brands.
 
-Final Edit Mockups: Logo design, brand identity, and full ecommerce website development. This is also Sean's own product - a website offering free mockup resources for brand and graphic designers.
-
-Client testimonial from The Creatine Lab (Needal, Founder): "This branding gave us an identity worth backing. We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved."
-
-Client testimonial from Heaps Normal (Tim Snape, Marketing Director): "Sean demonstrated a keen understanding of our brand vision and translated it into visually stunning 3D elements. His work definitely made a defined impact on our marketing objectives."
+Final Edit Mockups: Logo design, brand identity, and full ecommerce website development.
 
 SKILLS
 
@@ -1305,9 +1187,8 @@ Sean is actively looking for full-time or contract roles in Melbourne across mar
 CONTACT
 
 LinkedIn: https://www.linkedin.com/in/sean-lyons-3417751a4/
-Email: eight.joi@gmail.com
 
-If a recruiter asks something you do not know about Sean, say you are not sure and invite them to reach out to him directly via the contact section or at eight.joi@gmail.com.`;
+If asked something you do not know, say you are not sure and invite them to reach out via the contact section.`;
 
     function appendMessage(role, text) {
       const bubble = document.createElement('div');
@@ -1315,13 +1196,12 @@ If a recruiter asks something you do not know about Sean, say you are not sure a
       bubble.textContent = text;
       messageArea.appendChild(bubble);
       messageArea.scrollTop = messageArea.scrollHeight;
-      return bubble;
     }
 
     function showTyping() {
       const bubble = document.createElement('div');
       bubble.classList.add('chat-bubble', 'ai');
-      bubble.id = 'typingIndicator';
+      bubble.id = 'typingBubble';
       const ind = document.createElement('div');
       ind.classList.add('typing-indicator');
       for (let i = 0; i < 3; i++) {
@@ -1335,13 +1215,13 @@ If a recruiter asks something you do not know about Sean, say you are not sure a
     }
 
     function removeTyping() {
-      const el = document.getElementById('typingIndicator');
+      const el = document.getElementById('typingBubble');
       if (el) el.remove();
     }
 
     async function sendMessage(userText) {
       conversationHistory.push({ role: 'user', content: userText });
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1356,7 +1236,7 @@ If a recruiter asks something you do not know about Sean, say you are not sure a
           messages: conversationHistory
         })
       });
-      const data  = await response.json();
+      const data  = await res.json();
       const reply = data.content[0].text;
       conversationHistory.push({ role: 'assistant', content: reply });
       return reply;
@@ -1374,13 +1254,12 @@ If a recruiter asks something you do not know about Sean, say you are not sure a
         appendMessage('ai', reply);
       } catch {
         removeTyping();
-        appendMessage('ai', 'Something went wrong. Feel free to reach out to Sean directly using the contact section below.');
+        appendMessage('ai', 'Something went wrong. Feel free to reach out via the contact section below.');
       }
     }
 
     sendBtn.addEventListener('click', handleSend);
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
-
   </script>
 </body>
 </html>
