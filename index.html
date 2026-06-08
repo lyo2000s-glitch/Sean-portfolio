@@ -170,7 +170,9 @@
        HERO
     ==================================================== */
     .s-hero {
-      background: radial-gradient(ellipse at 50% 0%, #3d1575 0%, #1a0545 45%, #090118 100%);
+      background:
+        radial-gradient(ellipse 110% 85% at 0% 105%, rgba(118,32,255,0.80) 0%, rgba(72,14,210,0.45) 22%, rgba(28,5,85,0.22) 48%, transparent 68%),
+        #030009;
       border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,0.05);
       overflow: hidden;
@@ -243,49 +245,31 @@
 
     .hero-cta:hover { background: rgba(255,255,255,0.2); }
 
-    /* Globe container — gives positioning context for stats overlay */
-    .globe-container {
-      position: relative;
-      width: 760px;
-      max-width: 100%;
+    /* Hero profile block — photo + stats, sits at the bottom of the hero */
+    .hero-profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      padding-bottom: 48px;
       flex-shrink: 0;
     }
 
-    /* Globe */
-    .globe-wrap {
-      width: 100%;
-      height: 420px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    #globe { display: block; margin: 0 auto; }
-
     .hero-photo {
-      position: absolute;
-      width: 120px;
-      height: 120px;
+      width: 130px;
+      height: 130px;
       border-radius: 50%;
       object-fit: cover;
       object-position: center top;
       border: 3px solid rgba(255,255,255,0.92);
-      box-shadow: 0 4px 32px rgba(0,0,0,0.5), 0 0 0 6px rgba(140,70,255,0.30);
-      top: 188px;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 3;
+      box-shadow: 0 0 0 8px rgba(130,55,255,0.20), 0 8px 40px rgba(0,0,0,0.55);
+      display: block;
     }
 
-    /* Hero stats — overlaid on globe, just below photo */
     .hero-stats {
-      position: absolute;
-      top: 268px;
-      left: 0; right: 0;
       display: flex;
       justify-content: center;
       gap: clamp(32px, 6vw, 80px);
-      z-index: 5;
-      pointer-events: none;
     }
 
     .hero-stat { text-align: center; }
@@ -925,10 +909,8 @@
       nav { padding: 0 var(--pad); }
       .nav-links { display: none; }
       .page-sections { padding-top: 68px; }
-      .globe-container { width: 100vw !important; }
-      .globe-wrap { width: 100vw; height: 60vw; }
-      .hero-photo { top: 24vw; width: 90px; height: 90px; }
-      .hero-stats { top: calc(24vw + 60px); gap: 20px; }
+      .hero-photo { width: 90px; height: 90px; }
+      .hero-stats { gap: 20px; }
       .social-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .img-card img { width: 170px; }
@@ -964,11 +946,8 @@
         <span class="hero-sub">Brand &amp; Marketing Specialist?</span>
         <a href="#work-web" class="hero-cta">View my work</a>
       </div>
-      <div class="globe-container">
-        <div class="globe-wrap">
-          <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
-          <canvas id="globe" width="700" height="700"></canvas>
-        </div>
+      <div class="hero-profile">
+        <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
         <div class="hero-stats">
           <div class="hero-stat">
             <span class="hero-stat-num" data-hero-target="5" data-hero-suffix="+">5+</span>
@@ -1319,213 +1298,5 @@ If unsure about something, invite them to reach out via the contact section.`;
     chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
   </script>
 
-  <!-- Three.js r155 UMD — last stable version with full UMD support -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
-  <script>
-  (function () {
-    if (typeof THREE === 'undefined') { console.error('THREE not loaded'); return; }
-
-    /* Seeded PRNG */
-    var S = 0xf00ba7;
-    function rng() { S^=S<<13; S^=S>>17; S^=S<<5; return (S>>>0)/4294967296; }
-
-    /*
-     * Photorealistic moon-like texture:
-     * - Medium-purple base (not too dark — needs contrast against the bg)
-     * - Dark irregular maria (large dark blobs)
-     * - Lighter highlands
-     * - Crater features (dark pit + bright rim)
-     * - Fine surface grain + bright speckles
-     */
-    function buildColorMap(size) {
-      var c = document.createElement('canvas'); c.width = c.height = size;
-      var ctx = c.getContext('2d');
-
-      /* Base — medium purple, clearly visible */
-      ctx.fillStyle = '#2e1458'; ctx.fillRect(0, 0, size, size);
-
-      /* Large dark maria — the "seas", very dark patches */
-      for (var i = 0; i < 14; i++) {
-        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.15+size*0.05;
-        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-        g.addColorStop(0,'rgba(4,1,14,0.72)');
-        g.addColorStop(0.6,'rgba(4,1,14,0.38)');
-        g.addColorStop(1,'rgba(4,1,14,0)');
-        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-      }
-
-      /* Lighter highland patches */
-      for (var i = 0; i < 22; i++) {
-        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.09+size*0.02;
-        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-        var a = (rng()*0.28+0.18).toFixed(2);
-        g.addColorStop(0,'rgba(72,44,155,'+a+')');
-        g.addColorStop(1,'rgba(72,44,155,0)');
-        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-      }
-
-      /* Medium terrain blobs */
-      for (var i = 0; i < 35; i++) {
-        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.05+4;
-        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-        var a = (rng()*0.22+0.10).toFixed(2);
-        g.addColorStop(0,'rgba(55,30,130,'+a+')');
-        g.addColorStop(1,'rgba(55,30,130,0)');
-        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-      }
-
-      /* Craters — dark pit + bright raised rim */
-      for (var i = 0; i < 55; i++) {
-        var cx = rng()*size, cy = rng()*size;
-        var r = rng()*size*0.035+size*0.004;
-        /* Dark pit */
-        var gp = ctx.createRadialGradient(cx,cy,0,cx,cy,r*0.9);
-        gp.addColorStop(0,'rgba(3,0,10,0.80)');
-        gp.addColorStop(0.65,'rgba(3,0,10,0.45)');
-        gp.addColorStop(1,'rgba(3,0,10,0)');
-        ctx.fillStyle=gp; ctx.beginPath(); ctx.arc(cx,cy,r*0.9,0,Math.PI*2); ctx.fill();
-        /* Bright ejecta rim */
-        var gr = ctx.createRadialGradient(cx,cy,r*0.75,cx,cy,r*1.35);
-        gr.addColorStop(0,'rgba(120,85,220,0)');
-        gr.addColorStop(0.45,'rgba(120,85,220,0.55)');
-        gr.addColorStop(1,'rgba(120,85,220,0)');
-        ctx.fillStyle=gr; ctx.beginPath(); ctx.arc(cx,cy,r*1.35,0,Math.PI*2); ctx.fill();
-      }
-
-      /* Fine surface dust — thousands of micro-dots */
-      for (var i = 0; i < 3500; i++) {
-        var x = rng()*size, y = rng()*size, r = rng()*1.2+0.15;
-        var a = (rng()*0.22+0.06).toFixed(2);
-        ctx.fillStyle='rgba(165,135,240,'+a+')';
-        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
-      }
-
-      /* Bright speckles — stars / city lights */
-      for (var i = 0; i < 700; i++) {
-        var x = rng()*size, y = rng()*size, r = rng()*1.8+0.3;
-        var a = (rng()*0.55+0.30).toFixed(2);
-        ctx.fillStyle='rgba(230,210,255,'+a+')';
-        ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fill();
-      }
-
-      return new THREE.CanvasTexture(c);
-    }
-
-    function buildBumpMap(size) {
-      var c = document.createElement('canvas'); c.width = c.height = size;
-      var ctx = c.getContext('2d');
-      ctx.fillStyle = '#808080'; ctx.fillRect(0, 0, size, size);
-      for (var i = 0; i < 180; i++) {
-        var cx = rng()*size, cy = rng()*size, r = rng()*size*0.055+3;
-        var bright = rng() > 0.5;
-        var g = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-        g.addColorStop(0, bright?'rgba(255,255,255,0.30)':'rgba(0,0,0,0.25)');
-        g.addColorStop(1,'rgba(128,128,128,0)');
-        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.fill();
-      }
-      return new THREE.CanvasTexture(c);
-    }
-
-    var canvas = document.getElementById('globe');
-    if (!canvas) { console.warn('globe canvas missing'); return; }
-
-    var scene  = new THREE.Scene();
-    /* FOV 52° at z=3.2 → sphere fills ~67% of canvas width, nicely framed */
-    var camera = new THREE.PerspectiveCamera(52, 1, 0.1, 100);
-    camera.position.z = 3.2;
-
-    var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-
-    /* --- Lighting -------------------------------------------------- */
-    /* Dark purple ambient — fills shadows without washing out the sphere */
-    scene.add(new THREE.AmbientLight(0x1a0640, 0.8));
-
-    /* Key light — bright from left, creates the lit hemisphere */
-    var key = new THREE.DirectionalLight(0xeeeeff, 4.2);
-    key.position.set(-2.8, 1.2, 2.0); scene.add(key);
-
-    /* Top accent — creates the bright halo at the upper globe rim (Artisan look) */
-    var top = new THREE.DirectionalLight(0xdd88ff, 2.2);
-    top.position.set(0.2, 4.0, 1.0); scene.add(top);
-
-    /* Faint right rim — separates shadow edge from bg */
-    var rightRim = new THREE.DirectionalLight(0x6622cc, 0.6);
-    rightRim.position.set(2.5, 0, -1.5); scene.add(rightRim);
-
-    /* --- Globe sphere ----------------------------------------------- */
-    var sphere = new THREE.Mesh(
-      new THREE.SphereGeometry(1, 96, 96),
-      new THREE.MeshStandardMaterial({
-        map:              buildColorMap(1024),
-        bumpMap:          buildBumpMap(512),
-        bumpScale:        0.035,
-        roughness:        0.58,
-        metalness:        0.0,
-        emissive:         new THREE.Color(0x3a1180),
-        emissiveIntensity: 0.28
-      })
-    );
-    scene.add(sphere);
-
-    /* Thin inner glow at surface */
-    scene.add(new THREE.Mesh(
-      new THREE.SphereGeometry(1.04, 64, 64),
-      new THREE.MeshBasicMaterial({
-        color: 0xaa55ff, transparent: true, opacity: 0.07,
-        blending: THREE.AdditiveBlending, side: THREE.FrontSide, depthWrite: false
-      })
-    ));
-
-    /* Main atmosphere halo — BackSide so it appears as a ring around the edge */
-    scene.add(new THREE.Mesh(
-      new THREE.SphereGeometry(1.55, 64, 64),
-      new THREE.MeshBasicMaterial({
-        color: 0xcc44ff, transparent: true, opacity: 0.28,
-        blending: THREE.AdditiveBlending, side: THREE.BackSide, depthWrite: false
-      })
-    ));
-
-    /* Wide soft outer glow — the diffuse halo seen in the Artisan reference */
-    scene.add(new THREE.Mesh(
-      new THREE.SphereGeometry(2.1, 64, 64),
-      new THREE.MeshBasicMaterial({
-        color: 0xaa33ff, transparent: true, opacity: 0.07,
-        blending: THREE.AdditiveBlending, side: THREE.BackSide, depthWrite: false
-      })
-    ));
-
-    /* --- Layout sync ----------------------------------------------- */
-    var wrap      = document.querySelector('.globe-wrap');
-    var container = document.querySelector('.globe-container');
-    var photo     = document.querySelector('.hero-photo');
-    var stats     = document.querySelector('.hero-stats');
-
-    function resize() {
-      var isMobile = window.innerWidth <= 768;
-      var size = isMobile ? Math.min(window.innerWidth, 520) : 760;
-      renderer.setSize(size, size);
-      if (wrap)      { wrap.style.width = size+'px'; wrap.style.height = Math.round(size*0.553)+'px'; }
-      if (container) { container.style.width = size+'px'; }
-      /* Photo center at ~27% of canvas height */
-      var photoTop = Math.round(size * 0.27);
-      if (photo) photo.style.top = photoTop+'px';
-      /* Stats just below photo (photo radius ~65px + gap) */
-      if (stats) stats.style.top = (photoTop + 65 + 18)+'px';
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    (function tick() {
-      requestAnimationFrame(tick);
-      sphere.rotation.y += 0.00055;
-      renderer.render(scene, camera);
-    }());
-  })();
-  </script>
 </body>
 </html>
