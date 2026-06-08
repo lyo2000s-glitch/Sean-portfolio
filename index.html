@@ -7,6 +7,7 @@
   <title>Sean Lyons - Brand & Marketing Specialist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1110,121 +1111,153 @@
     if (statsSection) statsObs.observe(statsSection);
 
     // ====================================================
-    // GLOBE — dark moon / nebula
+    // GLOBE — Three.js photorealistic purple sphere
     // ====================================================
-    const ROTATION_SPEED = (Math.PI * 2) / (24 * 60);
-    let rotation = 0;
-
-    function project(latDeg, lonDeg, rot, cx, cy, r) {
-      const phi = latDeg * Math.PI / 180;
-      const lam = lonDeg * Math.PI / 180 + rot;
-      return {
-        x: cx + r * Math.cos(phi) * Math.sin(lam),
-        y: cy - r * Math.sin(phi),
-        z: Math.cos(phi) * Math.cos(lam)
-      };
-    }
-
-    const rng = (seed => () => {
-      seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5;
-      return (seed >>> 0) / 4294967296;
-    })(0xdeadbeef);
-
-    const stars = Array.from({ length: 750 }, () => ({
-      lat: (rng() - 0.5) * 168,
-      lon: rng() * 360,
-      r:   rng() * 1.4 + 0.25,
-      b:   rng() * 0.55 + 0.45
-    }));
-
-    const texPatches = Array.from({ length: 90 }, () => ({
-      lat:  (rng() - 0.5) * 180,
-      lon:  rng() * 360,
-      size: rng() * 14 + 5,
-      dark: rng() > 0.42
-    }));
-
-    function drawGlobe(canvas) {
-      const ctx = canvas.getContext('2d');
-      const cx  = canvas.width / 2;
-      const cy  = canvas.height / 2;
-      const r   = canvas.width * 0.46;
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      const base = ctx.createRadialGradient(cx - r * .14, cy - r * .18, r * .04, cx, cy, r);
-      base.addColorStop(0,    '#3e1878');
-      base.addColorStop(0.3,  '#200a4a');
-      base.addColorStop(0.65, '#120330');
-      base.addColorStop(1,    '#060012');
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fillStyle = base; ctx.fill();
-
-      texPatches.forEach(p => {
-        const proj = project(p.lat, p.lon, rotation, cx, cy, r);
-        if (proj.z > 0) {
-          ctx.beginPath();
-          ctx.arc(proj.x, proj.y, (p.size / 100) * r, 0, Math.PI * 2);
-          ctx.fillStyle = p.dark
-            ? `rgba(4,0,18,${proj.z * 0.22})`
-            : `rgba(90,35,175,${proj.z * 0.12})`;
-          ctx.fill();
-        }
-      });
-
-      stars.forEach(s => {
-        const proj = project(s.lat, s.lon, rotation, cx, cy, r);
-        if (proj.z > 0.02) {
-          ctx.beginPath();
-          ctx.arc(proj.x, proj.y, s.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(225,205,255,${proj.z * s.b * 0.9})`;
-          ctx.fill();
-        }
-      });
-
-      const limb = ctx.createRadialGradient(cx, cy, r * .58, cx, cy, r);
-      limb.addColorStop(0, 'rgba(0,0,0,0)');
-      limb.addColorStop(1, 'rgba(0,0,15,0.78)');
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fillStyle = limb; ctx.fill();
-
-      const spec = ctx.createRadialGradient(cx - r * .30, cy - r * .36, 0, cx - r * .30, cy - r * .36, r * .85);
-      spec.addColorStop(0,   'rgba(175,115,255,0.30)');
-      spec.addColorStop(0.4, 'rgba(130,80,255,0.08)');
-      spec.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.fillStyle = spec; ctx.fill();
-
-      const atm = ctx.createRadialGradient(cx, cy, r * .84, cx, cy, r * 1.14);
-      atm.addColorStop(0,   'rgba(105,45,255,0)');
-      atm.addColorStop(0.4, 'rgba(105,45,255,0.24)');
-      atm.addColorStop(1,   'rgba(70,20,200,0)');
-      ctx.beginPath(); ctx.arc(cx, cy, r * 1.07, 0, Math.PI * 2);
-      ctx.fillStyle = atm; ctx.fill();
-    }
-
-    function animateGlobe() {
-      const canvas = document.getElementById('globe');
-      if (canvas) { drawGlobe(canvas); rotation += ROTATION_SPEED; }
-      requestAnimationFrame(animateGlobe);
-    }
-
-    function resizeGlobe() {
-      const canvas = document.getElementById('globe');
-      const wrap   = document.querySelector('.globe-wrap');
-      if (!canvas || !wrap) return;
-      const size   = window.innerWidth <= 768 ? Math.min(window.innerWidth, 500) : 700;
-      canvas.width  = size;
-      canvas.height = size;
-      wrap.style.width  = size + 'px';
-      wrap.style.height = (size / 2) + 'px';
+    (function () {
+      const wrap  = document.querySelector('.globe-wrap');
       const photo = document.querySelector('.hero-photo');
-      if (photo) photo.style.top = Math.round(size * 0.20) + 'px';
-    }
 
-    resizeGlobe();
-    window.addEventListener('resize', resizeGlobe);
-    animateGlobe();
+      // Procedural surface texture
+      function buildTexture(size) {
+        const c = document.createElement('canvas');
+        c.width = c.height = size;
+        const ctx = c.getContext('2d');
+
+        // Base gradient
+        const base = ctx.createRadialGradient(size * 0.4, size * 0.35, size * 0.05, size / 2, size / 2, size * 0.72);
+        base.addColorStop(0,    '#2c0e60');
+        base.addColorStop(0.38, '#180540');
+        base.addColorStop(0.72, '#0d0228');
+        base.addColorStop(1,    '#050010');
+        ctx.fillStyle = base;
+        ctx.fillRect(0, 0, size, size);
+
+        // Maria (dark patches)
+        for (let i = 0; i < 80; i++) {
+          const x = Math.random() * size, y = Math.random() * size;
+          const r = Math.random() * 55 + 14;
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+          g.addColorStop(0, `rgba(3,0,15,${(Math.random() * 0.42 + 0.14).toFixed(2)})`);
+          g.addColorStop(1, 'rgba(3,0,15,0)');
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = g; ctx.fill();
+        }
+
+        // Highlands (lighter purple blobs)
+        for (let i = 0; i < 55; i++) {
+          const x = Math.random() * size, y = Math.random() * size;
+          const r = Math.random() * 38 + 8;
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+          g.addColorStop(0, `rgba(80,28,155,${(Math.random() * 0.30 + 0.08).toFixed(2)})`);
+          g.addColorStop(1, 'rgba(80,28,155,0)');
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = g; ctx.fill();
+        }
+
+        // Star/crystal speckles
+        for (let i = 0; i < 900; i++) {
+          const x = Math.random() * size, y = Math.random() * size;
+          const r = Math.random() * 1.4 + 0.2;
+          const a = (Math.random() * 0.55 + 0.32).toFixed(2);
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(215,190,255,${a})`; ctx.fill();
+        }
+
+        return new THREE.CanvasTexture(c);
+      }
+
+      // Procedural bump map
+      function buildBump(size) {
+        const c = document.createElement('canvas');
+        c.width = c.height = size;
+        const ctx = c.getContext('2d');
+        ctx.fillStyle = '#888';
+        ctx.fillRect(0, 0, size, size);
+        for (let i = 0; i < 110; i++) {
+          const x = Math.random() * size, y = Math.random() * size;
+          const r = Math.random() * 22 + 4;
+          const high = Math.random() > 0.48;
+          const g = ctx.createRadialGradient(x, y, 0, x, y, r);
+          g.addColorStop(0, high ? 'rgba(210,210,210,0.38)' : 'rgba(40,40,40,0.38)');
+          g.addColorStop(1, 'rgba(128,128,128,0)');
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = g; ctx.fill();
+        }
+        return new THREE.CanvasTexture(c);
+      }
+
+      // Scene setup
+      const scene    = new THREE.Scene();
+      const camera   = new THREE.PerspectiveCamera(26, 1, 0.1, 100);
+      camera.position.z = 3.9;
+
+      // Lights
+      scene.add(new THREE.AmbientLight(0x1a0840, 1.4));
+      const sun = new THREE.DirectionalLight(0xd4bbff, 3.8);
+      sun.position.set(-1.1, 1.5, 2.2);
+      scene.add(sun);
+      const fill = new THREE.DirectionalLight(0x3311bb, 0.45);
+      fill.position.set(2.0, -0.6, 0.8);
+      scene.add(fill);
+
+      // Sphere
+      const sphereGeo = new THREE.SphereGeometry(1, 128, 128);
+      const sphereMat = new THREE.MeshPhongMaterial({
+        map:               buildTexture(1024),
+        bumpMap:           buildBump(512),
+        bumpScale:         0.020,
+        color:             new THREE.Color(0x160730),
+        emissive:          new THREE.Color(0x060012),
+        emissiveIntensity: 0.55,
+        shininess:         28,
+        specular:          new THREE.Color(0x7733dd),
+      });
+      const globeMesh = new THREE.Mesh(sphereGeo, sphereMat);
+      scene.add(globeMesh);
+
+      // Inner atmosphere
+      scene.add(new THREE.Mesh(
+        new THREE.SphereGeometry(1.052, 64, 64),
+        new THREE.MeshPhongMaterial({
+          color: new THREE.Color(0x6633ff), emissive: new THREE.Color(0x4422aa),
+          emissiveIntensity: 0.55, transparent: true, opacity: 0.10,
+          side: THREE.FrontSide, blending: THREE.AdditiveBlending, depthWrite: false,
+        })
+      ));
+
+      // Outer halo
+      scene.add(new THREE.Mesh(
+        new THREE.SphereGeometry(1.11, 64, 64),
+        new THREE.MeshPhongMaterial({
+          color: new THREE.Color(0x4411cc), transparent: true, opacity: 0.055,
+          side: THREE.BackSide, blending: THREE.AdditiveBlending, depthWrite: false,
+        })
+      ));
+
+      // Renderer — uses the existing <canvas id="globe">
+      const canvas   = document.getElementById('globe');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+
+      function resize() {
+        const size = window.innerWidth <= 768 ? Math.min(window.innerWidth, 500) : 700;
+        renderer.setSize(size, size);
+        wrap.style.width  = size + 'px';
+        wrap.style.height = (size / 2) + 'px';
+        if (photo) photo.style.top = Math.round(size * 0.20) + 'px';
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Animate
+      (function tick() {
+        requestAnimationFrame(tick);
+        globeMesh.rotation.y += 0.0008;
+        renderer.render(scene, camera);
+      })();
+    })();
 
     // ====================================================
     // CHAT
