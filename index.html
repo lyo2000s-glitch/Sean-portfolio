@@ -1110,7 +1110,7 @@
 
     .social-analytics-wrap {
       margin: 0 auto 40px;
-      max-width: 520px;
+      max-width: 620px;
       border-radius: 18px;
       overflow: hidden;
     }
@@ -1540,7 +1540,7 @@
           </div>
           <!-- Right: testimonial panel -->
           <div class="brand-testi-panel">
-            <img src="images/creatine-lab-logo.webp" class="heaps-logo" alt="The Creatine Lab" style="overflow:hidden;">
+            <span style="display:inline-block;border-radius:12px;overflow:hidden;line-height:0;"><img src="images/creatine-lab-logo.webp" class="heaps-logo" alt="The Creatine Lab"></span>
             <svg width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
               <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
               <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
@@ -1698,6 +1698,15 @@
     window.addEventListener('scroll', () => {
       mainNav.classList.toggle('scrolled', window.scrollY > 55);
     }, { passive: true });
+
+    // ---- Experience accordion ----
+    document.querySelectorAll('.exp-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        btn.closest('.exp-row').querySelector('.exp-panel').classList.toggle('open', !expanded);
+      });
+    });
 
     // ---- Scroll reveal ----
     const ro = new IntersectionObserver((entries) => {
