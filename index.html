@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Sean Lyons - Brand & Marketing Specialist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -191,42 +191,52 @@
       z-index: 0;
     }
 
+    /* Left spotlight */
     .hero-glow::before {
       content: '';
       position: absolute;
-      width: 72%;
-      height: 95%;
-      left: -18%;
-      bottom: -25%;
+      width: 55%;
+      height: 115%;
+      left: -12%;
+      top: -8%;
       border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(112,28,255,0.72) 0%, rgba(68,12,210,0.40) 38%, transparent 68%);
-      filter: blur(38px);
+      background: radial-gradient(ellipse at 38% 50%, rgba(120,30,255,0.70) 0%, rgba(75,15,220,0.38) 42%, transparent 70%);
+      filter: blur(44px);
       will-change: transform, opacity;
-      animation: glowBounce 7s ease-in-out infinite;
+      animation: spotlightLeft 10s ease-in-out infinite;
     }
 
+    /* Right spotlight */
     .hero-glow::after {
       content: '';
       position: absolute;
-      width: 52%;
-      height: 75%;
-      left: -8%;
-      top: 10%;
+      width: 55%;
+      height: 115%;
+      right: -12%;
+      top: -8%;
       border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(90,18,230,0.42) 0%, rgba(50,8,170,0.20) 45%, transparent 70%);
-      filter: blur(52px);
+      background: radial-gradient(ellipse at 62% 50%, rgba(120,30,255,0.70) 0%, rgba(75,15,220,0.38) 42%, transparent 70%);
+      filter: blur(44px);
       will-change: transform, opacity;
-      animation: glowFollow 7s ease-in-out 1s infinite;
+      animation: spotlightRight 13s ease-in-out infinite;
     }
 
-    @keyframes glowBounce {
-      0%, 100% { transform: translateX(0%)  scale(1.00); opacity: 0.75; }
-      50%       { transform: translateX(52%) scale(1.10); opacity: 0.95; }
+    @keyframes spotlightLeft {
+      0%   { transform: translate(0%,    0%);  opacity: 0.80; }
+      18%  { transform: translate(18%, -8%);   opacity: 0.95; }
+      42%  { transform: translate(7%,   12%);  opacity: 0.75; }
+      65%  { transform: translate(22%, -4%);   opacity: 0.90; }
+      83%  { transform: translate(4%, -12%);   opacity: 0.82; }
+      100% { transform: translate(0%,    0%);  opacity: 0.80; }
     }
 
-    @keyframes glowFollow {
-      0%, 100% { transform: translateX(0%)  scale(1.00); opacity: 0.50; }
-      50%       { transform: translateX(52%) scale(1.08); opacity: 0.70; }
+    @keyframes spotlightRight {
+      0%   { transform: translate(0%,    0%);  opacity: 0.75; }
+      22%  { transform: translate(-20%,  8%);  opacity: 0.90; }
+      48%  { transform: translate(-8%, -10%);  opacity: 0.80; }
+      72%  { transform: translate(-24%,  4%);  opacity: 0.95; }
+      90%  { transform: translate(-6%,  -8%);  opacity: 0.78; }
+      100% { transform: translate(0%,    0%);  opacity: 0.75; }
     }
 
     .hero-text, .hero-profile { position: relative; z-index: 1; }
@@ -322,9 +332,9 @@
     .hero-stat { text-align: center; }
 
     .hero-stat-num {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Prata', serif;
       font-style: normal;
-      font-weight: 700;
+      font-weight: 400;
       font-size: clamp(36px, 5.5vw, 68px);
       letter-spacing: -0.02em;
       color: #ffffff;
@@ -634,7 +644,7 @@
       transition: transform 280ms, box-shadow 280ms;
     }
 
-    .work-tile:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.4); }
+    .work-tile:hover { transform: translateY(-4px) scale(1.025); box-shadow: 0 14px 40px rgba(0,0,0,0.45); }
 
     .work-tile-thumb {
       width: 100%;
@@ -725,8 +735,8 @@
       flex-shrink: 0;
       border-radius: 14px;
       overflow: hidden;
-      width: 180px;
-      height: 320px;
+      width: 220px;
+      height: 390px;
       border: 1px solid rgba(0,0,0,0.07);
       transition: transform 280ms, box-shadow 280ms;
     }
@@ -969,6 +979,126 @@
       .work-scroll-card { width: 260px; }
       .hero-stat-num { font-size: 28px; }
     }
+
+    /* ====================================================
+       INLINE BRAND TESTIMONIAL (under brand design tiles)
+    ==================================================== */
+    .brand-inline-testimonial {
+      padding: 28px var(--pad) var(--pad);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .bit-quote {
+      font-size: 14px;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 16px;
+    }
+
+    .bit-attr {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .bit-logo {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .bit-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.72); }
+    .bit-role { font-size: 12px; color: rgba(255,255,255,0.36); margin-top: 2px; }
+
+    /* ====================================================
+       HEAPS NORMAL TESTIMONIAL (plain white, after creative)
+    ==================================================== */
+    .heaps-testimonial {
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .heaps-logo {
+      height: 72px;
+      width: auto;
+      object-fit: contain;
+      object-position: left;
+    }
+
+    .heaps-stars {
+      height: 20px;
+      width: auto;
+      filter: none;
+    }
+
+    .heaps-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 2vw, 20px);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .heaps-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .heaps-role { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+    /* ====================================================
+       SOCIAL SECTION (pure black)
+    ==================================================== */
+    .s-social {
+      background: #000000;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .social-analytics-wrap {
+      margin-bottom: 36px;
+      max-width: 520px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .social-analytics-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .social-blurb {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      max-width: 640px;
+      margin-bottom: 44px;
+    }
+
+    .social-counters-row {
+      display: flex;
+      gap: clamp(36px, 7vw, 96px);
+    }
+
+    .social-stat-num {
+      font-family: 'Prata', serif;
+      font-size: clamp(38px, 5vw, 62px);
+      color: #ffffff;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .social-stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.38);
+      margin-top: 8px;
+      font-weight: 300;
+    }
   </style>
 </head>
 <body>
@@ -1031,12 +1161,12 @@
     </div>
 
     <!-- 3. BIO — plain white -->
-    <div class="s-plain reveal">
-      <div class="inner">
-        <div class="bio-block">
-          <h2 class="bio-headline">Marketing built on <em>craft</em> and backed by results.</h2>
-          <p>Melbourne-based marketing and brand specialist. I work at the intersection of brand strategy, performance marketing, and creative execution. Currently at HungryHungry, growing a portfolio of hospitality brands.</p>
-          <p>Previously four years at Dental Focus managing campaigns for 30+ clients. Bachelor of Business, La Trobe University.</p>
+    <div class="s-plain reveal" style="padding: 72px 0;">
+      <div class="inner" style="text-align: center;">
+        <div class="bio-block" style="margin: 0 auto;">
+          <h2 class="bio-headline">Brand strategy, performance marketing,<br>and <em>everything in between.</em></h2>
+          <p>Five years operating across the full marketing mix — from building brand identities from scratch and crafting ads that convert, to growing social audiences from zero. I bring strategic thinking, hands-on creative output, and a genuine obsession with how brands earn attention.</p>
+          <p>Comfortable in Photoshop, Meta Ads Manager, Figma, and the command line equally. Whether it's a campaign brief, a rebrand, or a content strategy — I get it done.</p>
         </div>
       </div>
     </div>
@@ -1053,7 +1183,6 @@
               <img src="https://seanportfolio.site/wp-content/uploads/2025/08/5-768x419.png" alt="The Creatine Lab" loading="lazy">
             </div>
             <div class="work-tile-body">
-              <div class="work-tile-tag">Brand Identity</div>
               <div class="work-tile-title">The Creatine Lab</div>
               <div class="work-tile-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
               <div class="work-tile-cta">View case study →</div>
@@ -1064,12 +1193,21 @@
               <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Screenshot-12-1024x583.png" alt="Final Edit Mockups" loading="lazy">
             </div>
             <div class="work-tile-body">
-              <div class="work-tile-tag">Website Design</div>
               <div class="work-tile-title">Final Edit Mockups</div>
               <div class="work-tile-desc">Logo, brand identity, and ecommerce site for a creative mockup resource platform.</div>
               <div class="work-tile-cta">View case study →</div>
             </div>
           </a>
+        </div>
+      </div>
+      <div class="brand-inline-testimonial">
+        <p class="bit-quote">"The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
+        <div class="bit-attr">
+          <img src="images/creatine-lab-logo.png" class="bit-logo" alt="The Creatine Lab">
+          <div>
+            <div class="bit-name">Needal</div>
+            <div class="bit-role">Founder, The Creatine Lab</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1108,52 +1246,43 @@
       </div>
     </div>
 
-    <!-- 6. SOCIAL STATS — black bento -->
-    <div class="s-dark reveal" id="stats-section">
-      <div class="social-grid">
-        <div class="stat-tile">
-          <div class="stat-number" data-target="2" data-suffix="M+">0M+</div>
-          <div class="stat-label">Total Views</div>
-        </div>
-        <div class="stat-tile">
-          <div class="stat-number" data-target="200" data-suffix="K+">0K+</div>
-          <div class="stat-label">Total Likes</div>
-        </div>
-        <div class="stat-tile">
-          <div class="stat-number" data-target="30" data-suffix="K+">0K+</div>
-          <div class="stat-label">Total Shares</div>
-        </div>
-        <div class="niche-tile">
-          <div class="niche-eyebrow">Niche</div>
-          <div class="niche-tags">
-            <span class="niche-tag">Marketing</span>
-            <span class="niche-tag">Brand</span>
-            <span class="niche-tag">Startup</span>
-            <span class="niche-tag">DTC</span>
+    <!-- 5b. HEAPS NORMAL TESTIMONIAL — plain white -->
+    <div class="s-plain reveal">
+      <div class="inner">
+        <div class="heaps-testimonial">
+          <img src="images/heaps-normal-logo.png" class="heaps-logo" alt="Heaps Normal">
+          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Untitled-design-2-768x164.png" class="heaps-stars" alt="5 stars">
+          <p class="heaps-quote">"Sean demonstrated a keen understanding of our brand vision and was able to translate it into visually stunning 3D elements that added creativity and vibrancy to our campaign materials. His work definitely made a defined impact on our marketing objectives."</p>
+          <div>
+            <div class="heaps-name">Tim Snape</div>
+            <div class="heaps-role">Marketing Director, Heaps Normal</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 7. TESTIMONIALS — black bento -->
-    <div class="s-dark reveal">
-      <div class="testimonials-grid">
-        <div class="testimonial-tile">
-          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/New-Project-51.png" class="testimonial-logo" alt="The Creatine Lab">
-          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Untitled-design-2-768x164.png" class="five-stars" alt="5 stars">
-          <p class="testimonial-quote">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
-          <div>
-            <div class="testimonial-name">Needal</div>
-            <div class="testimonial-role">Founder, The Creatine Lab</div>
-          </div>
+    <!-- 6. SOCIAL — pure black -->
+    <div class="s-social reveal" id="stats-section">
+      <div style="padding: var(--pad) var(--pad) 28px;">
+        <h2 class="section-headline">Content that <em><strong>builds audiences.</strong></em></h2>
+      </div>
+      <div style="padding: 0 var(--pad) var(--pad);">
+        <div class="social-analytics-wrap">
+          <img src="images/tiktok-analytics.png" alt="Social media analytics dashboard">
         </div>
-        <div class="testimonial-tile">
-          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/New-Project-52.png" class="testimonial-logo" alt="Heaps Normal">
-          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Untitled-design-2-768x164.png" class="five-stars" alt="5 stars">
-          <p class="testimonial-quote">"Sean demonstrated a keen understanding of our brand vision and was able to translate it into visually stunning 3D elements that added creativity and vibrancy to our campaign materials. His work definitely made a defined impact on our marketing objectives."</p>
+        <p class="social-blurb">Generated 3 million+ impressions across social media platforms through short-form content, targeting an audience of marketers, SaaS professionals, developers, and graphic designers.</p>
+        <div class="social-counters-row">
           <div>
-            <div class="testimonial-name">Tim Snape</div>
-            <div class="testimonial-role">Marketing Director, Heaps Normal</div>
+            <div class="social-stat-num" data-target="3" data-suffix="M+">3M+</div>
+            <div class="social-stat-label">post views</div>
+          </div>
+          <div>
+            <div class="social-stat-num" data-target="200" data-suffix="K+">200K+</div>
+            <div class="social-stat-label">likes</div>
+          </div>
+          <div>
+            <div class="social-stat-num" data-target="20" data-suffix="K+">20K+</div>
+            <div class="social-stat-label">shares</div>
           </div>
         </div>
       </div>
@@ -1231,7 +1360,7 @@
       entries.forEach(e => {
         if (e.isIntersecting && !statsDone) {
           statsDone = true;
-          document.querySelectorAll('[data-target]').forEach(el => {
+          document.querySelectorAll('.social-stat-num[data-target]').forEach(el => {
             countUp(el, +el.dataset.target, el.dataset.suffix, 1800);
           });
           statsObs.disconnect();
