@@ -1110,7 +1110,7 @@
 
     .social-analytics-wrap {
       margin: 0 auto 40px;
-      max-width: 100%;
+      max-width: 520px;
       border-radius: 18px;
       overflow: hidden;
     }
@@ -1296,8 +1296,8 @@
     ==================================================== */
     .brand-design-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--gap);
+      grid-template-columns: auto 1fr;
+      gap: clamp(32px, 5vw, 64px);
       align-items: start;
     }
 
@@ -1307,18 +1307,13 @@
       gap: var(--gap);
     }
 
-    .brand-tiles-col .work-tile { width: 100%; }
+    .brand-tiles-col .work-tile { width: 320px; }
 
     .brand-testi-panel {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 18px;
-      padding: 32px;
       display: flex;
       flex-direction: column;
       gap: 18px;
-      height: 100%;
-      box-sizing: border-box;
+      padding-top: 8px;
     }
 
     .brand-testi-quote {
@@ -1327,7 +1322,6 @@
       font-style: italic;
       color: rgba(255,255,255,0.72);
       line-height: 1.75;
-      flex: 1;
     }
 
     @media (max-width: 768px) {
