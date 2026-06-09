@@ -1295,19 +1295,20 @@
        BRAND DESIGN SIDE-BY-SIDE
     ==================================================== */
     .brand-design-grid {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: clamp(32px, 5vw, 64px);
-      align-items: start;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: clamp(24px, 4vw, 56px);
     }
 
     .brand-tiles-col {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       gap: var(--gap);
+      flex-shrink: 0;
     }
 
-    .brand-tiles-col .work-tile { width: 320px; }
+    .brand-tiles-col .work-tile { width: 280px; }
 
     .brand-testi-panel {
       display: flex;
@@ -1539,7 +1540,7 @@
           </div>
           <!-- Right: testimonial panel -->
           <div class="brand-testi-panel">
-            <img src="images/creatine-lab-logo.webp" class="heaps-logo" alt="The Creatine Lab">
+            <img src="images/creatine-lab-logo.webp" class="heaps-logo" alt="The Creatine Lab" style="overflow:hidden;">
             <svg width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
               <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
               <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
