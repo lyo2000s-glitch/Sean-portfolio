@@ -143,7 +143,7 @@
       padding: 74px var(--margin) 40px;
       display: flex;
       flex-direction: column;
-      gap: var(--gap);
+      gap: 28px;
     }
 
     /* White plain sections */
@@ -981,11 +981,16 @@
     }
 
     /* ====================================================
+       STARS SVG
+    ==================================================== */
+    .stars-svg { display: block; margin-bottom: 14px; }
+
+    /* ====================================================
        INLINE BRAND TESTIMONIAL (under brand design tiles)
     ==================================================== */
     .brand-inline-testimonial {
       padding: 28px var(--pad) var(--pad);
-      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
     }
 
     .bit-quote {
@@ -995,12 +1000,13 @@
       color: rgba(255,255,255,0.58);
       line-height: 1.75;
       max-width: 560px;
-      margin-bottom: 16px;
+      margin: 0 auto 16px;
     }
 
     .bit-attr {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 12px;
     }
 
@@ -1020,33 +1026,27 @@
       max-width: 680px;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 20px;
+      text-align: center;
     }
 
     .heaps-logo {
       height: 72px;
       width: auto;
       object-fit: contain;
-      object-position: left;
-    }
-
-    .heaps-stars {
-      height: 20px;
-      width: auto;
-      filter: none;
     }
 
     .heaps-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: 14px;
+      font-weight: 300;
       font-style: italic;
-      font-weight: 400;
       color: var(--muted);
       line-height: 1.75;
     }
 
-    .heaps-name { font-size: 14px; font-weight: 600; color: var(--text); }
-    .heaps-role { font-size: 13px; color: var(--muted); margin-top: 3px; }
+    .heaps-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .heaps-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
     /* ====================================================
        SOCIAL SECTION (pure black)
@@ -1201,6 +1201,13 @@
         </div>
       </div>
       <div class="brand-inline-testimonial">
+        <svg class="stars-svg" style="margin-left:auto;margin-right:auto;" width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
+          <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
+          <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
+          <path d="M49,.5L51,6.3L57.1,6.4L52.2,10L54,15.9L49,12.4L44,15.9L45.8,10L40.9,6.4L47,6.3Z"/>
+          <path d="M69,.5L71,6.3L77.1,6.4L72.2,10L74,15.9L69,12.4L64,15.9L65.8,10L60.9,6.4L67,6.3Z"/>
+          <path d="M89,.5L91,6.3L97.1,6.4L92.2,10L94,15.9L89,12.4L84,15.9L85.8,10L80.9,6.4L87,6.3Z"/>
+        </svg>
         <p class="bit-quote">"The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
         <div class="bit-attr">
           <img src="images/creatine-lab-logo.webp" class="bit-logo" alt="The Creatine Lab">
@@ -1251,7 +1258,13 @@
       <div class="inner">
         <div class="heaps-testimonial">
           <img src="images/heaps-normal-logo.png" class="heaps-logo" alt="Heaps Normal">
-          <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Untitled-design-2-768x164.png" class="heaps-stars" alt="5 stars">
+          <svg class="stars-svg" width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
+            <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
+            <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
+            <path d="M49,.5L51,6.3L57.1,6.4L52.2,10L54,15.9L49,12.4L44,15.9L45.8,10L40.9,6.4L47,6.3Z"/>
+            <path d="M69,.5L71,6.3L77.1,6.4L72.2,10L74,15.9L69,12.4L64,15.9L65.8,10L60.9,6.4L67,6.3Z"/>
+            <path d="M89,.5L91,6.3L97.1,6.4L92.2,10L94,15.9L89,12.4L84,15.9L85.8,10L80.9,6.4L87,6.3Z"/>
+          </svg>
           <p class="heaps-quote">"Sean demonstrated a keen understanding of our brand vision and was able to translate it into visually stunning 3D elements that added creativity and vibrancy to our campaign materials. His work definitely made a defined impact on our marketing objectives."</p>
           <div>
             <div class="heaps-name">Tim Snape</div>
@@ -1263,7 +1276,7 @@
 
     <!-- 6. SOCIAL — pure black -->
     <div class="s-social reveal" id="stats-section">
-      <div style="padding: var(--pad) var(--pad) 28px;">
+      <div style="padding: var(--pad) var(--pad) 28px; text-align: center;">
         <h2 class="section-headline">Content that <em><strong>builds audiences.</strong></em></h2>
       </div>
       <div style="padding: 0 var(--pad) var(--pad);">
