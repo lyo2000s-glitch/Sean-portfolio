@@ -330,6 +330,22 @@
       display: block;
     }
 
+    .hero-photo-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .hero-photo-caption {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+    }
+    .hero-photo-name {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.90);
+      letter-spacing: 0.01em;
+    }
+    .hero-photo-role {
+      font-size: 11px; font-weight: 400; color: rgba(255,255,255,0.48);
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+
     .hero-stats {
       display: flex;
       justify-content: center;
@@ -975,12 +991,6 @@
     .work-tile { opacity: 0; transform: translateY(24px); transition: opacity 600ms cubic-bezier(0.22,1,0.36,1), transform 600ms cubic-bezier(0.22,1,0.36,1); }
     .reveal.visible .work-tile { opacity: 1; transform: translateY(0); }
 
-    .reveal.visible .exp-entry:nth-child(1) { transition-delay: 80ms; }
-    .reveal.visible .exp-entry:nth-child(2) { transition-delay: 200ms; }
-    .reveal.visible .exp-entry:nth-child(3) { transition-delay: 320ms; }
-    .exp-entry { opacity: 0; transform: translateX(-16px); transition: opacity 550ms cubic-bezier(0.22,1,0.36,1), transform 550ms cubic-bezier(0.22,1,0.36,1); }
-    .reveal.visible .exp-entry { opacity: 1; transform: translateX(0); }
-
     .reveal.visible .hero-stat:nth-child(1) { transition-delay: 0ms; }
     .reveal.visible .hero-stat:nth-child(2) { transition-delay: 120ms; }
     .reveal.visible .hero-stat:nth-child(3) { transition-delay: 240ms; }
@@ -1099,8 +1109,8 @@
     }
 
     .social-analytics-wrap {
-      margin: 0 auto 36px;
-      max-width: 640px;
+      margin: 0 auto 40px;
+      max-width: 100%;
       border-radius: 18px;
       overflow: hidden;
     }
@@ -1143,68 +1153,89 @@
     }
 
     /* ====================================================
-       EXPERIENCE TIMELINE
+       EXPERIENCE ACCORDION TIMELINE
     ==================================================== */
-    .exp-section-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 32px;
-    }
-
-    .exp-timeline {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border-left: 1.5px solid rgba(0,0,0,0.09);
-      padding-left: 32px;
-      max-width: 680px;
-    }
-
-    .exp-entry {
+    .exp-center-timeline {
+      max-width: 720px;
+      margin: 0 auto;
       position: relative;
-      padding-bottom: 36px;
     }
 
-    .exp-entry:last-child { padding-bottom: 0; }
-
-    .exp-entry::before {
+    .exp-center-timeline::before {
       content: '';
       position: absolute;
-      left: -38px;
-      top: 5px;
-      width: 10px;
-      height: 10px;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1.5px;
+      background: rgba(0,0,0,0.09);
+      transform: translateX(-50%);
+    }
+
+    .exp-row {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      min-height: 56px;
+    }
+
+    .exp-node-col {
+      display: flex;
+      justify-content: center;
+      padding-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .exp-dot {
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--accent);
-      border: 2px solid #ffffff;
-      box-shadow: 0 0 0 1.5px var(--accent);
+      border: 2.5px solid #fff;
+      box-shadow: 0 0 0 2px var(--accent);
+      flex-shrink: 0;
+      transition: transform 250ms ease;
     }
+
+    .exp-btn:hover ~ .exp-dot, .exp-btn:focus ~ .exp-dot { transform: scale(1.25); }
+
+    .exp-content-col { padding: 6px 0 16px; }
+    .exp-row-left .exp-content-col  { padding-right: 16px; }
+    .exp-row-right .exp-content-col { padding-left: 16px; }
+    .exp-empty-col { }
+
+    .exp-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .exp-row-left  .exp-btn { flex-direction: row-reverse; justify-content: flex-end; }
+    .exp-row-right .exp-btn { flex-direction: row;         justify-content: flex-start; }
+
+    .exp-btn-inner { display: flex; flex-direction: column; gap: 2px; }
+
+    .exp-row-left  .exp-btn-inner { align-items: flex-end; text-align: right; }
+    .exp-row-right .exp-btn-inner { align-items: flex-start; text-align: left; }
 
     .exp-tag {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.12em;
       text-transform: uppercase;
+      letter-spacing: 0.12em;
       color: var(--accent);
-      opacity: 0.75;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .exp-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 2px;
+      opacity: 0.8;
     }
 
     .exp-company {
-      font-size: 15px;
-      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
       color: var(--text);
       letter-spacing: -0.01em;
     }
@@ -1212,21 +1243,42 @@
     .exp-dates {
       font-size: 11px;
       color: var(--dim);
-      white-space: nowrap;
-      flex-shrink: 0;
     }
+
+    .exp-chevron {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      color: var(--dim);
+      transition: transform 300ms cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .exp-btn[aria-expanded="true"] .exp-chevron { transform: rotate(180deg); }
+
+    .exp-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 450ms cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .exp-panel.open { max-height: 320px; }
 
     .exp-role {
       font-size: 12px;
       color: var(--muted);
       margin-bottom: 10px;
+      padding-top: 2px;
     }
+
+    .exp-row-left  .exp-role { text-align: right; }
+    .exp-row-right .exp-role { text-align: left; }
 
     .exp-points {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
+      padding-bottom: 8px;
     }
 
     .exp-points li {
@@ -1234,18 +1286,71 @@
       font-weight: 300;
       color: var(--muted);
       line-height: 1.55;
-      padding-left: 14px;
-      position: relative;
     }
 
-    .exp-points li::before {
-      content: '·';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 18px;
-      line-height: 1.1;
+    .exp-row-left  .exp-points li { text-align: right; }
+    .exp-row-right .exp-points li { text-align: left; }
+
+    /* ====================================================
+       BRAND DESIGN SIDE-BY-SIDE
+    ==================================================== */
+    .brand-design-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--gap);
+      align-items: start;
+    }
+
+    .brand-tiles-col {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
+
+    .brand-tiles-col .work-tile { width: 100%; }
+
+    .brand-testi-panel {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      height: 100%;
+      box-sizing: border-box;
+    }
+
+    .brand-testi-quote {
+      font-size: 15px;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+      flex: 1;
+    }
+
+    @media (max-width: 768px) {
+      .brand-design-grid { grid-template-columns: 1fr; }
+      .exp-center-timeline::before { display: none; }
+      .exp-row { grid-template-columns: 0 48px 1fr; }
+      .exp-row-left { grid-template-columns: 1fr 48px 0; }
+      .exp-row-left .exp-btn { flex-direction: row; justify-content: flex-start; }
+      .exp-row-left .exp-btn-inner { align-items: flex-start; text-align: left; }
+      .exp-row-left .exp-role, .exp-row-left .exp-points li { text-align: left; }
+    }
+
+    /* ====================================================
+       ANALYTICS IMAGE BREATHING
+    ==================================================== */
+    @keyframes imageBreath {
+      0%, 100% { transform: scale(1.00); }
+      50%       { transform: scale(1.06); }
+    }
+
+    .social-analytics-wrap img {
+      animation: imageBreath 5s ease-in-out infinite;
+      transform-origin: center;
     }
   </style>
 </head>
@@ -1270,10 +1375,15 @@
         <p class="hero-location">Melbourne, Australia</p>
         <h1 class="hero-headline">Are you looking for a</h1>
         <span class="hero-sub">Brand &amp; Marketing Specialist?</span>
-        <a href="#work-web" class="hero-cta">View my work</a>
       </div>
       <div class="hero-profile">
-        <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
+        <div class="hero-photo-wrap">
+          <img src="images/sean.png" class="hero-photo" alt="Sean Lyons" onerror="this.style.display='none'">
+          <div class="hero-photo-caption">
+            <span class="hero-photo-name">Sean Lyons</span>
+            <span class="hero-photo-role">Brand &amp; Marketing Specialist</span>
+          </div>
+        </div>
         <div class="hero-stats">
           <div class="hero-stat">
             <span class="hero-stat-num" data-hero-target="5" data-hero-suffix="+">5+</span>
@@ -1291,77 +1401,7 @@
       </div>
     </div>
 
-    <!-- 2. CHAT — plain white, just under hero -->
-    <div class="s-chat reveal">
-      <div class="chat-top">
-        <div class="live-row">
-          <div class="live-dot"></div>
-          <span class="live-label">Live</span>
-          <span class="live-desc">ask me anything about my experience, skills, or suitability for your role</span>
-        </div>
-        <div class="message-area" id="messageArea"></div>
-        <div class="chat-input-row">
-          <input type="text" class="chat-input" id="chatInput"
-            placeholder="Ask me anything about my experience, skills, or suitability for your role...">
-          <button class="send-btn" id="sendBtn">Ask</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2b. EXPERIENCE TIMELINE — plain white -->
-    <div class="s-plain reveal">
-      <div class="inner">
-        <p class="exp-section-label">Experience</p>
-        <div class="exp-timeline">
-
-          <div class="exp-entry">
-            <span class="exp-tag">Internship</span>
-            <div class="exp-top">
-              <span class="exp-company">SkyThanks</span>
-              <span class="exp-dates">Apr 2021 – Sep 2021</span>
-            </div>
-            <div class="exp-role">Digital Marketing Intern</div>
-            <ul class="exp-points">
-              <li>Built and deployed EDM automation sequences in HubSpot CRM</li>
-              <li>Managed social media content across 2 brand channels</li>
-              <li>Supported digital campaign delivery and content calendars</li>
-            </ul>
-          </div>
-
-          <div class="exp-entry">
-            <span class="exp-tag">Marketing Agency</span>
-            <div class="exp-top">
-              <span class="exp-company">Dental Focus Marketing</span>
-              <span class="exp-dates">Apr 2022 – Jan 2026</span>
-            </div>
-            <div class="exp-role">Marketing Manager</div>
-            <ul class="exp-points">
-              <li>Managed campaigns for 30+ dental clinic clients simultaneously</li>
-              <li>Maintained a 5-star client rating across all accounts for 4 years</li>
-              <li>Designed and built client websites across WordPress, Wix and HTML/CSS</li>
-              <li>Led SEO strategy, EDM automations and 2+ annual industry trade events</li>
-            </ul>
-          </div>
-
-          <div class="exp-entry">
-            <span class="exp-tag">Current</span>
-            <div class="exp-top">
-              <span class="exp-company">HungryHungry</span>
-              <span class="exp-dates">Mar 2026 – Present</span>
-            </div>
-            <div class="exp-role">Marketing, Performance &amp; Brand</div>
-            <ul class="exp-points">
-              <li>Driving growth across 3 hospitality brands: Otto, HungryHungry and MOBI</li>
-              <li>Running Meta Ads campaigns for product launches, events and promotions</li>
-              <li>Built AI-powered marketing automation using Make.com and Claude API</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. BIO — plain white -->
+    <!-- 2. BIO — plain white, just under hero -->
     <div class="s-plain reveal" style="padding: 72px 0;">
       <div class="inner" style="text-align: center;">
         <div class="bio-block" style="margin: 0 auto;">
@@ -1372,49 +1412,152 @@
       </div>
     </div>
 
-    <!-- 4. WEB DESIGN — black bento -->
+    <!-- 3. CHAT — plain white -->
+    <div class="s-chat reveal">
+      <div class="chat-top">
+        <div class="live-row">
+          <div class="live-dot"></div>
+          <span class="live-label">Live</span>
+        </div>
+        <div class="message-area" id="messageArea"></div>
+        <div class="chat-input-row">
+          <input type="text" class="chat-input" id="chatInput"
+            placeholder="Ask me anything about my experience, skills, or suitability for your role...">
+          <button class="send-btn" id="sendBtn">Ask</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. EXPERIENCE ACCORDION — plain white -->
+    <div class="s-plain reveal">
+      <div class="inner" style="text-align: center;">
+        <h2 class="section-headline" style="color: var(--text); margin-bottom: 48px;">Career <em><strong>experience.</strong></em></h2>
+      </div>
+      <div class="inner">
+        <div class="exp-center-timeline">
+
+          <!-- SkyThanks — LEFT -->
+          <div class="exp-row exp-row-left">
+            <div class="exp-content-col">
+              <button class="exp-btn" aria-expanded="false">
+                <div class="exp-btn-inner">
+                  <span class="exp-tag">Internship</span>
+                  <span class="exp-company">SkyThanks</span>
+                  <span class="exp-dates">Apr 2021 – Sep 2021</span>
+                </div>
+                <svg class="exp-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+              </button>
+              <div class="exp-panel">
+                <div class="exp-role">Digital Marketing Intern</div>
+                <ul class="exp-points">
+                  <li>Built and deployed EDM automation sequences in HubSpot CRM</li>
+                  <li>Managed social media content across 2 brand channels</li>
+                  <li>Supported digital campaign delivery and content calendars</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp-node-col"><div class="exp-dot"></div></div>
+            <div class="exp-empty-col"></div>
+          </div>
+
+          <!-- Dental Focus — RIGHT -->
+          <div class="exp-row exp-row-right">
+            <div class="exp-empty-col"></div>
+            <div class="exp-node-col"><div class="exp-dot"></div></div>
+            <div class="exp-content-col">
+              <button class="exp-btn" aria-expanded="false">
+                <svg class="exp-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+                <div class="exp-btn-inner">
+                  <span class="exp-tag">Marketing Agency</span>
+                  <span class="exp-company">Dental Focus Marketing</span>
+                  <span class="exp-dates">Apr 2022 – Jan 2026</span>
+                </div>
+              </button>
+              <div class="exp-panel">
+                <div class="exp-role">Marketing Manager</div>
+                <ul class="exp-points">
+                  <li>Managed campaigns for 30+ dental clinic clients simultaneously</li>
+                  <li>Maintained a 5-star client rating across all accounts for 4 years</li>
+                  <li>Designed and built client websites on WordPress, Wix and HTML/CSS</li>
+                  <li>Led SEO strategy, EDM automations and 2+ annual industry trade events</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- HungryHungry — LEFT -->
+          <div class="exp-row exp-row-left">
+            <div class="exp-content-col">
+              <button class="exp-btn" aria-expanded="false">
+                <div class="exp-btn-inner">
+                  <span class="exp-tag">Current</span>
+                  <span class="exp-company">HungryHungry</span>
+                  <span class="exp-dates">Mar 2026 – Present</span>
+                </div>
+                <svg class="exp-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>
+              </button>
+              <div class="exp-panel">
+                <div class="exp-role">Marketing, Performance &amp; Brand</div>
+                <ul class="exp-points">
+                  <li>Driving growth across 3 hospitality brands: Otto, HungryHungry and MOBI</li>
+                  <li>Running Meta Ads campaigns for product launches, events and promotions</li>
+                  <li>Built AI-powered marketing automation using Make.com and Claude API</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp-node-col"><div class="exp-dot"></div></div>
+            <div class="exp-empty-col"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. BRAND DESIGN — black bento, tiles left + testimonial right -->
     <div class="s-dark reveal" id="work-web">
-      <div style="padding: var(--pad) var(--pad) 20px; text-align: center;">
+      <div style="padding: var(--pad) var(--pad) 24px; text-align: center;">
         <h2 class="section-headline">Brand <em><strong>design.</strong></em></h2>
       </div>
       <div style="padding: 0 var(--pad) var(--pad);">
-        <div class="work-tiles">
-          <a href="the-creatine-lab.html" class="work-tile">
-            <div class="work-tile-thumb">
-              <img src="https://seanportfolio.site/wp-content/uploads/2025/08/5-768x419.png" alt="The Creatine Lab" loading="lazy">
+        <div class="brand-design-grid">
+          <!-- Left: tiles -->
+          <div class="brand-tiles-col">
+            <a href="the-creatine-lab.html" class="work-tile">
+              <div class="work-tile-thumb">
+                <img src="https://seanportfolio.site/wp-content/uploads/2025/08/5-768x419.png" alt="The Creatine Lab" loading="lazy">
+              </div>
+              <div class="work-tile-body">
+                <div class="work-tile-title">The Creatine Lab</div>
+                <div class="work-tile-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
+                <div class="work-tile-cta">View case study →</div>
+              </div>
+            </a>
+            <a href="final-edit-mockups.html" class="work-tile">
+              <div class="work-tile-thumb">
+                <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Screenshot-12-1024x583.png" alt="Final Edit Mockups" loading="lazy">
+              </div>
+              <div class="work-tile-body">
+                <div class="work-tile-title">Final Edit Mockups</div>
+                <div class="work-tile-desc">Logo, brand identity, and ecommerce site for a creative mockup resource platform.</div>
+                <div class="work-tile-cta">View case study →</div>
+              </div>
+            </a>
+          </div>
+          <!-- Right: testimonial panel -->
+          <div class="brand-testi-panel">
+            <img src="images/creatine-lab-logo.webp" class="heaps-logo" alt="The Creatine Lab">
+            <svg width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
+              <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
+              <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
+              <path d="M49,.5L51,6.3L57.1,6.4L52.2,10L54,15.9L49,12.4L44,15.9L45.8,10L40.9,6.4L47,6.3Z"/>
+              <path d="M69,.5L71,6.3L77.1,6.4L72.2,10L74,15.9L69,12.4L64,15.9L65.8,10L60.9,6.4L67,6.3Z"/>
+              <path d="M89,.5L91,6.3L97.1,6.4L92.2,10L94,15.9L89,12.4L84,15.9L85.8,10L80.9,6.4L87,6.3Z"/>
+            </svg>
+            <p class="brand-testi-quote">"The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
+            <div>
+              <div class="bit-name">Needal</div>
+              <div class="bit-role">Founder, The Creatine Lab</div>
             </div>
-            <div class="work-tile-body">
-              <div class="work-tile-title">The Creatine Lab</div>
-              <div class="work-tile-desc">Full brand identity, packaging, and web presence built from the ground up.</div>
-              <div class="work-tile-cta">View case study →</div>
-            </div>
-          </a>
-          <a href="final-edit-mockups.html" class="work-tile">
-            <div class="work-tile-thumb">
-              <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Screenshot-12-1024x583.png" alt="Final Edit Mockups" loading="lazy">
-            </div>
-            <div class="work-tile-body">
-              <div class="work-tile-title">Final Edit Mockups</div>
-              <div class="work-tile-desc">Logo, brand identity, and ecommerce site for a creative mockup resource platform.</div>
-              <div class="work-tile-cta">View case study →</div>
-            </div>
-          </a>
-        </div>
-      </div>
-      <div class="brand-inline-testimonial">
-        <svg class="stars-svg" style="margin-left:auto;margin-right:auto;" width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
-          <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
-          <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
-          <path d="M49,.5L51,6.3L57.1,6.4L52.2,10L54,15.9L49,12.4L44,15.9L45.8,10L40.9,6.4L47,6.3Z"/>
-          <path d="M69,.5L71,6.3L77.1,6.4L72.2,10L74,15.9L69,12.4L64,15.9L65.8,10L60.9,6.4L67,6.3Z"/>
-          <path d="M89,.5L91,6.3L97.1,6.4L92.2,10L94,15.9L89,12.4L84,15.9L85.8,10L80.9,6.4L87,6.3Z"/>
-        </svg>
-        <p class="bit-quote">"The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
-        <div class="bit-attr">
-          <img src="images/creatine-lab-logo.webp" class="bit-logo" alt="The Creatine Lab">
-          <div>
-            <div class="bit-name">Needal</div>
-            <div class="bit-role">Founder, The Creatine Lab</div>
           </div>
         </div>
       </div>
