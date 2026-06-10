@@ -519,6 +519,7 @@
     }
 
     .chat-input::placeholder { color: var(--dim); }
+    .chat-prompt-mobile { display: none; }
 
     .send-btn {
       background: var(--text);
@@ -1011,11 +1012,29 @@
       nav { padding: 0 var(--pad); }
       .nav-links { display: none; }
       .page-sections { padding-top: 68px; }
-      .hero-photo { width: 90px; height: 90px; }
-      .hero-stats { gap: 20px; }
       .social-grid { grid-template-columns: repeat(2, 1fr); }
       .testimonials-grid { grid-template-columns: 1fr; }
       .img-card img { width: 170px; }
+
+      /* Hero — tighter on mobile */
+      .s-hero { height: auto; min-height: unset; padding-top: 28px; }
+      .hero-profile { padding-bottom: 40px; gap: 20px; }
+      .hero-photo { width: 90px; height: 90px; }
+      .hero-stats { gap: 20px; margin-top: 10px; }
+
+      /* Experience — all left-aligned, arrows on right */
+      .exp-btn { flex-direction: row !important; justify-content: space-between !important; width: 100%; }
+      .exp-btn-inner { align-items: flex-start !important; text-align: left !important; order: 1; }
+      .exp-chevron { order: 2; flex-shrink: 0; }
+
+      /* Chat — show prompt text, hide placeholder text */
+      .chat-prompt-mobile { display: block; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+      .chat-input::placeholder { color: transparent; }
+
+      /* Brand design — stack vertically on mobile */
+      .brand-design-grid { flex-direction: column; }
+      .brand-tiles-col { flex-direction: column; }
+      .brand-tiles-col .work-tile { width: 100%; }
     }
 
     @media (max-width: 480px) {
@@ -1386,7 +1405,6 @@
     <div class="s-hero reveal">
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="hero-text">
-        <p class="hero-location">Melbourne, Australia</p>
         <h1 class="hero-headline">Are you looking for a</h1>
         <span class="hero-sub">Brand &amp; Marketing Specialist?</span>
       </div>
@@ -1421,7 +1439,7 @@
         <div class="bio-block" style="margin: 0 auto;">
           <h2 class="bio-headline">Brand strategy, performance marketing,<br>and <em>everything in between.</em></h2>
           <p>Five years operating across the full marketing mix, from building brand identities from scratch and crafting ads that convert, to growing social audiences from zero. I bring strategic thinking, hands-on creative output, and a genuine obsession with how brands earn attention.</p>
-          <p>Comfortable in Photoshop, Meta Ads Manager, Figma, and the command line equally. Whether it's a campaign brief, a rebrand, or a content strategy, I get it done.</p>
+          <p>Comfortable across Photoshop, Meta Ads Manager, HubSpot, Klaviyo, and the command line. Whether it's a campaign brief, a rebrand, or a content strategy, I get it done.</p>
         </div>
       </div>
     </div>
@@ -1513,6 +1531,7 @@
           <div class="live-dot"></div>
           <span class="live-label">Live</span>
         </div>
+        <p class="chat-prompt-mobile">Ask me anything about my experience, skills, or suitability for your role.</p>
         <div class="message-area" id="messageArea"></div>
         <div class="chat-input-row">
           <input type="text" class="chat-input" id="chatInput"
@@ -1677,9 +1696,7 @@
 
   </div>
 
-  <footer>
-    <p>Sean Lyons 2026 &middot; Melbourne, Australia</p>
-  </footer>
+  <footer></footer>
 
   <script>
     const PROXY_URL = 'https://sean-portfolio-proxy.YOUR-SUBDOMAIN.workers.dev';
@@ -1780,7 +1797,7 @@ FREELANCE
 The Creatine Lab: full brand identity, packaging, Meta ads. Joiluxe Media: 3D visuals and ad creatives for DTC brands. Final Edit Mockups: brand identity and ecommerce website.
 
 SKILLS
-Meta Ads, performance marketing, SEO, email marketing, brand strategy, content creation. Tools: Mailchimp, Klaviyo, Apollo.io, HubSpot, WordPress, Make.com, Claude API. Creative: Photoshop, Illustrator, Premiere, After Effects, Blender, Figma. Technical: HTML, CSS, JS, AI automation.
+Meta Ads, performance marketing, SEO, email marketing, brand strategy, content creation. Tools: Mailchimp, Klaviyo, Apollo.io, HubSpot, WordPress, Make.com, Claude API. Creative: Photoshop, Illustrator, Premiere, After Effects, Blender. Technical: HTML, CSS, JS, AI automation.
 
 CONTENT
 2M+ views, 200K+ likes, 30K+ shares. Niche: marketers, brand builders, startup founders.
