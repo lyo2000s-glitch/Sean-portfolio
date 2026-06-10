@@ -395,7 +395,7 @@
     }
 
     .chat-top {
-      max-width: 780px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
@@ -1024,15 +1024,15 @@
       .hero-stat { flex: 1; max-width: 84px; text-align: center; }
       .hero-stat-label { white-space: normal; word-break: break-word; }
 
-      /* Experience — switch grid to flex, all left-aligned, arrows on right */
+      /* Experience — switch grid to flex, dot left, text middle, arrow right */
       .exp-center-timeline::before { display: none; }
       .exp-row { display: flex !important; flex-direction: row; align-items: flex-start; gap: 12px; }
       .exp-empty-col { display: none !important; }
-      .exp-node-col { flex-shrink: 0; width: auto; padding-top: 20px; }
-      .exp-content-col { flex: 1; min-width: 0; }
+      .exp-node-col { order: 1; flex-shrink: 0; width: auto; padding-top: 20px; }
+      .exp-content-col { order: 2; flex: 1; min-width: 0; }
       .exp-btn { flex-direction: row !important; justify-content: space-between !important; width: 100%; }
-      .exp-btn-inner { align-items: flex-start !important; text-align: left !important; }
-      .exp-chevron { flex-shrink: 0; }
+      .exp-btn-inner { order: 1; align-items: flex-start !important; text-align: left !important; }
+      .exp-chevron { order: 2; flex-shrink: 0; }
 
       /* Chat — show prompt text, hide placeholder text */
       .chat-prompt-mobile { display: block; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
@@ -1046,6 +1046,9 @@
 
       /* Social / content-that-builds-audiences — more top/bottom breathing room */
       .s-social { padding-top: 16px; padding-bottom: 16px; }
+
+      /* Brand testimonial — centre logo + stars on mobile */
+      .brand-testi-panel { align-items: center; }
 
       /* Brand design — stack vertically on mobile */
       .brand-design-grid { flex-direction: column !important; align-items: stretch !important; }
