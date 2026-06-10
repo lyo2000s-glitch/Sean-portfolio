@@ -497,7 +497,7 @@
       border: 1.5px solid var(--border);
       border-radius: 999px;
       overflow: hidden;
-      background: #f5f3ee;
+      background: #ffffff;
       transition: border-color 250ms, box-shadow 250ms;
     }
 
@@ -1020,7 +1020,9 @@
       .s-hero { height: auto; min-height: unset; padding-top: 28px; }
       .hero-profile { padding-bottom: 40px; gap: 20px; }
       .hero-photo { width: 90px; height: 90px; }
-      .hero-stats { gap: 20px; margin-top: 10px; }
+      .hero-stats { gap: 16px; margin-top: 10px; justify-content: center; }
+      .hero-stat { flex: 1; max-width: 84px; text-align: center; }
+      .hero-stat-label { white-space: normal; word-break: break-word; }
 
       /* Experience — all left-aligned, arrows on right */
       .exp-btn { flex-direction: row !important; justify-content: space-between !important; width: 100%; }
@@ -1029,12 +1031,22 @@
 
       /* Chat — show prompt text, hide placeholder text */
       .chat-prompt-mobile { display: block; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
-      .chat-input::placeholder { color: transparent; }
+      .chat-input::placeholder { color: var(--dim); }
+
+      /* Experience — uniform dot-to-content spacing */
+      .exp-row-left .exp-content-col { padding-right: 0; padding-left: 16px; }
+
+      /* Heaps Normal testimonial — less padding on mobile */
+      .heaps-section-wrap { padding: 12px 0 !important; }
+
+      /* Social / content-that-builds-audiences — more top/bottom breathing room */
+      .s-social { padding-top: 16px; padding-bottom: 16px; }
 
       /* Brand design — stack vertically on mobile */
       .brand-design-grid { flex-direction: column; }
-      .brand-tiles-col { flex-direction: column; }
+      .brand-tiles-col { flex-direction: column; width: 100%; flex-shrink: 1; }
       .brand-tiles-col .work-tile { width: 100%; }
+      .brand-testi-panel { width: 100%; }
     }
 
     @media (max-width: 480px) {
@@ -1439,7 +1451,7 @@
         <div class="bio-block" style="margin: 0 auto;">
           <h2 class="bio-headline">Brand strategy, performance marketing,<br>and <em>everything in between.</em></h2>
           <p>Five years operating across the full marketing mix, from building brand identities from scratch and crafting ads that convert, to growing social audiences from zero. I bring strategic thinking, hands-on creative output, and a genuine obsession with how brands earn attention.</p>
-          <p>Comfortable across Photoshop, Meta Ads Manager, HubSpot, Klaviyo, and the command line. Whether it's a campaign brief, a rebrand, or a content strategy, I get it done.</p>
+          <p>Comfortable across Photoshop, Meta Ads Manager, HubSpot, and the command line. Whether it's a campaign brief, a rebrand, or a content strategy, I get it done.</p>
         </div>
       </div>
     </div>
@@ -1627,7 +1639,7 @@
     </div>
 
     <!-- 5b. HEAPS NORMAL TESTIMONIAL — plain white -->
-    <div class="s-plain reveal" style="padding: 24px 0;">
+    <div class="s-plain reveal heaps-section-wrap" style="padding: 24px 0;">
       <div class="inner">
         <div class="heaps-testimonial">
           <img src="images/heaps-normal-logo.png" class="heaps-logo" alt="Heaps Normal">
@@ -1731,6 +1743,19 @@
       mainNav.classList.toggle('scrolled', window.scrollY > 55);
     }, { passive: true });
 
+    // ---- Mobile chat placeholder ----
+    (function() {
+      const input = document.getElementById('chatInput');
+      if (!input) return;
+      function syncPlaceholder() {
+        input.placeholder = window.innerWidth <= 768
+          ? 'Ask a question'
+          : 'Ask me anything about my experience, skills, or suitability for your role...';
+      }
+      syncPlaceholder();
+      window.addEventListener('resize', syncPlaceholder, { passive: true });
+    })();
+
     // ---- Experience accordion ----
     document.querySelectorAll('.exp-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1797,7 +1822,7 @@ FREELANCE
 The Creatine Lab: full brand identity, packaging, Meta ads. Joiluxe Media: 3D visuals and ad creatives for DTC brands. Final Edit Mockups: brand identity and ecommerce website.
 
 SKILLS
-Meta Ads, performance marketing, SEO, email marketing, brand strategy, content creation. Tools: Mailchimp, Klaviyo, Apollo.io, HubSpot, WordPress, Make.com, Claude API. Creative: Photoshop, Illustrator, Premiere, After Effects, Blender. Technical: HTML, CSS, JS, AI automation.
+Meta Ads, performance marketing, SEO, email marketing, brand strategy, content creation. Tools: Mailchimp, Apollo.io, HubSpot, WordPress, Make.com, Claude API. Creative: Photoshop, Illustrator, Premiere, After Effects, Blender. Technical: HTML, CSS, JS, AI automation.
 
 CONTENT
 2M+ views, 200K+ likes, 30K+ shares. Niche: marketers, brand builders, startup founders.
