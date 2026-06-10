@@ -1036,16 +1036,16 @@
       /* Experience — uniform dot-to-content spacing */
       .exp-row-left .exp-content-col { padding-right: 0; padding-left: 16px; }
 
-      /* Heaps Normal testimonial — less padding on mobile */
-      .heaps-section-wrap { padding: 12px 0 !important; }
+      /* Heaps Normal testimonial — less top padding on mobile only */
+      .heaps-section-wrap { padding-top: 12px !important; }
 
       /* Social / content-that-builds-audiences — more top/bottom breathing room */
       .s-social { padding-top: 16px; padding-bottom: 16px; }
 
       /* Brand design — stack vertically on mobile */
       .brand-design-grid { flex-direction: column; }
-      .brand-tiles-col { flex-direction: column; width: 100%; flex-shrink: 1; }
-      .brand-tiles-col .work-tile { width: 100%; }
+      .brand-tiles-col { flex-direction: column; width: 100%; flex-shrink: 1; min-width: 0; }
+      .brand-tiles-col .work-tile { width: 100%; flex-shrink: 1; min-width: 0; max-width: 100%; }
       .brand-testi-panel { width: 100%; }
     }
 
@@ -1355,18 +1355,6 @@
       font-style: italic;
       color: rgba(255,255,255,0.72);
       line-height: 1.75;
-    }
-
-    @media (max-width: 768px) {
-      .brand-design-grid { grid-template-columns: 1fr; }
-      .exp-center-timeline::before { display: none; }
-      .exp-row { display: flex; flex-direction: row; align-items: flex-start; gap: 16px; }
-      .exp-empty-col { display: none; }
-      .exp-node-col { flex-shrink: 0; order: 1; }
-      .exp-content-col { flex: 1; order: 2; }
-      .exp-row-left .exp-btn { flex-direction: row; justify-content: flex-start; }
-      .exp-row-left .exp-btn-inner { align-items: flex-start; text-align: left; }
-      .exp-row-left .exp-role, .exp-row-left .exp-points li { text-align: left; }
     }
 
     /* ====================================================
