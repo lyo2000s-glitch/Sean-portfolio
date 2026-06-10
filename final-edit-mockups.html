@@ -14,7 +14,6 @@
       --white:  #ffffff;
       --dark:   #0e0e0e;
       --border: rgba(0,0,0,0.07);
-      --shadow: 0 2px 14px rgba(0,0,0,0.06);
       --accent: #6c2bd9;
       --text:   #111111;
       --muted:  #666666;
@@ -67,7 +66,7 @@
     .nav-links { display: flex; align-items: center; gap: 28px; }
 
     nav a {
-      text-decoration: none; color: var(--muted); font-size: 13px;
+      text-decoration: none; color: var(--muted); font-size: 14px;
       transition: color 350ms ease;
     }
 
@@ -75,7 +74,7 @@
 
     .nav-pill {
       border: 1.5px solid var(--text) !important; color: var(--text) !important;
-      padding: 5px 16px; border-radius: 999px; font-size: 13px; font-weight: 500;
+      padding: 5px 16px; border-radius: 999px; font-size: 14px; font-weight: 500;
     }
 
     .nav-pill:hover { background: var(--text) !important; color: #fff !important; }
@@ -101,7 +100,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
       border-radius: 999px; padding: 5px 14px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.08em;
       text-transform: uppercase; color: rgba(255,255,255,0.7);
       width: fit-content;
     }
@@ -121,90 +120,56 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.28);
       color: #fff; padding: 11px 22px; border-radius: 999px;
-      font-size: 13px; font-weight: 500; text-decoration: none;
+      font-size: 14px; font-weight: 500; text-decoration: none;
       width: fit-content; transition: background 200ms ease;
       margin-top: 8px;
     }
     .proj-cta:hover { background: rgba(255,255,255,0.22); }
     .proj-cta svg { width: 14px; height: 14px; }
 
-    /* FEATURED MEDIA — dark bento */
-    .s-dark {
-      background: var(--dark); border-radius: var(--radius);
-      padding: var(--pad);
-    }
+    .s-dark { background: var(--dark); border-radius: var(--radius); padding: var(--pad); }
+    .s-plain { background: var(--white); border-radius: var(--radius); padding: var(--pad); }
 
-    .s-plain {
-      background: var(--white); border-radius: var(--radius);
-      padding: var(--pad);
-    }
+    /* Image grids — align-items:start so cells only take their natural image height */
+    .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+    .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); align-items: start; }
+    .img-grid-feature { display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap); align-items: start; }
 
-    /* Image grids */
-    .img-grid-2 {
-      display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
-    }
+    .img-cell { border-radius: 16px; overflow: hidden; background: #1a0a2e; }
+    .img-cell img { width: 100%; height: auto; display: block; }
 
-    .img-grid-3 {
-      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap);
-    }
-
-    .img-grid-feature {
-      display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--gap);
-    }
-
-    .img-cell {
-      border-radius: 16px; overflow: hidden;
-      background: #1a0a2e;
-    }
-
-    .img-cell img {
-      width: 100%; height: auto; display: block;
-    }
-
-    /* Wide full-bleed image */
-    .img-wide {
-      border-radius: 16px; overflow: hidden;
-    }
+    .img-wide { border-radius: 16px; overflow: hidden; }
     .img-wide img { width: 100%; display: block; }
 
     /* Section label */
     .section-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      font-size: 14px; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase; color: rgba(255,255,255,0.35);
       margin-bottom: 20px;
     }
-
     .section-label.dark-label { color: var(--dim); }
 
-    /* Text content block */
+    /* Text block */
     .text-block { max-width: 720px; }
-
     .text-block h2 {
       font-family: 'Inter', sans-serif; font-weight: 700;
       font-size: clamp(24px, 3vw, 40px); letter-spacing: -0.025em;
       color: var(--text); margin-bottom: 16px; line-height: 1.15;
     }
-
-    .text-block p {
-      font-size: 16px; line-height: 1.75; color: var(--muted);
-      margin-bottom: 16px;
-    }
+    .text-block p { font-size: 16px; line-height: 1.75; color: var(--muted); margin-bottom: 16px; }
 
     /* Back link */
     .back-link {
       display: inline-flex; align-items: center; gap: 8px;
-      color: var(--muted); font-size: 13px; text-decoration: none;
+      color: var(--muted); font-size: 14px; text-decoration: none;
       transition: color 200ms ease;
     }
     .back-link:hover { color: var(--text); }
 
     /* Footer */
-    footer {
-      text-align: center; padding: 28px 0 20px;
-    }
-    footer p { font-size: 12px; font-weight: 300; color: var(--dim); }
+    footer { text-align: center; padding: 28px 0 20px; }
 
-    /* Reveal animation */
+    /* Reveal */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 600ms ease, transform 600ms ease; }
     .reveal.visible { opacity: 1; transform: none; }
 
@@ -248,14 +213,14 @@
     <div class="s-dark reveal">
       <p class="section-label">Featured Work</p>
       <div class="img-grid-feature">
-        <div class="img-cell tall">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/can-spin-animation-1.gif" alt="Can spin animation">
         </div>
         <div style="display:flex;flex-direction:column;gap:var(--gap);">
-          <div class="img-cell medium">
+          <div class="img-cell">
             <img src="https://seanportfolio.site/wp-content/uploads/2025/08/new-flagship-square-r6khk2njigez9pkg6q5chfhbzybemmcdoagewe1tag-1.gif" alt="Flagship animation">
           </div>
-          <div class="img-cell medium">
+          <div class="img-cell">
             <img src="https://seanportfolio.site/wp-content/uploads/2025/08/9-768x768.png" alt="Final Edit design">
           </div>
         </div>
@@ -272,17 +237,17 @@
       </div>
     </div>
 
-    <!-- SECONDARY IMAGES -->
+    <!-- BRAND VISUALS -->
     <div class="s-dark reveal">
       <p class="section-label">Brand Visuals</p>
       <div class="img-grid-3">
-        <div class="img-cell medium">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/4-2-1-r6khj8kpfr9sy6s52d5a9n2kzmfnsb0yw5kvjjaetk.png" alt="Final Edit visual">
         </div>
-        <div class="img-cell medium">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/2-ver-2-1-r6kku55pza1lme2cqrgaomvq8cd7hx2l8oi31mzjpk.png" alt="Final Edit visual v2">
         </div>
-        <div class="img-cell medium">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/ver2.gif" alt="Version 2 animation">
         </div>
       </div>
@@ -308,9 +273,7 @@
 
   </div>
 
-  <footer>
-    <p>Sean Lyons 2026 &middot; Melbourne, Australia</p>
-  </footer>
+  <footer></footer>
 
   <script>
     document.body.style.opacity = '1';

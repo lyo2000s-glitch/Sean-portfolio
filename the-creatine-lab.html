@@ -14,7 +14,6 @@
       --white:  #ffffff;
       --dark:   #0e0e0e;
       --border: rgba(0,0,0,0.07);
-      --shadow: 0 2px 14px rgba(0,0,0,0.06);
       --accent: #6c2bd9;
       --text:   #111111;
       --muted:  #666666;
@@ -67,7 +66,7 @@
     .nav-links { display: flex; align-items: center; gap: 28px; }
 
     nav a {
-      text-decoration: none; color: var(--muted); font-size: 13px;
+      text-decoration: none; color: var(--muted); font-size: 14px;
       transition: color 350ms ease;
     }
 
@@ -75,7 +74,7 @@
 
     .nav-pill {
       border: 1.5px solid var(--text) !important; color: var(--text) !important;
-      padding: 5px 16px; border-radius: 999px; font-size: 13px; font-weight: 500;
+      padding: 5px 16px; border-radius: 999px; font-size: 14px; font-weight: 500;
     }
 
     .nav-pill:hover { background: var(--text) !important; color: #fff !important; }
@@ -101,7 +100,7 @@
       display: inline-flex; align-items: center; gap: 8px;
       background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.18);
       border-radius: 999px; padding: 5px 14px;
-      font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.08em;
       text-transform: uppercase; color: rgba(255,255,255,0.7);
       width: fit-content;
     }
@@ -126,10 +125,10 @@
       background: var(--white); border-radius: var(--radius); padding: var(--pad);
     }
 
-    /* Image grids */
-    .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); }
-    .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); }
-    .img-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--gap); }
+    /* Image grids — align-items:start so cells don't stretch to match neighbours */
+    .img-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap); align-items: start; }
+    .img-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--gap); align-items: start; }
+    .img-grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--gap); align-items: start; }
 
     .img-cell {
       border-radius: 16px; overflow: hidden;
@@ -140,16 +139,9 @@
     .img-wide { border-radius: 16px; overflow: hidden; }
     .img-wide img { width: 100%; display: block; }
 
-    /* Logo showcase */
-    .logo-row {
-      display: flex; align-items: center; gap: 32px; flex-wrap: wrap;
-      padding: 20px 0;
-    }
-    .logo-row img { height: 80px; width: auto; object-fit: contain; }
-
     /* Section label */
     .section-label {
-      font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+      font-size: 14px; font-weight: 600; letter-spacing: 0.08em;
       text-transform: uppercase; color: rgba(255,255,255,0.35);
       margin-bottom: 20px;
     }
@@ -164,43 +156,33 @@
     }
     .text-block p { font-size: 16px; line-height: 1.75; color: var(--muted); margin-bottom: 16px; }
 
-    /* Testimonial */
-    .testimonial-block {
-      background: #0e0e0e; border-radius: var(--radius); padding: var(--pad);
-      display: flex; flex-direction: column; gap: 20px;
+    /* Testimonial — matches homepage style */
+    .testi-block {
+      background: var(--dark); border-radius: var(--radius); padding: var(--pad);
+      display: flex; flex-direction: column; gap: 16px;
     }
-
-    .testimonial-block .five-stars { height: 20px; width: auto; filter: brightness(0) invert(1); opacity: 0.8; }
-
-    .testimonial-heading {
-      font-family: 'Inter', sans-serif; font-weight: 700;
-      font-size: clamp(22px, 2.8vw, 36px); letter-spacing: -0.025em;
-      line-height: 1.2; color: #fff;
+    .testi-logo {
+      height: 72px; width: auto; object-fit: contain;
+      border-radius: 12px; overflow: hidden;
+      display: block;
     }
-
-    .testimonial-quote-text {
-      font-size: 16px; line-height: 1.75; color: rgba(255,255,255,0.62);
-      font-weight: 300; max-width: 680px;
+    .testi-quote {
+      font-size: 15px; font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,0.72); line-height: 1.75; max-width: 680px;
     }
-
-    .testimonial-source {
-      display: flex; align-items: center; gap: 14px; margin-top: 4px;
-    }
-    .testimonial-logo-img { height: 28px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
-    .testimonial-name { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.7); }
-    .testimonial-role { font-size: 12px; color: rgba(255,255,255,0.38); font-weight: 300; margin-top: 1px; }
+    .testi-name { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.72); }
+    .testi-role { font-size: 14px; color: rgba(255,255,255,0.36); margin-top: 2px; }
 
     /* Back link */
     .back-link {
       display: inline-flex; align-items: center; gap: 8px;
-      color: var(--muted); font-size: 13px; text-decoration: none;
+      color: var(--muted); font-size: 14px; text-decoration: none;
       transition: color 200ms ease;
     }
     .back-link:hover { color: var(--text); }
 
     /* Footer */
     footer { text-align: center; padding: 28px 0 20px; }
-    footer p { font-size: 12px; font-weight: 300; color: var(--dim); }
 
     /* Reveal */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 600ms ease, transform 600ms ease; }
@@ -209,7 +191,7 @@
     /* Mobile */
     @media (max-width: 768px) {
       .proj-hero { padding: 52px 24px 44px; }
-      .s-dark, .s-plain { padding: 24px; }
+      .s-dark, .s-plain, .testi-block { padding: 24px; }
       .img-grid-2, .img-grid-3, .img-grid-4 { grid-template-columns: 1fr 1fr; }
       nav { padding: 0 20px; }
       nav.scrolled { width: calc(100% - 24px); }
@@ -244,16 +226,16 @@
     <div class="s-dark reveal">
       <p class="section-label">Performance Marketing Creatives</p>
       <div class="img-grid-4">
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/3-768x768.png" alt="Creatine Lab creative">
         </div>
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/1-768x768.webp" alt="Creatine Lab creative">
         </div>
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/6-768x768.webp" alt="Creatine Lab creative">
         </div>
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/apple-ad-768x768.webp" alt="Apple ad creative">
         </div>
       </div>
@@ -269,18 +251,37 @@
       </div>
     </div>
 
-    <!-- LOGO SHOWCASE -->
+    <!-- TESTIMONIAL — moved here, below brand philosophy -->
+    <div class="testi-block reveal">
+      <span style="display:inline-block;border-radius:12px;overflow:hidden;line-height:0;">
+        <img src="images/creatine-lab-logo.webp" class="testi-logo" alt="The Creatine Lab">
+      </span>
+      <svg width="98" height="18" viewBox="0 0 98 18" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg" aria-label="5 stars">
+        <path d="M9,.5L11,6.3L17.1,6.4L12.2,10L14,15.9L9,12.4L4,15.9L5.8,10L.9,6.4L7,6.3Z"/>
+        <path d="M29,.5L31,6.3L37.1,6.4L32.2,10L34,15.9L29,12.4L24,15.9L25.8,10L20.9,6.4L27,6.3Z"/>
+        <path d="M49,.5L51,6.3L57.1,6.4L52.2,10L54,15.9L49,12.4L44,15.9L45.8,10L40.9,6.4L47,6.3Z"/>
+        <path d="M69,.5L71,6.3L77.1,6.4L72.2,10L74,15.9L69,12.4L64,15.9L65.8,10L60.9,6.4L67,6.3Z"/>
+        <path d="M89,.5L91,6.3L97.1,6.4L92.2,10L94,15.9L89,12.4L84,15.9L85.8,10L80.9,6.4L87,6.3Z"/>
+      </svg>
+      <p class="testi-quote">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
+      <div>
+        <div class="testi-name">Needal</div>
+        <div class="testi-role">Founder, The Creatine Lab</div>
+      </div>
+    </div>
+
+    <!-- LOGO & IDENTITY -->
     <div class="s-dark reveal">
-      <p class="section-label">Logo & Identity</p>
+      <p class="section-label">Logo &amp; Identity</p>
       <div class="img-grid-2">
-        <div class="img-cell tall">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/creatine-logo-768x768.png" alt="The Creatine Lab logo">
         </div>
         <div style="display:flex;flex-direction:column;gap:var(--gap);">
-          <div class="img-cell medium">
+          <div class="img-cell">
             <img src="https://seanportfolio.site/wp-content/uploads/2025/08/7-1-768x768.png" alt="Brand visual">
           </div>
-          <div class="img-cell medium">
+          <div class="img-cell">
             <img src="https://seanportfolio.site/wp-content/uploads/2025/08/2-1-768x768.png" alt="Brand visual">
           </div>
         </div>
@@ -291,28 +292,14 @@
     <div class="s-dark reveal">
       <p class="section-label">Brand Visuals</p>
       <div class="img-grid-3">
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/3-2-768x768.png" alt="Brand visual">
         </div>
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/4-768x768.webp" alt="Brand visual">
         </div>
-        <div class="img-cell sq">
+        <div class="img-cell">
           <img src="https://seanportfolio.site/wp-content/uploads/2025/08/5-768x419.png" alt="Brand visual">
-        </div>
-      </div>
-    </div>
-
-    <!-- TESTIMONIAL -->
-    <div class="testimonial-block reveal">
-      <img src="https://seanportfolio.site/wp-content/uploads/2025/08/Untitled-design-2-768x164.png" class="five-stars" alt="5 stars">
-      <p class="testimonial-heading">"This branding gave us an<br>identity worth backing"</p>
-      <p class="testimonial-quote-text">"We knew our formulas were strong but visually we had nothing to show for it. The new brand identity gave The Creatine Lab the presence it deserved. Every detail feels considered and sharp. We're now able to compete with the leaders in the industry."</p>
-      <div class="testimonial-source">
-        <img src="https://seanportfolio.site/wp-content/uploads/2025/08/New-Project-51.png" class="testimonial-logo-img" alt="The Creatine Lab">
-        <div>
-          <div class="testimonial-name">Needal</div>
-          <div class="testimonial-role">Founder, The Creatine Lab</div>
         </div>
       </div>
     </div>
@@ -329,9 +316,7 @@
 
   </div>
 
-  <footer>
-    <p>Sean Lyons 2026 &middot; Melbourne, Australia</p>
-  </footer>
+  <footer></footer>
 
   <script>
     document.body.style.opacity = '1';
