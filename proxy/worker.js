@@ -1,4 +1,6 @@
 const ALLOWED_ORIGIN = 'https://lyo2000s-glitch.github.io';
+const RATE_LIMIT = 10;
+const WINDOW_MS = 24 * 60 * 60 * 1000;
 
 function cors(origin) {
   const allowed = origin === ALLOWED_ORIGIN || origin === 'http://localhost' || /^http:\/\/localhost:\d+$/.test(origin);
@@ -21,6 +23,27 @@ export default {
     if (request.method !== 'POST') {
       return new Response('Method not allowed', { status: 405 });
     }
+
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const now = Date.now();
+    const kvKey = `rate:${ip}`;
+
+    let record = { count: 0, windowStart: now };
+    const stored = await env.RATE_LIMIT_KV.get(kvKey, 'json');
+    if (stored && (now - stored.windowStart) < WINDOW_MS) {
+      record = stored;
+    }
+
+    if (record.count >= RATE_LIMIT) {
+      return new Response(JSON.stringify({ error: 'Rate limit exceeded. Try again tomorrow.' }), {
+        status: 429,
+        headers: { 'Content-Type': 'application/json', ...cors(origin) },
+      });
+    }
+
+    record.count += 1;
+    const ttl = Math.ceil((WINDOW_MS - (now - record.windowStart)) / 1000);
+    await env.RATE_LIMIT_KV.put(kvKey, JSON.stringify(record), { expirationTtl: ttl });
 
     let body;
     try {
