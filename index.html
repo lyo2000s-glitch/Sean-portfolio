@@ -387,156 +387,6 @@
       opacity: 0.75;
     }
 
-    /* ====================================================
-       CHAT (plain white section, just under hero)
-    ==================================================== */
-    .s-chat {
-      padding: 28px var(--pad) 36px;
-    }
-
-    .chat-top {
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .live-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      flex-shrink: 0;
-      animation: blink 1.4s ease-in-out infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-      50%       { opacity: 0.6; box-shadow: 0 0 0 5px rgba(34,197,94,0); }
-    }
-
-    .live-label {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--green);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .live-desc {
-      font-size: 14px;
-      color: var(--muted);
-      margin-left: 2px;
-    }
-
-    .message-area {
-      max-height: 300px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-bottom: 14px;
-    }
-
-    .message-area:empty { display: none; }
-
-    .message-area::-webkit-scrollbar { width: 4px; }
-    .message-area::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
-
-    @keyframes bubbleIn { to { opacity: 1; transform: translateY(0); } }
-
-    .chat-bubble {
-      opacity: 0;
-      transform: translateY(8px);
-      animation: bubbleIn 350ms ease forwards;
-      max-width: 80%;
-      font-size: 14px;
-      line-height: 1.6;
-      padding: 11px 16px;
-    }
-
-    .chat-bubble.ai {
-      align-self: flex-start;
-      background: #f5f3ee;
-      border: 1px solid var(--border);
-      border-radius: 4px 16px 16px 16px;
-      color: var(--text);
-      font-weight: 300;
-    }
-
-    .chat-bubble.user {
-      align-self: flex-end;
-      background: var(--accent);
-      border-radius: 16px 4px 16px 16px;
-      color: #fff;
-    }
-
-    .typing-indicator { display: flex; align-items: center; gap: 4px; }
-
-    @keyframes typingDot {
-      0%, 60%, 100% { opacity: 0.2; transform: translateY(0); }
-      30%            { opacity: 1;   transform: translateY(-4px); }
-    }
-
-    .typing-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--muted);
-      animation: typingDot 1.2s ease-in-out infinite;
-    }
-
-    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-
-    .chat-input-row {
-      display: flex;
-      width: 100%;
-      border: 1.5px solid var(--border);
-      border-radius: 999px;
-      overflow: hidden;
-      background: #ffffff;
-      transition: border-color 250ms, box-shadow 250ms;
-    }
-
-    .chat-input-row:focus-within {
-      border-color: rgba(108,43,217,0.4);
-      box-shadow: 0 0 0 3px rgba(108,43,217,0.07);
-    }
-
-    .chat-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      padding: 14px 22px;
-      color: var(--text);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 300;
-      outline: none;
-    }
-
-    .chat-input::placeholder { color: var(--dim); }
-    .chat-prompt-mobile { display: none; }
-
-    .send-btn {
-      background: var(--text);
-      border: none;
-      cursor: pointer;
-      padding: 0 24px;
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      border-radius: 0 999px 999px 0;
-      transition: background 200ms;
-      white-space: nowrap;
-    }
-
-    .send-btn:hover { background: var(--accent); }
 
     /* ====================================================
        SECTION LABELS / HEADLINES
@@ -1035,10 +885,6 @@
       .exp-btn-inner { order: 1; align-items: flex-start !important; text-align: left !important; }
       .exp-chevron { order: 2; flex-shrink: 0; }
 
-      /* Chat — show prompt text, hide placeholder text */
-      .chat-prompt-mobile { display: block; font-size: 14px; font-weight: 300; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
-      .chat-input::placeholder { color: var(--dim); }
-
       /* Experience — uniform dot-to-content spacing */
       .exp-row-left .exp-content-col { padding-right: 0; padding-left: 16px; }
 
@@ -1070,7 +916,6 @@
       .hero-text { flex: 0 0 auto; padding-bottom: 0; }
       .hero-profile { gap: 48px; padding-bottom: 0; }
       .hero-stats { margin-top: 0; }
-      .chat-top { padding-left: 80px; padding-right: 80px; }
     }
 
     /* ====================================================
@@ -1387,7 +1232,6 @@
       padding: var(--pad);
       display: flex;
       flex-direction: column;
-      gap: 56px;
     }
 
     /* ====================================================
@@ -1539,21 +1383,6 @@
             <div class="exp-empty-col"></div>
           </div>
 
-        </div>
-      </div>
-
-      <!-- Chat — below timeline -->
-      <div class="chat-top">
-        <div class="live-row">
-          <div class="live-dot"></div>
-          <span class="live-label">Live</span>
-        </div>
-        <p class="chat-prompt-mobile">Ask me anything about my experience, skills, or suitability for your role.</p>
-        <div class="message-area" id="messageArea"></div>
-        <div class="chat-input-row">
-          <input type="text" class="chat-input" id="chatInput"
-            placeholder="Ask me anything about my experience, skills, or suitability for your role...">
-          <button class="send-btn" id="sendBtn">Ask</button>
         </div>
       </div>
 
@@ -1716,8 +1545,6 @@
   <footer></footer>
 
   <script>
-    const PROXY_URL = 'https://sean-portfolio-proxy.YOUR-SUBDOMAIN.workers.dev';
-
     // ---- Easing + countUp ----
     function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
 
@@ -1799,109 +1626,6 @@
     const statsSection = document.getElementById('stats-section');
     if (statsSection) statsObs.observe(statsSection);
 
-    // Globe initialised by the <script type="module"> block below
-
-    // ====================================================
-    // CHAT
-    // ====================================================
-    const conversationHistory = [];
-    const messageArea = document.getElementById('messageArea');
-    const chatInput   = document.getElementById('chatInput');
-    const sendBtn     = document.getElementById('sendBtn');
-
-    const SYSTEM_PROMPT = `You are an AI assistant embedded in Sean Lyons' personal portfolio website. Your job is to answer questions from recruiters about Sean's career, skills, experience, and what he is looking for. Be conversational, warm, and concise. Keep every response to 2 to 4 sentences. Never use em dashes. Never use bullet points. Write in plain, natural sentences. Never make things up - if you are unsure of something, say so and invite them to reach out directly.
-
-ABOUT SEAN LYONS
-Sean Lyons is a Melbourne-based marketing and brand specialist in his mid-twenties. He holds a Bachelor of Business, majoring in Marketing and Media, from La Trobe University, completed November 2021.
-
-CURRENT ROLE
-Company: HungryHungry. Title: Marketing (Performance and Brand). Start: March 2026. Responsibilities: Growing a portfolio of hospitality brands including Otto, HungryHungry, and MOBI. Performance marketing, Meta ads, event expos, campaign planning, email marketing, AI-powered marketing automation.
-
-PREVIOUS ROLE
-Company: Dental Focus Marketing. Title: Marketing Manager. Dates: April 2022 to early 2026. Managed campaigns for 30+ dental clients, 5-star client rating, built EDM automations, led SEO, designed websites on WordPress/Wix/HTML, coordinated trade events.
-
-INTERNSHIP
-Company: SkyThanks. Title: Digital Marketing Intern. Dates: April to September 2021. Social media, EDM workflows, HubSpot CRM.
-
-FREELANCE
-The Creatine Lab: full brand identity, packaging, Meta ads. Joiluxe Media: 3D visuals and ad creatives for DTC brands. Final Edit Mockups: brand identity and ecommerce website.
-
-SKILLS
-Meta Ads, performance marketing, SEO, email marketing, brand strategy, content creation. Tools: Mailchimp, Apollo.io, HubSpot, WordPress, Make.com, Claude API. Creative: Photoshop, Illustrator, Premiere, After Effects, Blender. Technical: HTML, CSS, JS, AI automation.
-
-CONTENT
-2M+ views, 200K+ likes, 30K+ shares. Niche: marketers, brand builders, startup founders.
-
-LOOKING FOR
-Full-time or contract in Melbourne, open to marketing coordinator, specialist, brand, creative, or automation roles. Interested in startup, DTC, or hospitality companies.
-
-CONTACT
-LinkedIn: https://www.linkedin.com/in/sean-lyons-3417751a4/
-If unsure about something, invite them to reach out via the contact section.`;
-
-    function appendMessage(role, text) {
-      const b = document.createElement('div');
-      b.classList.add('chat-bubble', role);
-      b.textContent = text;
-      messageArea.appendChild(b);
-      messageArea.scrollTop = messageArea.scrollHeight;
-    }
-
-    function showTyping() {
-      const b = document.createElement('div');
-      b.classList.add('chat-bubble', 'ai');
-      b.id = 'typingBubble';
-      const ind = document.createElement('div');
-      ind.classList.add('typing-indicator');
-      for (let i = 0; i < 3; i++) { const d = document.createElement('div'); d.classList.add('typing-dot'); ind.appendChild(d); }
-      b.appendChild(ind);
-      messageArea.appendChild(b);
-      messageArea.scrollTop = messageArea.scrollHeight;
-    }
-
-    function removeTyping() {
-      const el = document.getElementById('typingBubble');
-      if (el) el.remove();
-    }
-
-    async function sendMessage(userText) {
-      conversationHistory.push({ role: 'user', content: userText });
-      const res = await fetch(PROXY_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 400,
-          system: SYSTEM_PROMPT,
-          messages: conversationHistory
-        })
-      });
-      const data  = await res.json();
-      const reply = data.content[0].text;
-      conversationHistory.push({ role: 'assistant', content: reply });
-      return reply;
-    }
-
-    async function handleSend() {
-      const text = chatInput.value.trim();
-      if (!text) return;
-      chatInput.value = '';
-      appendMessage('user', text);
-      showTyping();
-      try {
-        const reply = await sendMessage(text);
-        removeTyping();
-        appendMessage('ai', reply);
-      } catch {
-        removeTyping();
-        appendMessage('ai', 'Something went wrong. Feel free to reach out via the contact section below.');
-      }
-    }
-
-    sendBtn.addEventListener('click', handleSend);
-    chatInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
   </script>
 
 </body>
